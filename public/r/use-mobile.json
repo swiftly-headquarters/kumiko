@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-mobile",
+  "title": "use-mobile",
+  "description": "React hook.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "hooks/use-mobile.ts",
+      "content": "import { useSyncExternalStore } from \"react\"\n\nconst MOBILE_QUERY = \"(max-width: 47.99rem)\"\n\nfunction subscribe(onChange: () => void) {\n  const mql = window.matchMedia(MOBILE_QUERY)\n  mql.addEventListener(\"change\", onChange)\n  return () => mql.removeEventListener(\"change\", onChange)\n}\n\nconst getSnapshot = () => window.matchMedia(MOBILE_QUERY).matches\nconst getServerSnapshot = () => false\n\nexport function useIsMobile() {\n  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "type": "registry:hook"
+}
