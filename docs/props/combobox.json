@@ -1,0 +1,98 @@
+[
+  {
+    "prop": "Combobox items",
+    "type": "readonly any[]",
+    "default": "-",
+    "description": "Items to filter and render. Pass a function child to ComboboxList to map them."
+  },
+  {
+    "prop": "Combobox multiple",
+    "type": "boolean",
+    "default": "false",
+    "description": "Allows selecting more than one item. Value becomes an array."
+  },
+  {
+    "prop": "Combobox value",
+    "type": "Value | Value[] | null",
+    "default": "-",
+    "description": "Controlled selected value."
+  },
+  {
+    "prop": "Combobox defaultValue",
+    "type": "Value | Value[] | null",
+    "default": "-",
+    "description": "Initial selected value when uncontrolled."
+  },
+  {
+    "prop": "Combobox onValueChange",
+    "type": "(value, details) => void",
+    "default": "-",
+    "description": "Called when the selected value changes."
+  },
+  {
+    "prop": "Combobox inputValue",
+    "type": "string",
+    "default": "-",
+    "description": "Controlled text in the input."
+  },
+  {
+    "prop": "Combobox filter",
+    "type": "null | (item, query, itemToString?) => boolean",
+    "default": "-",
+    "description": "Custom filter function. Pass null to disable filtering."
+  },
+  {
+    "prop": "Combobox open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state of the popup."
+  },
+  {
+    "prop": "ComboboxInput showTrigger",
+    "type": "boolean",
+    "default": "true",
+    "description": "Shows the chevron button that toggles the popup."
+  },
+  {
+    "prop": "ComboboxInput showClear",
+    "type": "boolean",
+    "default": "false",
+    "description": "Shows a button that clears the value."
+  },
+  {
+    "prop": "ComboboxContent side",
+    "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+    "default": "\"bottom\"",
+    "description": "Side of the anchor to place the popup on."
+  },
+  {
+    "prop": "ComboboxContent sideOffset",
+    "type": "number",
+    "default": "6",
+    "description": "Distance from the anchor in pixels."
+  },
+  {
+    "prop": "ComboboxContent align",
+    "type": "\"start\" | \"center\" | \"end\"",
+    "default": "\"start\"",
+    "description": "Alignment against the anchor."
+  },
+  {
+    "prop": "ComboboxContent anchor",
+    "type": "Element | RefObject",
+    "default": "-",
+    "description": "Element to position against, for example from useComboboxAnchor."
+  },
+  {
+    "prop": "ComboboxChip showRemove",
+    "type": "boolean",
+    "default": "true",
+    "description": "Shows the remove button inside the chip."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

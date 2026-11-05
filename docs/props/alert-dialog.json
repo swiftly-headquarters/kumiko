@@ -1,0 +1,44 @@
+[
+  {
+    "prop": "AlertDialogContent size",
+    "type": "\"default\" | \"sm\"",
+    "default": "\"default\"",
+    "description": "Width and footer layout of the dialog."
+  },
+  {
+    "prop": "AlertDialogCancel variant",
+    "type": "Button variant",
+    "default": "\"outline\"",
+    "description": "Button variant of the cancel button."
+  },
+  {
+    "prop": "AlertDialogCancel size",
+    "type": "Button size",
+    "default": "\"default\"",
+    "description": "Button size of the cancel button."
+  },
+  {
+    "prop": "AlertDialogAction",
+    "type": "ComponentProps<typeof Button>",
+    "default": "-",
+    "description": "Accepts every Button prop (variant, size, onClick)."
+  },
+  {
+    "prop": "AlertDialog open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state."
+  },
+  {
+    "prop": "AlertDialog onOpenChange",
+    "type": "(open: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the open state changes."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

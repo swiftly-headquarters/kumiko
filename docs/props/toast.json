@@ -1,0 +1,56 @@
+[
+  {
+    "prop": "Toaster toastManager",
+    "type": "ToastManager",
+    "default": "toast",
+    "description": "Manager that owns the toast queue. Defaults to the shared toast object."
+  },
+  {
+    "prop": "Toaster limit",
+    "type": "number",
+    "default": "3",
+    "description": "Maximum number of toasts visible at once."
+  },
+  {
+    "prop": "Toaster timeout",
+    "type": "number",
+    "default": "5000",
+    "description": "Default time in ms before a toast closes."
+  },
+  {
+    "prop": "toast.add title",
+    "type": "ReactNode",
+    "default": "-",
+    "description": "Toast title."
+  },
+  {
+    "prop": "toast.add description",
+    "type": "ReactNode",
+    "default": "-",
+    "description": "Toast body text."
+  },
+  {
+    "prop": "toast.add type",
+    "type": "\"success\" | \"info\" | \"warning\" | \"error\" | \"loading\"",
+    "default": "-",
+    "description": "Picks the animated icon."
+  },
+  {
+    "prop": "toast.add actionProps",
+    "type": "ButtonHTMLAttributes",
+    "default": "-",
+    "description": "Props for the action button, for example children and onClick."
+  },
+  {
+    "prop": "toast.add timeout",
+    "type": "number",
+    "default": "5000",
+    "description": "Per toast override of the auto close delay."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

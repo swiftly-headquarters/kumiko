@@ -1,0 +1,38 @@
+[
+  {
+    "prop": "Field orientation",
+    "type": "\"vertical\" | \"horizontal\" | \"responsive\"",
+    "default": "\"vertical\"",
+    "description": "Layout of the label, control and description."
+  },
+  {
+    "prop": "FieldLegend variant",
+    "type": "\"legend\" | \"label\"",
+    "default": "\"legend\"",
+    "description": "Text style of the fieldset legend."
+  },
+  {
+    "prop": "FieldError errors",
+    "type": "Array<{ message?: string } | undefined>",
+    "default": "-",
+    "description": "Errors to display. Duplicates are removed; several errors render as a list."
+  },
+  {
+    "prop": "FieldError children",
+    "type": "ReactNode",
+    "default": "-",
+    "description": "Custom error content. Takes precedence over errors."
+  },
+  {
+    "prop": "FieldSeparator children",
+    "type": "ReactNode",
+    "default": "-",
+    "description": "Optional text shown centered on the divider."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

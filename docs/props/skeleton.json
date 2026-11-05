@@ -1,0 +1,14 @@
+[
+  {
+    "prop": "className",
+    "type": "string",
+    "default": "-",
+    "description": "Set the size and shape of the placeholder."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

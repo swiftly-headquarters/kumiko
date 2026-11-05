@@ -1,0 +1,32 @@
+[
+  {
+    "prop": "orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "default": "\"horizontal\"",
+    "description": "Scroll axis."
+  },
+  {
+    "prop": "opts",
+    "type": "EmblaOptionsType",
+    "default": "-",
+    "description": "Options passed to Embla Carousel, such as align and loop."
+  },
+  {
+    "prop": "plugins",
+    "type": "EmblaPluginType[]",
+    "default": "-",
+    "description": "Embla plugins, such as autoplay."
+  },
+  {
+    "prop": "setApi",
+    "type": "(api: CarouselApi) => void",
+    "default": "-",
+    "description": "Receives the Embla API for programmatic control."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

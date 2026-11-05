@@ -1,0 +1,56 @@
+[
+  {
+    "prop": "checked",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled checked state."
+  },
+  {
+    "prop": "defaultChecked",
+    "type": "boolean",
+    "default": "false",
+    "description": "Initial checked state when uncontrolled."
+  },
+  {
+    "prop": "onCheckedChange",
+    "type": "(checked: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the checked state changes."
+  },
+  {
+    "prop": "indeterminate",
+    "type": "boolean",
+    "default": "false",
+    "description": "Shows the mixed state. Does not affect the checked value."
+  },
+  {
+    "prop": "disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the checkbox."
+  },
+  {
+    "prop": "required",
+    "type": "boolean",
+    "default": "false",
+    "description": "Marks the checkbox as required in a form."
+  },
+  {
+    "prop": "name",
+    "type": "string",
+    "default": "-",
+    "description": "Name submitted with the form."
+  },
+  {
+    "prop": "value",
+    "type": "string",
+    "default": "-",
+    "description": "Value submitted with the form when checked."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

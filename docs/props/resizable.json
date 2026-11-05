@@ -1,0 +1,44 @@
+[
+  {
+    "prop": "orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "default": "\"horizontal\"",
+    "description": "Layout direction of the group."
+  },
+  {
+    "prop": "defaultSize",
+    "type": "number | string",
+    "default": "-",
+    "description": "Initial panel size. Numbers are pixels; use a string like 50% for percent."
+  },
+  {
+    "prop": "minSize",
+    "type": "number | string",
+    "default": "-",
+    "description": "Smallest size the panel can shrink to."
+  },
+  {
+    "prop": "maxSize",
+    "type": "number | string",
+    "default": "-",
+    "description": "Largest size the panel can grow to."
+  },
+  {
+    "prop": "collapsible",
+    "type": "boolean",
+    "default": "false",
+    "description": "Allows the panel to collapse when dragged below minSize."
+  },
+  {
+    "prop": "withHandle",
+    "type": "boolean",
+    "default": "false",
+    "description": "ResizableHandle: shows a grip in the middle of the handle."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

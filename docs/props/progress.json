@@ -1,0 +1,32 @@
+[
+  {
+    "prop": "value",
+    "type": "number | null",
+    "default": "-",
+    "description": "Current value. Null shows an indeterminate state."
+  },
+  {
+    "prop": "min",
+    "type": "number",
+    "default": "0",
+    "description": "Minimum value."
+  },
+  {
+    "prop": "max",
+    "type": "number",
+    "default": "100",
+    "description": "Maximum value."
+  },
+  {
+    "prop": "getAriaValueText",
+    "type": "(formattedValue, value) => string",
+    "default": "-",
+    "description": "Human-readable text for aria-valuetext."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

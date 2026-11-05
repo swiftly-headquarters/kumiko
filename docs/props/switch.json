@@ -1,0 +1,50 @@
+[
+  {
+    "prop": "size",
+    "type": "\"sm\" | \"default\"",
+    "default": "\"default\"",
+    "description": "Size of the switch."
+  },
+  {
+    "prop": "checked",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled checked state."
+  },
+  {
+    "prop": "defaultChecked",
+    "type": "boolean",
+    "default": "false",
+    "description": "Initial checked state when uncontrolled."
+  },
+  {
+    "prop": "onCheckedChange",
+    "type": "(checked: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the checked state changes."
+  },
+  {
+    "prop": "disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the switch."
+  },
+  {
+    "prop": "required",
+    "type": "boolean",
+    "default": "false",
+    "description": "Marks the switch as required in a form."
+  },
+  {
+    "prop": "name",
+    "type": "string",
+    "default": "-",
+    "description": "Name submitted with the form."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

@@ -1,0 +1,8 @@
+[
+  {
+    "prop": "className",
+    "type": "string",
+    "default": "-",
+    "description": "Extra classes. Kbd and KbdGroup accept standard kbd props."
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "prop": "PaginationLink isActive",
+    "type": "boolean",
+    "default": "false",
+    "description": "Marks the current page and uses the outline style."
+  },
+  {
+    "prop": "PaginationLink size",
+    "type": "Button size",
+    "default": "\"icon\"",
+    "description": "Size of the link, same values as Button."
+  },
+  {
+    "prop": "PaginationPrevious text",
+    "type": "string",
+    "default": "\"Previous\"",
+    "description": "Label shown from the sm breakpoint up."
+  },
+  {
+    "prop": "PaginationNext text",
+    "type": "string",
+    "default": "\"Next\"",
+    "description": "Label shown from the sm breakpoint up."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

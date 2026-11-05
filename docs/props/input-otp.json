@@ -1,0 +1,56 @@
+[
+  {
+    "prop": "InputOTP maxLength",
+    "type": "number",
+    "default": "-",
+    "description": "Number of characters. Required."
+  },
+  {
+    "prop": "InputOTP value",
+    "type": "string",
+    "default": "-",
+    "description": "Controlled value."
+  },
+  {
+    "prop": "InputOTP onChange",
+    "type": "(value: string) => void",
+    "default": "-",
+    "description": "Called when the value changes."
+  },
+  {
+    "prop": "InputOTP onComplete",
+    "type": "(value: string) => void",
+    "default": "-",
+    "description": "Called when all slots are filled."
+  },
+  {
+    "prop": "InputOTP pattern",
+    "type": "string",
+    "default": "-",
+    "description": "Regular expression source that each character must match, for example digits only."
+  },
+  {
+    "prop": "InputOTP disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the input."
+  },
+  {
+    "prop": "InputOTP containerClassName",
+    "type": "string",
+    "default": "-",
+    "description": "Class names for the wrapping container."
+  },
+  {
+    "prop": "InputOTPSlot index",
+    "type": "number",
+    "default": "-",
+    "description": "Position of this slot in the code. Required."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

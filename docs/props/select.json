@@ -1,0 +1,104 @@
+[
+  {
+    "prop": "Select items",
+    "type": "Record<string, ReactNode> | { label: ReactNode; value: any }[]",
+    "default": "-",
+    "description": "Maps values to labels for SelectValue."
+  },
+  {
+    "prop": "Select value",
+    "type": "Value | null",
+    "default": "-",
+    "description": "Controlled selected value."
+  },
+  {
+    "prop": "Select defaultValue",
+    "type": "Value | null",
+    "default": "-",
+    "description": "Initial selected value when uncontrolled."
+  },
+  {
+    "prop": "Select onValueChange",
+    "type": "(value, details) => void",
+    "default": "-",
+    "description": "Called when the selected value changes."
+  },
+  {
+    "prop": "Select multiple",
+    "type": "boolean",
+    "default": "false",
+    "description": "Allows selecting more than one item."
+  },
+  {
+    "prop": "Select open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state."
+  },
+  {
+    "prop": "Select defaultOpen",
+    "type": "boolean",
+    "default": "false",
+    "description": "Initial open state when uncontrolled."
+  },
+  {
+    "prop": "Select onOpenChange",
+    "type": "(open: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the open state changes."
+  },
+  {
+    "prop": "Select disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the select."
+  },
+  {
+    "prop": "Select name",
+    "type": "string",
+    "default": "-",
+    "description": "Name submitted with the form."
+  },
+  {
+    "prop": "SelectTrigger size",
+    "type": "\"sm\" | \"default\"",
+    "default": "\"default\"",
+    "description": "Height of the trigger."
+  },
+  {
+    "prop": "SelectContent side",
+    "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+    "default": "\"bottom\"",
+    "description": "Side of the trigger to place the popup on."
+  },
+  {
+    "prop": "SelectContent sideOffset",
+    "type": "number",
+    "default": "4",
+    "description": "Distance from the trigger in pixels."
+  },
+  {
+    "prop": "SelectContent align",
+    "type": "\"start\" | \"center\" | \"end\"",
+    "default": "\"center\"",
+    "description": "Alignment against the trigger."
+  },
+  {
+    "prop": "SelectContent alignItemWithTrigger",
+    "type": "boolean",
+    "default": "true",
+    "description": "Overlaps the trigger with the selected item, like a native select."
+  },
+  {
+    "prop": "SelectItem value",
+    "type": "Value",
+    "default": "-",
+    "description": "Value of this item. Required."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

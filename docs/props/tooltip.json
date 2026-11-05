@@ -1,0 +1,50 @@
+[
+  {
+    "prop": "TooltipProvider delay",
+    "type": "number",
+    "default": "0",
+    "description": "Delay in ms before a tooltip opens."
+  },
+  {
+    "prop": "TooltipContent side",
+    "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | \"inline-start\" | \"inline-end\"",
+    "default": "\"top\"",
+    "description": "Which side of the trigger the tooltip appears on."
+  },
+  {
+    "prop": "TooltipContent sideOffset",
+    "type": "number",
+    "default": "4",
+    "description": "Distance from the trigger in pixels."
+  },
+  {
+    "prop": "TooltipContent align",
+    "type": "\"start\" | \"center\" | \"end\"",
+    "default": "\"center\"",
+    "description": "Alignment against the trigger."
+  },
+  {
+    "prop": "TooltipContent alignOffset",
+    "type": "number",
+    "default": "0",
+    "description": "Offset along the alignment axis in pixels."
+  },
+  {
+    "prop": "Tooltip open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state."
+  },
+  {
+    "prop": "Tooltip onOpenChange",
+    "type": "(open: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the open state changes."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

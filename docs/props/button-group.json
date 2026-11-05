@@ -1,0 +1,20 @@
+[
+  {
+    "prop": "ButtonGroup orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "default": "\"horizontal\"",
+    "description": "Direction the buttons are laid out in."
+  },
+  {
+    "prop": "ButtonGroupText render",
+    "type": "ReactElement | (props, state) => ReactElement",
+    "default": "-",
+    "description": "Replaces the default div, for example to render a label."
+  },
+  {
+    "prop": "ButtonGroupSeparator orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "default": "\"vertical\"",
+    "description": "Orientation of the divider between buttons."
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "prop": "Bubble variant",
+    "type": "\"default\" | \"secondary\" | \"muted\" | \"tinted\" | \"outline\" | \"ghost\" | \"destructive\"",
+    "default": "\"default\"",
+    "description": "Color treatment of the bubble content."
+  },
+  {
+    "prop": "Bubble align",
+    "type": "\"start\" | \"end\"",
+    "default": "\"start\"",
+    "description": "Side of the row the bubble sits on."
+  },
+  {
+    "prop": "BubbleContent render",
+    "type": "ReactElement",
+    "default": "-",
+    "description": "Render as another element, e.g. a button or link."
+  },
+  {
+    "prop": "BubbleReactions side",
+    "type": "\"top\" | \"bottom\"",
+    "default": "\"bottom\"",
+    "description": "Edge of the bubble the reactions sit on."
+  },
+  {
+    "prop": "BubbleReactions align",
+    "type": "\"start\" | \"end\"",
+    "default": "\"end\"",
+    "description": "Horizontal position of the reactions."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

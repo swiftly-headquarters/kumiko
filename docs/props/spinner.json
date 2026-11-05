@@ -1,0 +1,14 @@
+[
+  {
+    "prop": "className",
+    "type": "string",
+    "default": "\"size-4\"",
+    "description": "Use size-* classes to change the size."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns the spin on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

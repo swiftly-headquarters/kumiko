@@ -1,0 +1,8 @@
+[
+  {
+    "prop": "ratio",
+    "type": "number",
+    "default": "-",
+    "description": "Width divided by height, for example 16 / 9."
+  }
+]

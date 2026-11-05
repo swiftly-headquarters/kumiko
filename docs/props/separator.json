@@ -1,0 +1,8 @@
+[
+  {
+    "prop": "orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "default": "\"horizontal\"",
+    "description": "Direction of the line."
+  }
+]

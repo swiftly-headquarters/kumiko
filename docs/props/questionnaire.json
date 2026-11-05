@@ -1,0 +1,50 @@
+[
+  {
+    "prop": "Questionnaire item / defaultItem",
+    "type": "string",
+    "default": "-",
+    "description": "Controlled and initial current item name."
+  },
+  {
+    "prop": "Questionnaire onItemChange",
+    "type": "(item: string) => void",
+    "default": "-",
+    "description": "Called when the current item changes."
+  },
+  {
+    "prop": "Questionnaire shortcuts",
+    "type": "\"letters\" | \"numbers\"",
+    "default": "-",
+    "description": "Enables keyboard shortcuts for choices."
+  },
+  {
+    "prop": "QuestionnaireItem name",
+    "type": "string",
+    "default": "-",
+    "description": "Field name and item id (required)."
+  },
+  {
+    "prop": "QuestionnaireItem multiple",
+    "type": "boolean",
+    "default": "false",
+    "description": "Choices render as checkboxes instead of radios."
+  },
+  {
+    "prop": "QuestionnaireItem required",
+    "type": "boolean",
+    "default": "false",
+    "description": "Blocks next and submit until answered."
+  },
+  {
+    "prop": "QuestionnaireChoice value",
+    "type": "string",
+    "default": "-",
+    "description": "Choice value (required)."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

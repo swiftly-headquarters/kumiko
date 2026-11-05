@@ -1,0 +1,50 @@
+[
+  {
+    "prop": "MenubarContent align",
+    "type": "\"start\" | \"center\" | \"end\"",
+    "default": "\"start\"",
+    "description": "Alignment against the trigger."
+  },
+  {
+    "prop": "MenubarContent alignOffset",
+    "type": "number",
+    "default": "-4",
+    "description": "Offset along the alignment axis in pixels."
+  },
+  {
+    "prop": "MenubarContent sideOffset",
+    "type": "number",
+    "default": "8",
+    "description": "Distance from the trigger in pixels."
+  },
+  {
+    "prop": "MenubarItem variant",
+    "type": "\"default\" | \"destructive\"",
+    "default": "\"default\"",
+    "description": "Visual style of the item."
+  },
+  {
+    "prop": "MenubarItem inset",
+    "type": "boolean",
+    "default": "-",
+    "description": "Adds left padding to align with items that have indicators."
+  },
+  {
+    "prop": "MenubarCheckboxItem checked",
+    "type": "boolean",
+    "default": "-",
+    "description": "Checked state of the item."
+  },
+  {
+    "prop": "MenubarRadioGroup value",
+    "type": "string",
+    "default": "-",
+    "description": "Selected radio value."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

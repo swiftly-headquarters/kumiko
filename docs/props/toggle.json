@@ -1,0 +1,50 @@
+[
+  {
+    "prop": "variant",
+    "type": "\"default\" | \"outline\"",
+    "default": "\"default\"",
+    "description": "Visual style of the toggle."
+  },
+  {
+    "prop": "size",
+    "type": "\"default\" | \"sm\" | \"lg\"",
+    "default": "\"default\"",
+    "description": "Size of the toggle."
+  },
+  {
+    "prop": "pressed",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled pressed state."
+  },
+  {
+    "prop": "defaultPressed",
+    "type": "boolean",
+    "default": "false",
+    "description": "Initial pressed state when uncontrolled."
+  },
+  {
+    "prop": "onPressedChange",
+    "type": "(pressed: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the pressed state changes."
+  },
+  {
+    "prop": "value",
+    "type": "string",
+    "default": "-",
+    "description": "Identifies the toggle inside a ToggleGroup."
+  },
+  {
+    "prop": "disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the toggle."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

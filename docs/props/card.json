@@ -1,0 +1,14 @@
+[
+  {
+    "prop": "Card size",
+    "type": "\"default\" | \"sm\"",
+    "default": "\"default\"",
+    "description": "Controls the internal spacing."
+  },
+  {
+    "prop": "CardAction",
+    "type": "div props",
+    "default": "-",
+    "description": "Places a control in the top right of CardHeader."
+  }
+]

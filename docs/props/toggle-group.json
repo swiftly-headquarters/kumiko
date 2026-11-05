@@ -1,0 +1,74 @@
+[
+  {
+    "prop": "ToggleGroup multiple",
+    "type": "boolean",
+    "default": "false",
+    "description": "Allows more than one item to be pressed at once."
+  },
+  {
+    "prop": "ToggleGroup value",
+    "type": "string[]",
+    "default": "-",
+    "description": "Controlled array of pressed item values."
+  },
+  {
+    "prop": "ToggleGroup defaultValue",
+    "type": "string[]",
+    "default": "-",
+    "description": "Initial pressed values when uncontrolled."
+  },
+  {
+    "prop": "ToggleGroup onValueChange",
+    "type": "(value: string[], details) => void",
+    "default": "-",
+    "description": "Called when the pressed values change."
+  },
+  {
+    "prop": "ToggleGroup variant",
+    "type": "\"default\" | \"outline\"",
+    "default": "\"default\"",
+    "description": "Variant applied to every item."
+  },
+  {
+    "prop": "ToggleGroup size",
+    "type": "\"default\" | \"sm\" | \"lg\"",
+    "default": "\"default\"",
+    "description": "Size applied to every item."
+  },
+  {
+    "prop": "ToggleGroup spacing",
+    "type": "number",
+    "default": "2",
+    "description": "Gap between items. 0 joins them into one bar."
+  },
+  {
+    "prop": "ToggleGroup orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "default": "\"horizontal\"",
+    "description": "Direction of the group."
+  },
+  {
+    "prop": "ToggleGroup disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables every item."
+  },
+  {
+    "prop": "ToggleGroup loopFocus",
+    "type": "boolean",
+    "default": "true",
+    "description": "Wraps arrow-key focus from the last item to the first."
+  },
+  {
+    "prop": "ToggleGroupItem value",
+    "type": "string",
+    "default": "-",
+    "description": "Identifies the item in the group value."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

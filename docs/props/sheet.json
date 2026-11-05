@@ -1,0 +1,38 @@
+[
+  {
+    "prop": "SheetContent side",
+    "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
+    "default": "\"right\"",
+    "description": "Edge of the screen the sheet slides from."
+  },
+  {
+    "prop": "SheetContent showCloseButton",
+    "type": "boolean",
+    "default": "true",
+    "description": "Shows the close button in the corner."
+  },
+  {
+    "prop": "Sheet open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state."
+  },
+  {
+    "prop": "Sheet defaultOpen",
+    "type": "boolean",
+    "default": "false",
+    "description": "Initial open state when uncontrolled."
+  },
+  {
+    "prop": "Sheet onOpenChange",
+    "type": "(open: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the open state changes."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "prop": "BreadcrumbLink render",
+    "type": "ReactElement | function",
+    "default": "motion.a",
+    "description": "Replaces the rendered element, for example a router link."
+  },
+  {
+    "prop": "BreadcrumbSeparator children",
+    "type": "ReactNode",
+    "default": "ChevronRightIcon",
+    "description": "Custom separator content."
+  },
+  {
+    "prop": "BreadcrumbPage",
+    "type": "span props",
+    "default": "-",
+    "description": "Marks the current page with aria-current."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

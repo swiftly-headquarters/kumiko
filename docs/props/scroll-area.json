@@ -1,0 +1,14 @@
+[
+  {
+    "prop": "className",
+    "type": "string",
+    "default": "-",
+    "description": "Set the viewport size; content beyond it scrolls."
+  },
+  {
+    "prop": "orientation",
+    "type": "\"vertical\" | \"horizontal\"",
+    "default": "\"vertical\"",
+    "description": "ScrollBar: which axis the scrollbar controls."
+  }
+]

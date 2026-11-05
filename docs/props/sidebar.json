@@ -1,0 +1,68 @@
+[
+  {
+    "prop": "SidebarProvider defaultOpen",
+    "type": "boolean",
+    "default": "true",
+    "description": "Initial open state when uncontrolled."
+  },
+  {
+    "prop": "SidebarProvider open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state."
+  },
+  {
+    "prop": "SidebarProvider onOpenChange",
+    "type": "(open: boolean) => void",
+    "default": "-",
+    "description": "Called when the open state changes."
+  },
+  {
+    "prop": "Sidebar side",
+    "type": "\"left\" | \"right\"",
+    "default": "\"left\"",
+    "description": "Edge the sidebar attaches to."
+  },
+  {
+    "prop": "Sidebar variant",
+    "type": "\"sidebar\" | \"floating\" | \"inset\"",
+    "default": "\"sidebar\"",
+    "description": "Visual style of the sidebar."
+  },
+  {
+    "prop": "Sidebar collapsible",
+    "type": "\"offcanvas\" | \"icon\" | \"none\"",
+    "default": "\"offcanvas\"",
+    "description": "How the sidebar collapses. none disables collapsing."
+  },
+  {
+    "prop": "SidebarMenuButton isActive",
+    "type": "boolean",
+    "default": "false",
+    "description": "Highlights the current item."
+  },
+  {
+    "prop": "SidebarMenuButton variant",
+    "type": "\"default\" | \"outline\"",
+    "default": "\"default\"",
+    "description": "Visual style of the button."
+  },
+  {
+    "prop": "SidebarMenuButton size",
+    "type": "\"default\" | \"sm\" | \"lg\"",
+    "default": "\"default\"",
+    "description": "Size of the button."
+  },
+  {
+    "prop": "SidebarMenuButton tooltip",
+    "type": "string | TooltipContent props",
+    "default": "-",
+    "description": "Tooltip shown when the sidebar is collapsed to icons."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

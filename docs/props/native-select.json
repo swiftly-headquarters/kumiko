@@ -1,0 +1,26 @@
+[
+  {
+    "prop": "NativeSelect size",
+    "type": "\"sm\" | \"default\"",
+    "default": "\"default\"",
+    "description": "Height of the select."
+  },
+  {
+    "prop": "NativeSelect ...props",
+    "type": "Omit<ComponentProps<\"select\">, \"size\">",
+    "default": "-",
+    "description": "Native select attributes such as value, defaultValue, onChange, disabled. Applied to the select element."
+  },
+  {
+    "prop": "NativeSelect className",
+    "type": "string",
+    "default": "-",
+    "description": "Applied to the wrapper div around the select."
+  },
+  {
+    "prop": "NativeSelectOptGroup label",
+    "type": "string",
+    "default": "-",
+    "description": "Group heading."
+  }
+]

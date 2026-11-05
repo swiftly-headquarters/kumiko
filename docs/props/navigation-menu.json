@@ -1,0 +1,50 @@
+[
+  {
+    "prop": "NavigationMenu align",
+    "type": "\"start\" | \"center\" | \"end\"",
+    "default": "\"start\"",
+    "description": "Alignment of the shared popup against the active trigger."
+  },
+  {
+    "prop": "NavigationMenuPositioner side",
+    "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+    "default": "\"bottom\"",
+    "description": "Which side of the trigger the popup appears on."
+  },
+  {
+    "prop": "NavigationMenuPositioner sideOffset",
+    "type": "number",
+    "default": "8",
+    "description": "Distance from the trigger in pixels."
+  },
+  {
+    "prop": "NavigationMenuPositioner alignOffset",
+    "type": "number",
+    "default": "0",
+    "description": "Offset along the alignment axis in pixels."
+  },
+  {
+    "prop": "NavigationMenuLink href",
+    "type": "string",
+    "default": "-",
+    "description": "Link destination."
+  },
+  {
+    "prop": "NavigationMenuLink active",
+    "type": "boolean",
+    "default": "-",
+    "description": "Marks the link as the current page."
+  },
+  {
+    "prop": "NavigationMenu value",
+    "type": "string | null",
+    "default": "-",
+    "description": "Controlled value of the open item."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

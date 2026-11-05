@@ -1,0 +1,20 @@
+[
+  {
+    "prop": "variant",
+    "type": "\"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\"",
+    "default": "\"default\"",
+    "description": "Visual style of the badge."
+  },
+  {
+    "prop": "render",
+    "type": "ReactElement | function",
+    "default": "motion.span",
+    "description": "Replaces the rendered element, for example a link."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

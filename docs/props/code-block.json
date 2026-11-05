@@ -1,0 +1,50 @@
+[
+  {
+    "prop": "CodeBlock variant",
+    "type": "\"default\" | \"destructive\"",
+    "default": "\"default\"",
+    "description": "Border and text color."
+  },
+  {
+    "prop": "CodeBlock size",
+    "type": "\"default\" | \"sm\"",
+    "default": "\"default\"",
+    "description": "Text size and padding."
+  },
+  {
+    "prop": "CodeBlockCopyButton value",
+    "type": "string",
+    "default": "-",
+    "description": "Text copied to the clipboard on click."
+  },
+  {
+    "prop": "CodeBlockContent lineNumbers",
+    "type": "boolean",
+    "default": "false",
+    "description": "Shows line numbers when children is a string."
+  },
+  {
+    "prop": "CodeBlockContent startLine",
+    "type": "number",
+    "default": "1",
+    "description": "First line number."
+  },
+  {
+    "prop": "CodeBlockContent wrap",
+    "type": "boolean",
+    "default": "false",
+    "description": "Wraps long lines instead of scrolling."
+  },
+  {
+    "prop": "CodeBlockLine variant",
+    "type": "\"default\" | \"added\" | \"removed\" | \"highlighted\"",
+    "default": "\"default\"",
+    "description": "Marks the line as a diff or highlight."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

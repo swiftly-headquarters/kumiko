@@ -1,0 +1,14 @@
+[
+  {
+    "prop": "EmptyMedia variant",
+    "type": "\"default\" | \"icon\"",
+    "default": "\"default\"",
+    "description": "Plain media area or an icon in a muted tile."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

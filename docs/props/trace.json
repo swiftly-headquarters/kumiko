@@ -1,0 +1,14 @@
+[
+  {
+    "prop": "TraceLine status",
+    "type": "\"running\" | \"error\" | \"pending\"",
+    "default": "-",
+    "description": "Running shimmers the title, error turns it red."
+  },
+  {
+    "prop": "TraceCollapsible open / onOpenChange",
+    "type": "boolean / (open) => void",
+    "default": "-",
+    "description": "Controlled state; open requires onOpenChange."
+  }
+]

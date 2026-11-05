@@ -1,0 +1,32 @@
+[
+  {
+    "prop": "open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state."
+  },
+  {
+    "prop": "defaultOpen",
+    "type": "boolean",
+    "default": "false",
+    "description": "Initial open state when uncontrolled."
+  },
+  {
+    "prop": "onOpenChange",
+    "type": "(open: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the open state changes."
+  },
+  {
+    "prop": "disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the trigger."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "prop": "variant",
+    "type": "\"default\" | \"outline\" | \"secondary\" | \"ghost\" | \"destructive\" | \"link\"",
+    "default": "\"default\"",
+    "description": "Visual style of the button."
+  },
+  {
+    "prop": "size",
+    "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\"",
+    "default": "\"default\"",
+    "description": "Size of the button. The icon sizes render a square button."
+  },
+  {
+    "prop": "disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the button."
+  },
+  {
+    "prop": "render",
+    "type": "ReactElement | (props, state) => ReactElement",
+    "default": "-",
+    "description": "Replaces the rendered element, for example to render a link."
+  },
+  {
+    "prop": "nativeButton",
+    "type": "boolean",
+    "default": "true",
+    "description": "Set to false when render produces a non-button element, so button semantics are added."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "prop": "Attachment state",
+    "type": "\"idle\" | \"uploading\" | \"processing\" | \"error\" | \"done\"",
+    "default": "\"done\"",
+    "description": "Visual state of the attachment."
+  },
+  {
+    "prop": "Attachment size",
+    "type": "\"default\" | \"sm\" | \"xs\"",
+    "default": "\"default\"",
+    "description": "Size of the chip."
+  },
+  {
+    "prop": "Attachment orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "default": "\"horizontal\"",
+    "description": "Lays out media and content in a row or a column."
+  },
+  {
+    "prop": "AttachmentMedia variant",
+    "type": "\"icon\" | \"image\"",
+    "default": "\"icon\"",
+    "description": "Use image for thumbnails, which dim until done."
+  },
+  {
+    "prop": "AttachmentAction variant / size",
+    "type": "Button props",
+    "default": "\"ghost\" / \"icon-xs\"",
+    "description": "Accepts all Button props."
+  },
+  {
+    "prop": "AttachmentTrigger render",
+    "type": "ReactElement",
+    "default": "-",
+    "description": "Overlays the whole attachment as a button or link."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

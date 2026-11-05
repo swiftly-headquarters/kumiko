@@ -1,0 +1,26 @@
+[
+  {
+    "prop": "InputGroupAddon align",
+    "type": "\"inline-start\" | \"inline-end\" | \"block-start\" | \"block-end\"",
+    "default": "\"inline-start\"",
+    "description": "Where the addon sits relative to the control."
+  },
+  {
+    "prop": "InputGroupButton size",
+    "type": "\"xs\" | \"sm\" | \"icon-xs\" | \"icon-sm\"",
+    "default": "\"xs\"",
+    "description": "Size of the button inside the group."
+  },
+  {
+    "prop": "InputGroupButton variant",
+    "type": "Button variant",
+    "default": "\"ghost\"",
+    "description": "Button variant."
+  },
+  {
+    "prop": "InputGroupButton type",
+    "type": "\"button\" | \"submit\" | \"reset\"",
+    "default": "\"button\"",
+    "description": "Native button type."
+  }
+]

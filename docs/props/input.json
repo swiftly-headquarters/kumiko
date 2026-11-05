@@ -1,0 +1,26 @@
+[
+  {
+    "prop": "type",
+    "type": "string",
+    "default": "\"text\"",
+    "description": "Native input type, for example email, password or file."
+  },
+  {
+    "prop": "disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the input."
+  },
+  {
+    "prop": "aria-invalid",
+    "type": "boolean",
+    "default": "-",
+    "description": "Applies the destructive error styling."
+  },
+  {
+    "prop": "...props",
+    "type": "ComponentProps<\"input\">",
+    "default": "-",
+    "description": "All native input attributes are forwarded."
+  }
+]

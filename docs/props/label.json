@@ -1,0 +1,14 @@
+[
+  {
+    "prop": "htmlFor",
+    "type": "string",
+    "default": "-",
+    "description": "Id of the control this label is for."
+  },
+  {
+    "prop": "...props",
+    "type": "ComponentProps<\"label\">",
+    "default": "-",
+    "description": "All native label attributes are forwarded."
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "prop": "modal",
+    "type": "boolean | \"trap-focus\"",
+    "default": "true",
+    "description": "Whether the drawer blocks interaction with the page and renders an overlay."
+  },
+  {
+    "prop": "showSwipeHandle",
+    "type": "boolean",
+    "default": "false",
+    "description": "Renders a swipe handle at the edge of the drawer."
+  },
+  {
+    "prop": "swipeDirection",
+    "type": "\"up\" | \"down\" | \"left\" | \"right\"",
+    "default": "\"down\"",
+    "description": "Direction the drawer is dismissed in."
+  },
+  {
+    "prop": "snapPoints",
+    "type": "(number | string)[]",
+    "default": "-",
+    "description": "Positions the drawer can rest at."
+  },
+  {
+    "prop": "open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state."
+  },
+  {
+    "prop": "onOpenChange",
+    "type": "(open: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the open state changes."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

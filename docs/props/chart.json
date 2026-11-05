@@ -1,0 +1,56 @@
+[
+  {
+    "prop": "ChartContainer config",
+    "type": "ChartConfig",
+    "default": "-",
+    "description": "Maps data keys to a label, icon and color (or light and dark theme colors)."
+  },
+  {
+    "prop": "ChartContainer initialDimension",
+    "type": "{ width: number; height: number }",
+    "default": "{ width: 320, height: 200 }",
+    "description": "Size used before the container is measured."
+  },
+  {
+    "prop": "ChartTooltipContent indicator",
+    "type": "\"dot\" | \"line\" | \"dashed\"",
+    "default": "\"dot\"",
+    "description": "Shape of the series indicator."
+  },
+  {
+    "prop": "ChartTooltipContent hideLabel",
+    "type": "boolean",
+    "default": "false",
+    "description": "Hides the tooltip label."
+  },
+  {
+    "prop": "ChartTooltipContent hideIndicator",
+    "type": "boolean",
+    "default": "false",
+    "description": "Hides the series indicator."
+  },
+  {
+    "prop": "ChartTooltipContent nameKey / labelKey",
+    "type": "string",
+    "default": "-",
+    "description": "Payload key used to look up the series name or label."
+  },
+  {
+    "prop": "ChartLegendContent hideIcon",
+    "type": "boolean",
+    "default": "false",
+    "description": "Hides the legend icons."
+  },
+  {
+    "prop": "ChartLegendContent nameKey",
+    "type": "string",
+    "default": "-",
+    "description": "Payload key used to look up the series name."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

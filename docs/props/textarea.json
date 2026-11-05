@@ -1,0 +1,20 @@
+[
+  {
+    "prop": "disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the textarea."
+  },
+  {
+    "prop": "aria-invalid",
+    "type": "boolean",
+    "default": "-",
+    "description": "Applies the destructive error styling."
+  },
+  {
+    "prop": "...props",
+    "type": "ComponentProps<\"textarea\">",
+    "default": "-",
+    "description": "All native textarea attributes are forwarded."
+  }
+]

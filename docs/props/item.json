@@ -1,0 +1,32 @@
+[
+  {
+    "prop": "variant",
+    "type": "\"default\" | \"outline\" | \"muted\"",
+    "default": "\"default\"",
+    "description": "Visual style of the item."
+  },
+  {
+    "prop": "size",
+    "type": "\"default\" | \"sm\" | \"xs\"",
+    "default": "\"default\"",
+    "description": "Padding and gap of the item."
+  },
+  {
+    "prop": "render",
+    "type": "ReactElement | function",
+    "default": "motion.div",
+    "description": "Render as another element, e.g. a link."
+  },
+  {
+    "prop": "ItemMedia variant",
+    "type": "\"default\" | \"icon\" | \"image\"",
+    "default": "\"default\"",
+    "description": "Styles the leading media slot."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

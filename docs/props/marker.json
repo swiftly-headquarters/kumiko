@@ -1,0 +1,14 @@
+[
+  {
+    "prop": "Marker variant",
+    "type": "\"default\" | \"separator\" | \"border\"",
+    "default": "\"default\"",
+    "description": "Plain row, centered label between rules, or bottom border."
+  },
+  {
+    "prop": "Marker render",
+    "type": "ReactElement",
+    "default": "-",
+    "description": "Render as another element, e.g. a link."
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "prop": "Accordion defaultValue",
+    "type": "any[]",
+    "default": "-",
+    "description": "Values of the items open initially when uncontrolled."
+  },
+  {
+    "prop": "Accordion value",
+    "type": "any[]",
+    "default": "-",
+    "description": "Controlled list of open item values."
+  },
+  {
+    "prop": "Accordion onValueChange",
+    "type": "(value: any[], details) => void",
+    "default": "-",
+    "description": "Called when the open items change."
+  },
+  {
+    "prop": "Accordion multiple",
+    "type": "boolean",
+    "default": "false",
+    "description": "Allows more than one item to be open at once."
+  },
+  {
+    "prop": "Accordion disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables every item."
+  },
+  {
+    "prop": "AccordionItem value",
+    "type": "any",
+    "default": "-",
+    "description": "Identifies the item in the accordion value."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

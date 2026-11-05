@@ -1,0 +1,56 @@
+[
+  {
+    "prop": "Command",
+    "type": "ComponentProps<typeof CommandPrimitive>",
+    "default": "-",
+    "description": "Props of cmdk Command, for example filter, value and onValueChange."
+  },
+  {
+    "prop": "CommandDialog title",
+    "type": "string",
+    "default": "\"Command Palette\"",
+    "description": "Screen reader title of the dialog."
+  },
+  {
+    "prop": "CommandDialog description",
+    "type": "string",
+    "default": "\"Search for a command to run...\"",
+    "description": "Screen reader description of the dialog."
+  },
+  {
+    "prop": "CommandDialog showCloseButton",
+    "type": "boolean",
+    "default": "false",
+    "description": "Shows the dialog close button."
+  },
+  {
+    "prop": "CommandDialog open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state."
+  },
+  {
+    "prop": "CommandDialog onOpenChange",
+    "type": "(open: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the open state changes."
+  },
+  {
+    "prop": "CommandItem onSelect",
+    "type": "(value: string) => void",
+    "default": "-",
+    "description": "Called when the item is selected."
+  },
+  {
+    "prop": "CommandGroup heading",
+    "type": "ReactNode",
+    "default": "-",
+    "description": "Label shown above the group."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

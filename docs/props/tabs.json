@@ -1,0 +1,50 @@
+[
+  {
+    "prop": "Tabs defaultValue",
+    "type": "any",
+    "default": "-",
+    "description": "Initially active tab value when uncontrolled."
+  },
+  {
+    "prop": "Tabs value",
+    "type": "any",
+    "default": "-",
+    "description": "Controlled active tab value."
+  },
+  {
+    "prop": "Tabs onValueChange",
+    "type": "(value: any, details) => void",
+    "default": "-",
+    "description": "Called when the active tab changes."
+  },
+  {
+    "prop": "Tabs orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "default": "\"horizontal\"",
+    "description": "Layout direction of the tabs."
+  },
+  {
+    "prop": "TabsList variant",
+    "type": "\"default\" | \"line\"",
+    "default": "\"default\"",
+    "description": "Pill background or underline style."
+  },
+  {
+    "prop": "TabsTrigger value",
+    "type": "any",
+    "default": "-",
+    "description": "Value that activates the matching TabsContent."
+  },
+  {
+    "prop": "TabsTrigger disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the tab."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "prop": "className",
+    "type": "string",
+    "default": "-",
+    "description": "Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell and TableCaption all accept their native element props."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

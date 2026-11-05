@@ -1,0 +1,56 @@
+[
+  {
+    "prop": "DropdownMenuContent side",
+    "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | \"inline-start\" | \"inline-end\"",
+    "default": "\"bottom\"",
+    "description": "Which side of the trigger the menu appears on."
+  },
+  {
+    "prop": "DropdownMenuContent sideOffset",
+    "type": "number",
+    "default": "4",
+    "description": "Distance from the trigger in pixels."
+  },
+  {
+    "prop": "DropdownMenuContent align",
+    "type": "\"start\" | \"center\" | \"end\"",
+    "default": "\"start\"",
+    "description": "Alignment against the trigger."
+  },
+  {
+    "prop": "DropdownMenuContent alignOffset",
+    "type": "number",
+    "default": "0",
+    "description": "Offset along the alignment axis in pixels."
+  },
+  {
+    "prop": "DropdownMenuItem variant",
+    "type": "\"default\" | \"destructive\"",
+    "default": "\"default\"",
+    "description": "Visual style of the item."
+  },
+  {
+    "prop": "DropdownMenuItem inset",
+    "type": "boolean",
+    "default": "-",
+    "description": "Adds left padding to align with items that have indicators."
+  },
+  {
+    "prop": "DropdownMenuCheckboxItem checked",
+    "type": "boolean",
+    "default": "-",
+    "description": "Checked state of the item."
+  },
+  {
+    "prop": "DropdownMenuRadioGroup value",
+    "type": "string",
+    "default": "-",
+    "description": "Selected radio value."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

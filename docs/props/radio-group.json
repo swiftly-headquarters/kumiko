@@ -1,0 +1,56 @@
+[
+  {
+    "prop": "RadioGroup value",
+    "type": "Value",
+    "default": "-",
+    "description": "Controlled selected value."
+  },
+  {
+    "prop": "RadioGroup defaultValue",
+    "type": "Value",
+    "default": "-",
+    "description": "Initial selected value when uncontrolled."
+  },
+  {
+    "prop": "RadioGroup onValueChange",
+    "type": "(value, details) => void",
+    "default": "-",
+    "description": "Called when the selected value changes."
+  },
+  {
+    "prop": "RadioGroup disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables every radio in the group."
+  },
+  {
+    "prop": "RadioGroup required",
+    "type": "boolean",
+    "default": "false",
+    "description": "Marks the group as required in a form."
+  },
+  {
+    "prop": "RadioGroup name",
+    "type": "string",
+    "default": "-",
+    "description": "Name submitted with the form."
+  },
+  {
+    "prop": "RadioGroupItem value",
+    "type": "Value",
+    "default": "-",
+    "description": "Value of this option. Required."
+  },
+  {
+    "prop": "RadioGroupItem disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables this option."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

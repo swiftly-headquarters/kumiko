@@ -1,0 +1,44 @@
+[
+  {
+    "prop": "PopoverContent side",
+    "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | \"inline-start\" | \"inline-end\"",
+    "default": "\"bottom\"",
+    "description": "Which side of the trigger the popover appears on."
+  },
+  {
+    "prop": "PopoverContent sideOffset",
+    "type": "number",
+    "default": "4",
+    "description": "Distance from the trigger in pixels."
+  },
+  {
+    "prop": "PopoverContent align",
+    "type": "\"start\" | \"center\" | \"end\"",
+    "default": "\"center\"",
+    "description": "Alignment against the trigger."
+  },
+  {
+    "prop": "PopoverContent alignOffset",
+    "type": "number",
+    "default": "0",
+    "description": "Offset along the alignment axis in pixels."
+  },
+  {
+    "prop": "Popover open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state."
+  },
+  {
+    "prop": "Popover onOpenChange",
+    "type": "(open: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the open state changes."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

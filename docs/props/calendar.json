@@ -1,0 +1,56 @@
+[
+  {
+    "prop": "mode",
+    "type": "\"single\" | \"multiple\" | \"range\"",
+    "default": "-",
+    "description": "Selection mode. Omit for a display-only calendar."
+  },
+  {
+    "prop": "selected",
+    "type": "Date | Date[] | DateRange",
+    "default": "-",
+    "description": "Selected value. The shape depends on mode."
+  },
+  {
+    "prop": "onSelect",
+    "type": "(selected, triggerDate, modifiers, e) => void",
+    "default": "-",
+    "description": "Called when the selection changes."
+  },
+  {
+    "prop": "numberOfMonths",
+    "type": "number",
+    "default": "1",
+    "description": "Number of months shown side by side."
+  },
+  {
+    "prop": "captionLayout",
+    "type": "\"label\" | \"dropdown\" | \"dropdown-months\" | \"dropdown-years\"",
+    "default": "\"label\"",
+    "description": "How the month caption is rendered."
+  },
+  {
+    "prop": "showOutsideDays",
+    "type": "boolean",
+    "default": "true",
+    "description": "Shows days from adjacent months in the grid."
+  },
+  {
+    "prop": "buttonVariant",
+    "type": "Button variant",
+    "default": "\"ghost\"",
+    "description": "Button variant for the previous and next navigation buttons."
+  },
+  {
+    "prop": "disabled",
+    "type": "Matcher | Matcher[]",
+    "default": "-",
+    "description": "Days that cannot be selected."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

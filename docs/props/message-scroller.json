@@ -1,0 +1,38 @@
+[
+  {
+    "prop": "MessageScrollerProvider autoScroll",
+    "type": "boolean",
+    "default": "-",
+    "description": "Follow new messages while at the end."
+  },
+  {
+    "prop": "MessageScrollerProvider defaultScrollPosition",
+    "type": "\"start\" | \"end\" | \"last-anchor\"",
+    "default": "-",
+    "description": "Initial scroll position."
+  },
+  {
+    "prop": "MessageScrollerViewport preserveScrollOnPrepend",
+    "type": "boolean",
+    "default": "-",
+    "description": "Keeps position when older messages are added at the top."
+  },
+  {
+    "prop": "MessageScrollerItem messageId",
+    "type": "string",
+    "default": "-",
+    "description": "Id used by scrollToMessage and visibility tracking."
+  },
+  {
+    "prop": "MessageScrollerItem scrollAnchor",
+    "type": "boolean",
+    "default": "false",
+    "description": "Marks the item as a scroll anchor."
+  },
+  {
+    "prop": "MessageScrollerButton direction",
+    "type": "\"start\" | \"end\"",
+    "default": "\"end\"",
+    "description": "Which edge the button scrolls to."
+  }
+]

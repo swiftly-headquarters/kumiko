@@ -1,0 +1,14 @@
+[
+  {
+    "prop": "DirectionProvider direction",
+    "type": "\"ltr\" | \"rtl\"",
+    "default": "\"ltr\"",
+    "description": "Text direction for descendant components."
+  },
+  {
+    "prop": "useDirection",
+    "type": "() => TextDirection",
+    "default": "-",
+    "description": "Reads the direction from the nearest provider."
+  }
+]

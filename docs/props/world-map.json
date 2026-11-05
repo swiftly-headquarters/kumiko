@@ -1,0 +1,44 @@
+[
+  {
+    "prop": "values",
+    "type": "Record<string, number>",
+    "default": "-",
+    "description": "Choropleth: country name (as in world-atlas) to value."
+  },
+  {
+    "prop": "max",
+    "type": "number",
+    "default": "highest value",
+    "description": "Value that gets the darkest shade."
+  },
+  {
+    "prop": "bubbles",
+    "type": "MapBubble[]",
+    "default": "-",
+    "description": "Circles at { lat, lng }, sized by value."
+  },
+  {
+    "prop": "probes",
+    "type": "MapProbe[]",
+    "default": "-",
+    "description": "Status dots at { lat, lng } with status \"up\" | \"degraded\" | \"down\". Up and degraded pulse."
+  },
+  {
+    "prop": "className",
+    "type": "string",
+    "default": "-",
+    "description": "Classes for the wrapper."
+  },
+  {
+    "prop": "speed",
+    "type": "number",
+    "default": "12",
+    "description": "Globe only: auto-rotation in degrees per second. 0 stops it. Drag to rotate by hand."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "prop": "Avatar size",
+    "type": "\"sm\" | \"default\" | \"lg\"",
+    "default": "\"default\"",
+    "description": "Size of the avatar."
+  },
+  {
+    "prop": "AvatarImage src",
+    "type": "string",
+    "default": "-",
+    "description": "Image URL. The fallback shows until it loads or if it fails."
+  },
+  {
+    "prop": "AvatarImage onLoadingStatusChange",
+    "type": "(status) => void",
+    "default": "-",
+    "description": "Called when the image loading status changes."
+  },
+  {
+    "prop": "AvatarBadge",
+    "type": "span props",
+    "default": "-",
+    "description": "Status dot anchored to the bottom right corner."
+  },
+  {
+    "prop": "AvatarGroupCount",
+    "type": "div props",
+    "default": "-",
+    "description": "Overflow count shown at the end of an AvatarGroup."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

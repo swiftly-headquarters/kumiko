@@ -1,0 +1,68 @@
+[
+  {
+    "prop": "value",
+    "type": "number | number[]",
+    "default": "-",
+    "description": "Controlled value. An array renders one thumb per entry."
+  },
+  {
+    "prop": "defaultValue",
+    "type": "number | number[]",
+    "default": "[min, max]",
+    "description": "Initial value when uncontrolled."
+  },
+  {
+    "prop": "onValueChange",
+    "type": "(value, details) => void",
+    "default": "-",
+    "description": "Called while the value changes."
+  },
+  {
+    "prop": "onValueCommitted",
+    "type": "(value, details) => void",
+    "default": "-",
+    "description": "Called when the user stops dragging or presses a key."
+  },
+  {
+    "prop": "min",
+    "type": "number",
+    "default": "0",
+    "description": "Minimum value."
+  },
+  {
+    "prop": "max",
+    "type": "number",
+    "default": "100",
+    "description": "Maximum value."
+  },
+  {
+    "prop": "step",
+    "type": "number",
+    "default": "1",
+    "description": "Granularity of the value."
+  },
+  {
+    "prop": "orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "default": "\"horizontal\"",
+    "description": "Direction of the slider."
+  },
+  {
+    "prop": "minStepsBetweenValues",
+    "type": "number",
+    "default": "0",
+    "description": "Minimum number of steps between thumbs."
+  },
+  {
+    "prop": "disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the slider."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

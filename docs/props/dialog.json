@@ -1,0 +1,44 @@
+[
+  {
+    "prop": "DialogContent showCloseButton",
+    "type": "boolean",
+    "default": "true",
+    "description": "Shows the animated close button in the top right corner."
+  },
+  {
+    "prop": "DialogFooter showCloseButton",
+    "type": "boolean",
+    "default": "false",
+    "description": "Adds an outline Close button to the footer."
+  },
+  {
+    "prop": "Dialog open",
+    "type": "boolean",
+    "default": "-",
+    "description": "Controlled open state."
+  },
+  {
+    "prop": "Dialog defaultOpen",
+    "type": "boolean",
+    "default": "false",
+    "description": "Initial open state when uncontrolled."
+  },
+  {
+    "prop": "Dialog onOpenChange",
+    "type": "(open: boolean, details) => void",
+    "default": "-",
+    "description": "Called when the open state changes."
+  },
+  {
+    "prop": "Dialog modal",
+    "type": "boolean | \"trap-focus\"",
+    "default": "true",
+    "description": "Whether the dialog blocks interaction with the page."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]
