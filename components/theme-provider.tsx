@@ -1,14 +1,20 @@
 "use client"
 
 import { type ComponentProps, useEffect } from "react"
+import { MotionConfig } from "motion/react"
+import { usePathname } from "next/navigation"
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
 
 function ThemeProvider({
   children,
   ...props
 }: ComponentProps<typeof NextThemesProvider>) {
+  // /view/* is the block preview iframe: its own storage key, so toggling the
+  // theme there never changes the main site.
+  const isView = usePathname().startsWith("/view/")
   return (
     <NextThemesProvider
+      storageKey={isView ? "kumiko-view-theme" : "theme"}
       attribute="class"
       defaultTheme="system"
       enableSystem
@@ -16,7 +22,7 @@ function ThemeProvider({
       {...props}
     >
       <ThemeHotkey />
-      {children}
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
     </NextThemesProvider>
   )
 }

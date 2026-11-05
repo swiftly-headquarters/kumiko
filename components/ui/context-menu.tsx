@@ -2,16 +2,19 @@
 
 import type { ComponentProps } from "react"
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu"
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { spring, fast, usePress, withAnimated, useAnimated, useAnimatedAttr } from "@/lib/motion"
 import { ChevronRightIcon, CheckIcon } from "lucide-react"
 
-function ContextMenu({ ...props }: ContextMenuPrimitive.Root.Props) {
+function ContextMenuBase({ ...props }: ContextMenuPrimitive.Root.Props) {
   return <ContextMenuPrimitive.Root data-slot="context-menu" {...props} />
 }
 
 function ContextMenuPortal({ ...props }: ContextMenuPrimitive.Portal.Props) {
+  const off = useAnimatedAttr()
   return (
-    <ContextMenuPrimitive.Portal data-slot="context-menu-portal" {...props} />
+    <ContextMenuPrimitive.Portal {...off} data-slot="context-menu-portal" {...props} />
   )
 }
 
@@ -40,8 +43,10 @@ function ContextMenuContent({
     ContextMenuPrimitive.Positioner.Props,
     "align" | "alignOffset" | "side" | "sideOffset"
   >) {
+  const off = useAnimatedAttr()
+  const animated = useAnimated()
   return (
-    <ContextMenuPrimitive.Portal>
+    <ContextMenuPrimitive.Portal {...off}>
       <ContextMenuPrimitive.Positioner
         className="isolate z-50 outline-none"
         align={align}
@@ -52,7 +57,8 @@ function ContextMenuContent({
         <ContextMenuPrimitive.Popup
           data-slot="context-menu-content"
           className={cn(
-            "z-50 max-h-(--available-height) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 outline-none data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+            "z-50 max-h-(--available-height) min-w-36 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-lg bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 outline-none data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:fade-in-0 data-open:zoom-in-95 data-closed:fade-out-0 data-closed:zoom-out-95",
+            animated && "data-open:animate-in data-closed:animate-out",
             className
           )}
           {...props}
@@ -97,6 +103,7 @@ function ContextMenuItem({
   inset?: boolean
   variant?: "default" | "destructive"
 }) {
+  const press = usePress()
   return (
     <ContextMenuPrimitive.Item
       data-slot="context-menu-item"
@@ -106,6 +113,7 @@ function ContextMenuItem({
         "group/context-menu-item relative flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 data-[variant=destructive]:focus:text-destructive dark:data-[variant=destructive]:focus:bg-destructive/20 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 focus:*:[svg]:text-accent-foreground data-[variant=destructive]:*:[svg]:text-destructive",
         className
       )}
+      render={<motion.div {...press} transition={fast} />}
       {...props}
     />
   )
@@ -125,6 +133,7 @@ function ContextMenuSubTrigger({
 }: ContextMenuPrimitive.SubmenuTrigger.Props & {
   inset?: boolean
 }) {
+  const press = usePress()
   return (
     <ContextMenuPrimitive.SubmenuTrigger
       data-slot="context-menu-sub-trigger"
@@ -133,6 +142,7 @@ function ContextMenuSubTrigger({
         "flex cursor-default items-center gap-1.5 rounded-md px-1.5 py-1 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-open:bg-accent data-open:text-accent-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
+      render={<motion.div {...press} transition={fast} />}
       {...props}
     >
       {children}
@@ -163,6 +173,7 @@ function ContextMenuCheckboxItem({
 }: ContextMenuPrimitive.CheckboxItem.Props & {
   inset?: boolean
 }) {
+  const press = usePress()
   return (
     <ContextMenuPrimitive.CheckboxItem
       data-slot="context-menu-checkbox-item"
@@ -171,11 +182,20 @@ function ContextMenuCheckboxItem({
         "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
+      render={<motion.div {...press} transition={fast} />}
       checked={checked}
       {...props}
     >
       <span className="pointer-events-none absolute right-2">
-        <ContextMenuPrimitive.CheckboxItemIndicator>
+        <ContextMenuPrimitive.CheckboxItemIndicator
+          render={
+            <motion.span
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={spring}
+            />
+          }
+        >
           <CheckIcon />
         </ContextMenuPrimitive.CheckboxItemIndicator>
       </span>
@@ -203,6 +223,7 @@ function ContextMenuRadioItem({
 }: ContextMenuPrimitive.RadioItem.Props & {
   inset?: boolean
 }) {
+  const press = usePress()
   return (
     <ContextMenuPrimitive.RadioItem
       data-slot="context-menu-radio-item"
@@ -211,10 +232,19 @@ function ContextMenuRadioItem({
         "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-8 pl-1.5 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
+      render={<motion.div {...press} transition={fast} />}
       {...props}
     >
       <span className="pointer-events-none absolute right-2">
-        <ContextMenuPrimitive.RadioItemIndicator>
+        <ContextMenuPrimitive.RadioItemIndicator
+          render={
+            <motion.span
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={spring}
+            />
+          }
+        >
           <CheckIcon />
         </ContextMenuPrimitive.RadioItemIndicator>
       </span>
@@ -248,6 +278,8 @@ function ContextMenuShortcut({ className, ...props }: ComponentProps<"span">) {
     />
   )
 }
+
+const ContextMenu = withAnimated(ContextMenuBase)
 
 export {
   ContextMenu,

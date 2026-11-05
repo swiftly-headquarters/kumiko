@@ -1,10 +1,12 @@
 "use client"
 
 import type { ComponentProps } from "react"
+import { motion } from "motion/react"
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar"
 import { cn } from "@/lib/utils"
+import { softSpring, withAnimated } from "@/lib/motion"
 
-function Avatar({
+function AvatarBase({
   className,
   size = "default",
   ...props
@@ -29,7 +31,7 @@ function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
     <AvatarPrimitive.Image
       data-slot="avatar-image"
       className={cn(
-        "aspect-square size-full rounded-full object-cover",
+        "aspect-square size-full rounded-full object-cover transition-opacity duration-200 data-ending-style:opacity-0 data-starting-style:opacity-0",
         className
       )}
       {...props}
@@ -53,10 +55,19 @@ function AvatarFallback({
   )
 }
 
-function AvatarBadge({ className, ...props }: ComponentProps<"span">) {
+function AvatarBadge({
+  className,
+  ...props
+}: Omit<
+  ComponentProps<"span">,
+  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
+>) {
   return (
-    <span
+    <motion.span
       data-slot="avatar-badge"
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={softSpring}
       className={cn(
         "absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-primary text-primary-foreground bg-blend-color ring-2 ring-background select-none",
         "group-data-[size=sm]/avatar:size-2 group-data-[size=sm]/avatar:[&>svg]:hidden",
@@ -94,6 +105,8 @@ function AvatarGroupCount({ className, ...props }: ComponentProps<"div">) {
     />
   )
 }
+
+const Avatar = withAnimated(AvatarBase)
 
 export {
   Avatar,

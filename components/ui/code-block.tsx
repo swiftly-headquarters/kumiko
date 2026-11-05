@@ -1,8 +1,10 @@
 "use client"
 
 import { type ComponentProps, useEffect, useState } from "react"
+import { AnimatePresence, motion } from "motion/react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
+import { fast, withAnimated } from "@/lib/motion"
 
 import { Button } from "@/components/ui/button"
 import { CheckIcon, CopyIcon } from "lucide-react"
@@ -24,7 +26,7 @@ const codeBlockVariants = cva(
   }
 )
 
-function CodeBlock({
+function CodeBlockBase({
   className,
   variant = "default",
   size = "default",
@@ -118,7 +120,31 @@ function CodeBlockCopyButton({
         }}
         {...props}
       >
-        {copied ? <CheckIcon /> : <CopyIcon />}
+        <AnimatePresence mode="wait" initial={false}>
+          {copied ? (
+            <motion.span
+              key="check"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={fast}
+              className="inline-flex"
+            >
+              <CheckIcon />
+            </motion.span>
+          ) : (
+            <motion.span
+              key="copy"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={fast}
+              className="inline-flex"
+            >
+              <CopyIcon />
+            </motion.span>
+          )}
+        </AnimatePresence>
       </Button>
       <span aria-live="polite" className="sr-only">
         {copied ? "Copied" : ""}
@@ -227,6 +253,8 @@ function CodeBlockFooter({ className, ...props }: ComponentProps<"div">) {
     />
   )
 }
+
+const CodeBlock = withAnimated(CodeBlockBase)
 
 export {
   CodeBlock,

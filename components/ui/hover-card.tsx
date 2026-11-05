@@ -1,10 +1,35 @@
 "use client"
 
+import { createContext, useContext } from "react"
 import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card"
+import { AnimatePresence, motion } from "motion/react"
+import { fast, popFrom, useOpenState, withAnimated, useAnimatedAttr } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
-function HoverCard({ ...props }: PreviewCardPrimitive.Root.Props) {
-  return <PreviewCardPrimitive.Root data-slot="hover-card" {...props} />
+const HoverCardContext = createContext(false)
+
+function HoverCardBase({
+  open,
+  defaultOpen,
+  onOpenChange,
+  ...props
+}: PreviewCardPrimitive.Root.Props) {
+  const [isOpen, handleOpenChange] = useOpenState({
+    open,
+    defaultOpen,
+    onOpenChange,
+  })
+
+  return (
+    <HoverCardContext.Provider value={isOpen}>
+      <PreviewCardPrimitive.Root
+        data-slot="hover-card"
+        open={isOpen}
+        onOpenChange={handleOpenChange}
+        {...props}
+      />
+    </HoverCardContext.Provider>
+  )
 }
 
 function HoverCardTrigger({ ...props }: PreviewCardPrimitive.Trigger.Props) {
@@ -25,26 +50,45 @@ function HoverCardContent({
     PreviewCardPrimitive.Positioner.Props,
     "align" | "alignOffset" | "side" | "sideOffset"
   >) {
+  const off = useAnimatedAttr()
+  const isOpen = useContext(HoverCardContext)
+
   return (
-    <PreviewCardPrimitive.Portal data-slot="hover-card-portal">
-      <PreviewCardPrimitive.Positioner
-        align={align}
-        alignOffset={alignOffset}
-        side={side}
-        sideOffset={sideOffset}
-        className="isolate z-50"
-      >
-        <PreviewCardPrimitive.Popup
-          data-slot="hover-card-content"
-          className={cn(
-            "z-50 w-64 origin-(--transform-origin) rounded-lg bg-popover p-2.5 text-sm text-popover-foreground shadow-md ring-1 ring-foreground/10 outline-hidden duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
-            className
-          )}
-          {...props}
-        />
-      </PreviewCardPrimitive.Positioner>
-    </PreviewCardPrimitive.Portal>
+    <AnimatePresence>
+      {isOpen && (
+        <PreviewCardPrimitive.Portal {...off} keepMounted data-slot="hover-card-portal">
+          <PreviewCardPrimitive.Positioner
+            hidden={false}
+            align={align}
+            alignOffset={alignOffset}
+            side={side}
+            sideOffset={sideOffset}
+            className="isolate z-50"
+          >
+            <PreviewCardPrimitive.Popup
+              render={
+                <motion.div
+                  variants={popFrom(side)}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  transition={fast}
+                />
+              }
+              data-slot="hover-card-content"
+              className={cn(
+                "z-50 w-64 origin-(--transform-origin) rounded-lg bg-popover p-2.5 text-sm text-popover-foreground shadow-md ring-1 ring-foreground/10 outline-hidden",
+                className
+              )}
+              {...props}
+            />
+          </PreviewCardPrimitive.Positioner>
+        </PreviewCardPrimitive.Portal>
+      )}
+    </AnimatePresence>
   )
 }
+
+const HoverCard = withAnimated(HoverCardBase)
 
 export { HoverCard, HoverCardTrigger, HoverCardContent }

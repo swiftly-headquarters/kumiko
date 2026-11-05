@@ -3,7 +3,9 @@
 import type { ComponentProps } from "react"
 import { Menu as MenuPrimitive } from "@base-ui/react/menu"
 import { Menubar as MenubarPrimitive } from "@base-ui/react/menubar"
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { spring, fast, usePress, withAnimated, useAnimated } from "@/lib/motion"
 
 import {
   DropdownMenu,
@@ -22,7 +24,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { CheckIcon } from "lucide-react"
 
-function Menubar({ className, ...props }: MenubarPrimitive.Props) {
+function MenubarBase({ className, ...props }: MenubarPrimitive.Props) {
   return (
     <MenubarPrimitive
       data-slot="menubar"
@@ -53,6 +55,7 @@ function MenubarTrigger({
   className,
   ...props
 }: ComponentProps<typeof DropdownMenuTrigger>) {
+  const press = usePress()
   return (
     <DropdownMenuTrigger
       data-slot="menubar-trigger"
@@ -60,6 +63,7 @@ function MenubarTrigger({
         "flex items-center rounded-sm px-1.5 py-[2px] text-sm font-medium outline-hidden select-none hover:bg-muted aria-expanded:bg-muted",
         className
       )}
+      render={<motion.button {...press} transition={fast} />}
       {...props}
     />
   )
@@ -72,6 +76,7 @@ function MenubarContent({
   sideOffset = 8,
   ...props
 }: ComponentProps<typeof DropdownMenuContent>) {
+  const animated = useAnimated()
   return (
     <DropdownMenuContent
       data-slot="menubar-content"
@@ -79,7 +84,8 @@ function MenubarContent({
       alignOffset={alignOffset}
       sideOffset={sideOffset}
       className={cn(
-        "min-w-36 rounded-lg bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95",
+        "min-w-36 rounded-lg bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:fade-in-0 data-open:zoom-in-95",
+        animated && "data-open:animate-in",
         className
       )}
       {...props}
@@ -116,6 +122,7 @@ function MenubarCheckboxItem({
 }: MenuPrimitive.CheckboxItem.Props & {
   inset?: boolean
 }) {
+  const press = usePress()
   return (
     <MenuPrimitive.CheckboxItem
       data-slot="menubar-checkbox-item"
@@ -124,11 +131,20 @@ function MenubarCheckboxItem({
         "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-1.5 pl-7 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className
       )}
+      render={<motion.div {...press} transition={fast} />}
       checked={checked}
       {...props}
     >
       <span className="pointer-events-none absolute left-1.5 flex size-4 items-center justify-center [&_svg:not([class*='size-'])]:size-4">
-        <MenuPrimitive.CheckboxItemIndicator>
+        <MenuPrimitive.CheckboxItemIndicator
+          render={
+            <motion.span
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={spring}
+            />
+          }
+        >
           <CheckIcon />
         </MenuPrimitive.CheckboxItemIndicator>
       </span>
@@ -151,6 +167,7 @@ function MenubarRadioItem({
 }: MenuPrimitive.RadioItem.Props & {
   inset?: boolean
 }) {
+  const press = usePress()
   return (
     <MenuPrimitive.RadioItem
       data-slot="menubar-radio-item"
@@ -159,10 +176,19 @@ function MenubarRadioItem({
         "relative flex cursor-default items-center gap-1.5 rounded-md py-1 pr-1.5 pl-7 text-sm outline-hidden select-none focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground data-inset:pl-7 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
+      render={<motion.div {...press} transition={fast} />}
       {...props}
     >
       <span className="pointer-events-none absolute left-1.5 flex size-4 items-center justify-center [&_svg:not([class*='size-'])]:size-4">
-        <MenuPrimitive.RadioItemIndicator>
+        <MenuPrimitive.RadioItemIndicator
+          render={
+            <motion.span
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={spring}
+            />
+          }
+        >
           <CheckIcon />
         </MenuPrimitive.RadioItemIndicator>
       </span>
@@ -248,17 +274,21 @@ function MenubarSubContent({
   className,
   ...props
 }: ComponentProps<typeof DropdownMenuSubContent>) {
+  const animated = useAnimated()
   return (
     <DropdownMenuSubContent
       data-slot="menubar-sub-content"
       className={cn(
-        "min-w-32 rounded-lg bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+        "min-w-32 rounded-lg bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:fade-in-0 data-open:zoom-in-95 data-closed:fade-out-0 data-closed:zoom-out-95",
+        animated && "data-open:animate-in data-closed:animate-out",
         className
       )}
       {...props}
     />
   )
 }
+
+const Menubar = withAnimated(MenubarBase)
 
 export {
   Menubar,

@@ -1,10 +1,14 @@
+"use client"
+
 import type { ComponentProps } from "react"
+import { motion } from "motion/react"
 import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
+import { fast, softSpring, withAnimated } from "@/lib/motion"
 
-function BubbleGroup({ className, ...props }: ComponentProps<"div">) {
+function BubbleGroupBase({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="bubble-group"
@@ -41,20 +45,26 @@ const bubbleVariants = cva(
   }
 )
 
-function Bubble({
+function BubbleBase({
   variant = "default",
   align = "start",
   className,
   ...props
-}: ComponentProps<"div"> &
+}: Omit<
+  ComponentProps<"div">,
+  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
+> &
   VariantProps<typeof bubbleVariants> & {
     align?: "start" | "end"
   }) {
   return (
-    <div
+    <motion.div
       data-slot="bubble"
       data-variant={variant}
       data-align={align}
+      initial={{ opacity: 0, y: 8, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={softSpring}
       className={cn(bubbleVariants({ variant }), className)}
       {...props}
     />
@@ -109,19 +119,28 @@ function BubbleReactions({
   align = "end",
   className,
   ...props
-}: ComponentProps<"div"> & {
+}: Omit<
+  ComponentProps<"div">,
+  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
+> & {
   align?: "start" | "end"
   side?: "top" | "bottom"
 }) {
   return (
-    <div
+    <motion.div
       data-slot="bubble-reactions"
       data-align={align}
       data-side={side}
+      initial={{ opacity: 0, scale: 0.6 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={fast}
       className={cn(bubbleReactionsVariants({ side, align }), className)}
       {...props}
     />
   )
 }
+
+const Bubble = withAnimated(BubbleBase)
+const BubbleGroup = withAnimated(BubbleGroupBase)
 
 export { BubbleGroup, Bubble, BubbleContent, BubbleReactions }

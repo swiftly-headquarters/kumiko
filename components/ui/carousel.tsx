@@ -9,7 +9,9 @@ import {
   useEffect,
   useState,
 } from "react"
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { fast, usePress, withAnimated } from "@/lib/motion"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
@@ -50,7 +52,7 @@ function useCarousel() {
   return context
 }
 
-function Carousel({
+function CarouselBase({
   orientation = "horizontal",
   opts,
   setApi,
@@ -103,11 +105,13 @@ function Carousel({
 
   useEffect(() => {
     if (!api) return
-    onSelect(api)
+    // Sync initial state after paint; a sync setState here trips set-state-in-effect.
+    const frame = requestAnimationFrame(() => onSelect(api))
     api.on("reInit", onSelect)
     api.on("select", onSelect)
 
     return () => {
+      cancelAnimationFrame(frame)
       api?.off("select", onSelect)
     }
   }, [api, onSelect])
@@ -185,6 +189,7 @@ function CarouselPrevious({
   size = "icon-sm",
   ...props
 }: ComponentProps<typeof Button>) {
+  const press = usePress()
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
   return (
@@ -199,6 +204,7 @@ function CarouselPrevious({
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
+      render={<motion.button {...press} transition={fast} />}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
@@ -215,6 +221,7 @@ function CarouselNext({
   size = "icon-sm",
   ...props
 }: ComponentProps<typeof Button>) {
+  const press = usePress()
   const { orientation, scrollNext, canScrollNext } = useCarousel()
 
   return (
@@ -229,6 +236,7 @@ function CarouselNext({
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
+      render={<motion.button {...press} transition={fast} />}
       disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
@@ -238,6 +246,8 @@ function CarouselNext({
     </Button>
   )
 }
+
+const Carousel = withAnimated(CarouselBase)
 
 export {
   type CarouselApi,

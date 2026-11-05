@@ -1,9 +1,11 @@
 "use client"
 
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { fast, useGestures, withAnimated } from "@/lib/motion"
 import * as ResizablePrimitive from "react-resizable-panels"
 
-function ResizablePanelGroup({
+function ResizablePanelGroupBase({
   className,
   ...props
 }: ResizablePrimitive.GroupProps) {
@@ -30,6 +32,7 @@ function ResizableHandle({
 }: ResizablePrimitive.SeparatorProps & {
   withHandle?: boolean
 }) {
+  const gestures = useGestures({ whileHover: { scaleY: 1.2 } })
   return (
     <ResizablePrimitive.Separator
       data-slot="resizable-handle"
@@ -40,10 +43,16 @@ function ResizableHandle({
       {...props}
     >
       {withHandle && (
-        <div className="z-10 flex h-6 w-1 shrink-0 rounded-lg bg-border" />
+        <motion.div
+          className="z-10 flex h-6 w-1 shrink-0 rounded-lg bg-border"
+          {...gestures}
+          transition={fast}
+        />
       )}
     </ResizablePrimitive.Separator>
   )
 }
+
+const ResizablePanelGroup = withAnimated(ResizablePanelGroupBase)
 
 export { ResizableHandle, ResizablePanel, ResizablePanelGroup }

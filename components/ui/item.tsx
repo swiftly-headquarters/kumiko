@@ -1,8 +1,12 @@
+"use client"
+
 import type { ComponentProps } from "react"
+import { motion } from "motion/react"
 import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
+import { softSpring, withAnimated } from "@/lib/motion"
 
 import { Separator } from "@/components/ui/separator"
 
@@ -56,7 +60,7 @@ const itemVariants = cva(
   }
 )
 
-function Item({
+function ItemBase({
   className,
   variant = "default",
   size = "default",
@@ -71,7 +75,14 @@ function Item({
       },
       props
     ),
-    render,
+    render: render ?? (
+      <motion.div
+        layout
+        initial={{ opacity: 0, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={softSpring}
+      />
+    ),
     state: {
       slot: "item",
       variant,
@@ -186,6 +197,8 @@ function ItemFooter({ className, ...props }: ComponentProps<"div">) {
     />
   )
 }
+
+const Item = withAnimated(ItemBase)
 
 export {
   Item,

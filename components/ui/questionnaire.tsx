@@ -1,13 +1,15 @@
 "use client"
 
 import type { ComponentProps } from "react"
+import { motion } from "motion/react"
 import { Questionnaire as QuestionnairePrimitive } from "@shadcn/react/questionnaire"
 import { cn } from "@/lib/utils"
+import { fast, usePress, withAnimated } from "@/lib/motion"
 
 import { buttonVariants, type Button } from "@/components/ui/button"
 import { CheckIcon } from "lucide-react"
 
-function Questionnaire({
+function QuestionnaireBase({
   className,
   ...props
 }: ComponentProps<typeof QuestionnairePrimitive.Root>) {
@@ -100,8 +102,10 @@ function QuestionnaireChoices({
 function QuestionnaireChoice({
   children,
   className,
+  render,
   ...props
 }: ComponentProps<typeof QuestionnairePrimitive.Choice>) {
+  const press = usePress()
   return (
     <QuestionnairePrimitive.Choice
       data-slot="questionnaire-choice"
@@ -110,6 +114,7 @@ function QuestionnaireChoice({
         "data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50",
         className
       )}
+      render={render ?? <motion.label {...press} transition={fast} />}
       {...props}
     >
       <QuestionnairePrimitive.ChoiceInput
@@ -304,6 +309,8 @@ function QuestionnaireSubmit({
     </QuestionnairePrimitive.Submit>
   )
 }
+
+const Questionnaire = withAnimated(QuestionnaireBase)
 
 export {
   Questionnaire,

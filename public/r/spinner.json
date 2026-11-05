@@ -12,9 +12,15 @@
   "files": [
     {
       "path": "components/ui/spinner.tsx",
-      "content": "import { cn } from \"@/lib/utils\"\nimport { Loader2Icon } from \"lucide-react\"\n\nfunction Spinner({ className, ...props }: React.ComponentProps<\"svg\">) {\n  return (\n    <Loader2Icon\n      data-slot=\"spinner\"\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\"size-4 animate-spin\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Spinner }\n",
+      "content": "import { cn } from \"@/lib/utils\"\nimport { Loader2Icon } from \"lucide-react\"\n\n// Same scheme as Skeleton: `animated={false}` or an ancestor\n// <Animations enabled={false}> stops the spin via globals.css.\nfunction Spinner({\n  className,\n  animated,\n  ...props\n}: React.ComponentProps<\"svg\"> & { animated?: boolean }) {\n  return (\n    <Loader2Icon\n      data-slot=\"spinner\"\n      data-animated={animated === false ? \"false\" : undefined}\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\"size-4 animate-spin\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Spinner }\n",
       "type": "registry:ui"
     }
   ],
+  "css": {
+    "[data-animated=\"false\"], [data-animated=\"false\"] *, [data-animated=\"false\"] *::before, [data-animated=\"false\"] *::after": {
+      "transition": "none !important",
+      "animation": "none !important"
+    }
+  },
   "type": "registry:ui"
 }

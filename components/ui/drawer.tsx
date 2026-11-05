@@ -1,8 +1,10 @@
 "use client"
 
 import { type ComponentProps, createContext, useContext, useMemo } from "react"
+import { motion } from "motion/react"
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer"
 import { cn } from "@/lib/utils"
+import { fast, useGestures, withAnimated, useAnimatedAttr } from "@/lib/motion"
 
 type DrawerContextProps = {
   hasSnapPoints: boolean
@@ -23,7 +25,7 @@ function useDrawer() {
   return context
 }
 
-function Drawer({
+function DrawerBase({
   modal = true,
   showSwipeHandle = false,
   snapPoints,
@@ -56,7 +58,8 @@ function DrawerTrigger({ ...props }: DrawerPrimitive.Trigger.Props) {
 }
 
 function DrawerPortal({ ...props }: DrawerPrimitive.Portal.Props) {
-  return <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />
+  const off = useAnimatedAttr()
+  return <DrawerPrimitive.Portal {...off} data-slot="drawer-portal" {...props} />
 }
 
 function DrawerClose({ ...props }: DrawerPrimitive.Close.Props) {
@@ -79,11 +82,17 @@ function DrawerOverlay({
   )
 }
 
-function DrawerSwipeHandle({ className, ...props }: ComponentProps<"div">) {
+function DrawerSwipeHandle({
+  className,
+  ...props
+}: ComponentProps<typeof motion.div>) {
+  const gestures = useGestures({ whileTap: { scale: 0.9 } })
   return (
-    <div
+    <motion.div
       data-slot="drawer-swipe-handle"
       aria-hidden="true"
+      {...gestures}
+      transition={fast}
       className={cn(
         "relative z-10 flex shrink-0 cursor-grab transition-opacity duration-200 group-data-nested-drawer-open/drawer-popup:opacity-0 group-data-nested-drawer-swiping/drawer-popup:opacity-100 group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=left]/drawer-popup:order-last group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end group-data-[swipe-direction=up]/drawer-popup:order-last group-data-[swipe-direction=up]/drawer-popup:items-start after:block after:shrink-0 after:rounded-full after:bg-muted group-data-[swipe-axis=x]/drawer-popup:after:h-24 group-data-[swipe-axis=x]/drawer-popup:after:w-1 group-data-[swipe-axis=y]/drawer-popup:after:h-1 group-data-[swipe-axis=y]/drawer-popup:after:w-24 active:cursor-grabbing",
         className
@@ -208,6 +217,8 @@ function DrawerDescription({
     />
   )
 }
+
+const Drawer = withAnimated(DrawerBase)
 
 export {
   Drawer,

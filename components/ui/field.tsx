@@ -1,8 +1,12 @@
 "use client"
 
-import { useMemo } from "react"
+"use client"
+
+import { type ComponentProps, useMemo } from "react"
+import { AnimatePresence, motion } from "motion/react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
+import { softSpring, withAnimated } from "@/lib/motion"
 
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
@@ -69,7 +73,7 @@ const fieldVariants = cva(
   }
 )
 
-function Field({
+function FieldBase({
   className,
   orientation = "vertical",
   ...props
@@ -178,7 +182,7 @@ function FieldError({
   children,
   errors,
   ...props
-}: React.ComponentProps<"div"> & {
+}: ComponentProps<typeof motion.div> & {
   errors?: Array<{ message?: string } | undefined>
 }) {
   const content = useMemo(() => {
@@ -208,21 +212,31 @@ function FieldError({
     )
   }, [children, errors])
 
-  if (!content) {
-    return null
-  }
-
   return (
-    <div
-      role="alert"
-      data-slot="field-error"
-      className={cn("text-sm font-normal text-destructive", className)}
-      {...props}
-    >
-      {content}
-    </div>
+    <AnimatePresence initial={false}>
+      {content && (
+        <motion.div
+          key="field-error"
+          role="alert"
+          data-slot="field-error"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={softSpring}
+          className={cn(
+            "overflow-hidden text-sm font-normal text-destructive",
+            className
+          )}
+          {...props}
+        >
+          {content}
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
+
+const Field = withAnimated(FieldBase)
 
 export {
   Field,

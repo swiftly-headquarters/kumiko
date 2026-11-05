@@ -2,7 +2,9 @@
 
 import { type ComponentPropsWithRef, useRef } from "react"
 import { Combobox as ComboboxPrimitive } from "@base-ui/react"
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { spring, fast, usePress, withAnimated, useAnimated, useAnimatedAttr } from "@/lib/motion"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -13,7 +15,15 @@ import {
 } from "@/components/ui/input-group"
 import { ChevronDownIcon, XIcon, CheckIcon } from "lucide-react"
 
-const Combobox = ComboboxPrimitive.Root
+const Combobox = withAnimated(ComboboxPrimitive.Root, "Combobox") as <
+  Value,
+  Multiple extends boolean | undefined = false,
+  Item = Value,
+>(
+  props: ComboboxPrimitive.Root.Props<Value, Multiple, Item> & {
+    animated?: boolean
+  }
+) => React.JSX.Element
 
 function ComboboxValue({ ...props }: ComboboxPrimitive.Value.Props) {
   return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />
@@ -24,10 +34,12 @@ function ComboboxTrigger({
   children,
   ...props
 }: ComboboxPrimitive.Trigger.Props) {
+  const press = usePress()
   return (
     <ComboboxPrimitive.Trigger
       data-slot="combobox-trigger"
       className={cn("[&_svg:not([class*='size-'])]:size-4", className)}
+      render={<motion.button {...press} transition={fast} />}
       {...props}
     >
       {children}
@@ -97,8 +109,10 @@ function ComboboxContent({
     ComboboxPrimitive.Positioner.Props,
     "side" | "align" | "sideOffset" | "alignOffset" | "anchor"
   >) {
+  const off = useAnimatedAttr()
+  const animated = useAnimated()
   return (
-    <ComboboxPrimitive.Portal>
+    <ComboboxPrimitive.Portal {...off}>
       <ComboboxPrimitive.Positioner
         side={side}
         sideOffset={sideOffset}
@@ -111,7 +125,8 @@ function ComboboxContent({
           data-slot="combobox-content"
           data-chips={!!anchor}
           className={cn(
-            "group/combobox-content relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) overflow-hidden rounded-lg bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[chips=true]:min-w-(--anchor-width) data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:border-input/30 *:data-[slot=input-group]:bg-input/30 *:data-[slot=input-group]:shadow-none data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+            "group/combobox-content relative max-h-(--available-height) w-(--anchor-width) max-w-(--available-width) min-w-[calc(var(--anchor-width)+--spacing(7))] origin-(--transform-origin) overflow-hidden rounded-lg bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[chips=true]:min-w-(--anchor-width) data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:border-input/30 *:data-[slot=input-group]:bg-input/30 *:data-[slot=input-group]:shadow-none data-open:fade-in-0 data-open:zoom-in-95 data-closed:fade-out-0 data-closed:zoom-out-95",
+            animated && "data-open:animate-in data-closed:animate-out",
             className
           )}
           {...props}
@@ -151,7 +166,12 @@ function ComboboxItem({
       {children}
       <ComboboxPrimitive.ItemIndicator
         render={
-          <span className="pointer-events-none absolute right-2 flex size-4 items-center justify-center" />
+          <motion.span
+            className="pointer-events-none absolute right-2 flex size-4 items-center justify-center"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={spring}
+          />
         }
       >
         <CheckIcon className="pointer-events-none" />
@@ -247,6 +267,14 @@ function ComboboxChip({
         "flex h-[calc(--spacing(5.25))] w-fit items-center justify-center gap-1 rounded-sm bg-muted px-1.5 text-xs font-medium whitespace-nowrap text-foreground has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50 has-data-[slot=combobox-chip-remove]:pr-0",
         className
       )}
+      render={
+        <motion.div
+          layout
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={spring}
+        />
+      }
       {...props}
     >
       {children}

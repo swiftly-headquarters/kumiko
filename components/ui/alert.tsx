@@ -1,6 +1,10 @@
+"use client"
+
 import type { ComponentProps } from "react"
+import { motion } from "motion/react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
+import { softSpring, withAnimated } from "@/lib/motion"
 
 const alertVariants = cva(
   "group/alert relative grid w-full gap-0.5 rounded-lg border px-2.5 py-2 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4",
@@ -18,15 +22,22 @@ const alertVariants = cva(
   }
 )
 
-function Alert({
+function AlertBase({
   className,
   variant,
   ...props
-}: ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
+}: Omit<
+  ComponentProps<"div">,
+  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
+> &
+  VariantProps<typeof alertVariants>) {
   return (
-    <div
+    <motion.div
       data-slot="alert"
       role="alert"
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={softSpring}
       className={cn(alertVariants({ variant }), className)}
       {...props}
     />
@@ -68,5 +79,7 @@ function AlertAction({ className, ...props }: ComponentProps<"div">) {
     />
   )
 }
+
+const Alert = withAnimated(AlertBase)
 
 export { Alert, AlertTitle, AlertDescription, AlertAction }

@@ -1,7 +1,11 @@
-import type { ComponentProps } from "react"
-import { cn } from "@/lib/utils"
+"use client"
 
-function MessageGroup({ className, ...props }: ComponentProps<"div">) {
+import type { ComponentProps } from "react"
+import { motion } from "motion/react"
+import { cn } from "@/lib/utils"
+import { softSpring, withAnimated } from "@/lib/motion"
+
+function MessageGroupBase({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="message-group"
@@ -11,15 +15,21 @@ function MessageGroup({ className, ...props }: ComponentProps<"div">) {
   )
 }
 
-function Message({
+function MessageBase({
   className,
   align = "start",
   ...props
-}: ComponentProps<"div"> & { align?: "start" | "end" }) {
+}: Omit<
+  ComponentProps<"div">,
+  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
+> & { align?: "start" | "end" }) {
   return (
-    <div
+    <motion.div
       data-slot="message"
       data-align={align}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={softSpring}
       className={cn(
         "group/message relative flex w-full min-w-0 gap-2 text-sm data-[align=end]:flex-row-reverse",
         className
@@ -80,6 +90,9 @@ function MessageFooter({ className, ...props }: ComponentProps<"div">) {
     />
   )
 }
+
+const Message = withAnimated(MessageBase)
+const MessageGroup = withAnimated(MessageGroupBase)
 
 export {
   MessageGroup,

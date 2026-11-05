@@ -1,10 +1,23 @@
+"use client"
+
+import { motion } from "motion/react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
+import { softSpring, withAnimated } from "@/lib/motion"
 
-function Empty({ className, ...props }: React.ComponentProps<"div">) {
+function EmptyBase({
+  className,
+  ...props
+}: Omit<
+  React.ComponentProps<"div">,
+  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
+>) {
   return (
-    <div
+    <motion.div
       data-slot="empty"
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={softSpring}
       className={cn(
         "flex w-full min-w-0 flex-1 flex-col items-center justify-center gap-4 rounded-xl border-dashed p-6 text-center text-balance",
         className
@@ -92,6 +105,8 @@ function EmptyContent({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+
+const Empty = withAnimated(EmptyBase)
 
 export {
   Empty,

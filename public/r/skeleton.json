@@ -10,9 +10,15 @@
   "files": [
     {
       "path": "components/ui/skeleton.tsx",
-      "content": "import { cn } from \"@/lib/utils\"\n\nfunction Skeleton({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"skeleton\"\n      className={cn(\"animate-pulse rounded-md bg-muted\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Skeleton }\n",
+      "content": "import { cn } from \"@/lib/utils\"\n\n// No hook, so it stays a server component: `animated={false}` or an ancestor\n// <Animations enabled={false}> sets data-animated=\"false\", and globals.css\n// turns the CSS animation off.\nfunction Skeleton({\n  className,\n  animated,\n  ...props\n}: React.ComponentProps<\"div\"> & { animated?: boolean }) {\n  return (\n    <div\n      data-slot=\"skeleton\"\n      data-animated={animated === false ? \"false\" : undefined}\n      className={cn(\"animate-pulse rounded-md bg-muted\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Skeleton }\n",
       "type": "registry:ui"
     }
   ],
+  "css": {
+    "[data-animated=\"false\"], [data-animated=\"false\"] *, [data-animated=\"false\"] *::before, [data-animated=\"false\"] *::after": {
+      "transition": "none !important",
+      "animation": "none !important"
+    }
+  },
   "type": "registry:ui"
 }

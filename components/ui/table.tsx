@@ -1,9 +1,11 @@
 "use client"
 
 import type { ComponentProps } from "react"
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { fast, withAnimated } from "@/lib/motion"
 
-function Table({ className, ...props }: ComponentProps<"table">) {
+function TableBase({ className, ...props }: ComponentProps<"table">) {
   return (
     <div
       data-slot="table-container"
@@ -51,10 +53,19 @@ function TableFooter({ className, ...props }: ComponentProps<"tfoot">) {
   )
 }
 
-function TableRow({ className, ...props }: ComponentProps<"tr">) {
+function TableRow({
+  className,
+  ...props
+}: Omit<
+  ComponentProps<"tr">,
+  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
+>) {
   return (
-    <tr
+    <motion.tr
       data-slot="table-row"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={fast}
       className={cn(
         "border-b transition-colors hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted",
         className
@@ -99,6 +110,8 @@ function TableCaption({ className, ...props }: ComponentProps<"caption">) {
     />
   )
 }
+
+const Table = withAnimated(TableBase)
 
 export {
   Table,

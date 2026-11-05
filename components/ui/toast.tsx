@@ -1,8 +1,10 @@
 "use client"
 
 import type { ReactNode } from "react"
+import { AnimatePresence, motion } from "motion/react"
 import { Toast as ToastPrimitive } from "@base-ui/react/toast"
 import { cn } from "@/lib/utils"
+import { fast, useGestures, withAnimated, useAnimatedAttr } from "@/lib/motion"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -16,12 +18,13 @@ import {
 
 const toast = ToastPrimitive.createToastManager()
 
-function ToastProvider({ ...props }: ToastPrimitive.Provider.Props) {
+function ToastProviderBase({ ...props }: ToastPrimitive.Provider.Props) {
   return <ToastPrimitive.Provider {...props} />
 }
 
 function ToastPortal({ ...props }: ToastPrimitive.Portal.Props) {
-  return <ToastPrimitive.Portal data-slot="toast-portal" {...props} />
+  const off = useAnimatedAttr()
+  return <ToastPrimitive.Portal {...off} data-slot="toast-portal" {...props} />
 }
 
 function ToastViewport({ className, ...props }: ToastPrimitive.Viewport.Props) {
@@ -121,6 +124,7 @@ function ToastClose({
   render = <Button variant="ghost" size="icon-sm" />,
   ...props
 }: ToastPrimitive.Close.Props) {
+  const gestures = useGestures({ whileHover: { rotate: 90 } })
   return (
     <ToastPrimitive.Close
       data-slot="toast-close"
@@ -132,7 +136,15 @@ function ToastClose({
       )}
       {...props}
     >
-      {children ?? <XIcon aria-hidden="true" />}
+      {children ?? (
+        <motion.span
+          className="inline-flex"
+          {...gestures}
+          transition={fast}
+        >
+          <XIcon aria-hidden="true" />
+        </motion.span>
+      )}
     </ToastPrimitive.Close>
   )
 }
@@ -167,9 +179,20 @@ function ToastIcon({ type }: { type: string | undefined }) {
   return (
     <span
       data-slot="toast-icon"
-      className="shrink-0 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4"
+      className="relative shrink-0 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4"
     >
-      {icon}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={type}
+          className="inline-flex"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.5 }}
+          transition={fast}
+        >
+          {icon}
+        </motion.span>
+      </AnimatePresence>
     </span>
   )
 }
@@ -211,6 +234,8 @@ function Toaster({
 
 const createToastManager = ToastPrimitive.createToastManager
 const useToastManager = ToastPrimitive.useToastManager
+
+const ToastProvider = withAnimated(ToastProviderBase)
 
 export {
   Toaster,

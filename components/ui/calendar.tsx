@@ -1,7 +1,9 @@
 "use client"
 
 import { type ComponentProps, useEffect, useRef } from "react"
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { fast, usePress, withAnimated } from "@/lib/motion"
 import {
   DayPicker,
   getDefaultClassNames,
@@ -16,7 +18,7 @@ import {
   ChevronDownIcon,
 } from "lucide-react"
 
-function Calendar({
+function CalendarBase({
   className,
   classNames,
   showOutsideDays = true,
@@ -194,6 +196,7 @@ function CalendarDayButton({
   locale,
   ...props
 }: ComponentProps<typeof DayButton> & { locale?: Partial<Locale> }) {
+  const press = usePress()
   const defaultClassNames = getDefaultClassNames()
 
   const ref = useRef<HTMLButtonElement>(null)
@@ -220,9 +223,12 @@ function CalendarDayButton({
         defaultClassNames.day,
         className
       )}
+      render={<motion.button {...press} transition={fast} />}
       {...props}
     />
   )
 }
+
+const Calendar = withAnimated(CalendarBase)
 
 export { Calendar, CalendarDayButton }

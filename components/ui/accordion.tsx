@@ -1,8 +1,12 @@
+"use client"
+
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion"
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { fast, usePress, withAnimated, useAnimated } from "@/lib/motion"
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 
-function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
+function AccordionBase({ className, ...props }: AccordionPrimitive.Root.Props) {
   return (
     <AccordionPrimitive.Root
       data-slot="accordion"
@@ -27,6 +31,7 @@ function AccordionTrigger({
   children,
   ...props
 }: AccordionPrimitive.Trigger.Props) {
+  const press = usePress()
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -35,6 +40,7 @@ function AccordionTrigger({
           "group/accordion-trigger relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2.5 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:after:border-ring aria-disabled:pointer-events-none aria-disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground",
           className
         )}
+        render={<motion.button {...press} transition={fast} />}
         {...props}
       >
         {children}
@@ -56,10 +62,14 @@ function AccordionContent({
   children,
   ...props
 }: AccordionPrimitive.Panel.Props) {
+  const animated = useAnimated()
   return (
     <AccordionPrimitive.Panel
       data-slot="accordion-content"
-      className="overflow-hidden text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
+      className={cn(
+        "overflow-hidden text-sm",
+        animated && "data-open:animate-accordion-down data-closed:animate-accordion-up"
+      )}
       {...props}
     >
       <div
@@ -73,5 +83,7 @@ function AccordionContent({
     </AccordionPrimitive.Panel>
   )
 }
+
+const Accordion = withAnimated(AccordionBase)
 
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }

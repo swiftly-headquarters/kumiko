@@ -2,7 +2,9 @@
 
 import type { ComponentProps, ReactNode } from "react"
 import { Command as CommandPrimitive } from "cmdk"
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { fast, usePress, withAnimated } from "@/lib/motion"
 
 import {
   Dialog,
@@ -14,7 +16,7 @@ import {
 import { InputGroup, InputGroupAddon } from "@/components/ui/input-group"
 import { SearchIcon, CheckIcon } from "lucide-react"
 
-function Command({
+function CommandBase({
   className,
   ...props
 }: ComponentProps<typeof CommandPrimitive>) {
@@ -57,7 +59,7 @@ function CommandDialog({
         )}
         showCloseButton={showCloseButton}
       >
-        {children}
+        <Command>{children}</Command>
       </DialogContent>
     </Dialog>
   )
@@ -115,12 +117,30 @@ function CommandEmpty({
   )
 }
 
+// cmdk scrolls the auto-selected item (and its group heading) into view on
+// mount, which jumps the whole page when a command sits below the fold.
+// Only let it scroll once focus is inside the command.
+function guardScroll(el: HTMLElement | null) {
+  if (!el) return
+  el.scrollIntoView = (arg) => {
+    if (el.closest("[cmdk-root]")?.contains(document.activeElement)) {
+      HTMLElement.prototype.scrollIntoView.call(el, arg)
+    }
+  }
+}
+
 function CommandGroup({
   className,
+  ref,
   ...props
 }: ComponentProps<typeof CommandPrimitive.Group>) {
   return (
     <CommandPrimitive.Group
+      ref={(el: HTMLDivElement | null) => {
+        guardScroll(el?.querySelector("[cmdk-group-heading]") ?? null)
+        if (typeof ref === "function") ref(el)
+        else if (ref) ref.current = el
+      }}
       data-slot="command-group"
       className={cn(
         "overflow-hidden p-1 text-foreground **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group-heading]]:text-muted-foreground",
@@ -149,8 +169,10 @@ function CommandItem({
   children,
   ...props
 }: ComponentProps<typeof CommandPrimitive.Item>) {
+  const press = usePress()
   return (
     <CommandPrimitive.Item
+      asChild
       data-slot="command-item"
       className={cn(
         "group/command-item relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-selected:bg-muted data-selected:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-selected:*:[svg]:text-foreground",
@@ -158,8 +180,10 @@ function CommandItem({
       )}
       {...props}
     >
-      {children}
-      <CheckIcon className="ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
+      <motion.div ref={guardScroll} {...press} transition={fast}>
+        {children}
+        <CheckIcon className="ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
+      </motion.div>
     </CommandPrimitive.Item>
   )
 }
@@ -176,6 +200,8 @@ function CommandShortcut({ className, ...props }: ComponentProps<"span">) {
     />
   )
 }
+
+const Command = withAnimated(CommandBase)
 
 export {
   Command,

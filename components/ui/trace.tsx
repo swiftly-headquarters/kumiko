@@ -130,7 +130,7 @@ function TraceCollapsibleContent({
   return (
     <CollapsibleContent
       data-slot="trace-collapsible-content"
-      className="h-(--collapsible-panel-height) min-w-0 overflow-hidden transition-[height] duration-200 data-ending-style:h-0 data-starting-style:h-0"
+      className="h-(--collapsible-panel-height) min-w-0 overflow-hidden opacity-100 transition-[height,opacity] duration-200 data-ending-style:h-0 data-ending-style:opacity-0 data-starting-style:h-0 data-starting-style:opacity-0"
       {...props}
     >
       <div

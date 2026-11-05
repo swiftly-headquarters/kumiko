@@ -1,7 +1,11 @@
-import { Slider as SliderPrimitive } from "@base-ui/react/slider"
-import { cn } from "@/lib/utils"
+"use client"
 
-function Slider({
+import { Slider as SliderPrimitive } from "@base-ui/react/slider"
+import { motion } from "motion/react"
+import { cn } from "@/lib/utils"
+import { usePress, spring, withAnimated } from "@/lib/motion"
+
+function SliderBase({
   className,
   defaultValue,
   value,
@@ -9,6 +13,7 @@ function Slider({
   max = 100,
   ...props
 }: SliderPrimitive.Root.Props) {
+  const press = usePress()
   const _values = Array.isArray(value)
     ? value
     : Array.isArray(defaultValue)
@@ -33,6 +38,7 @@ function Slider({
         >
           <SliderPrimitive.Indicator
             data-slot="slider-range"
+            render={<motion.div layout transition={spring} />}
             className="bg-primary select-none data-horizontal:h-full data-vertical:w-full"
           />
         </SliderPrimitive.Track>
@@ -40,6 +46,7 @@ function Slider({
           <SliderPrimitive.Thumb
             data-slot="slider-thumb"
             key={index}
+            render={<motion.div {...press} transition={spring} />}
             className="relative block size-3 shrink-0 rounded-full border border-ring bg-white ring-ring/50 transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 disabled:pointer-events-none disabled:opacity-50"
           />
         ))}
@@ -47,5 +54,7 @@ function Slider({
     </SliderPrimitive.Root>
   )
 }
+
+const Slider = withAnimated(SliderBase)
 
 export { Slider }

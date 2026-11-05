@@ -8,6 +8,7 @@
 !.yarn/releases
 !.yarn/versions
 
+.playwright-mcp/
 # testing
 /coverage
 
@@ -40,3 +41,6 @@ next-env.d.ts
 
 # TypeScript incremental build info
 tsconfig.tsbuildinfo
+
+# superpowers scratch (brainstorm, sdd)
+.superpowers/

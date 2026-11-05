@@ -1,9 +1,11 @@
 "use client"
 
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress"
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
+import { spring, withAnimated } from "@/lib/motion"
 
-function Progress({
+function ProgressBase({
   className,
   children,
   value,
@@ -44,7 +46,8 @@ function ProgressIndicator({
   return (
     <ProgressPrimitive.Indicator
       data-slot="progress-indicator"
-      className={cn("h-full bg-primary transition-all", className)}
+      className={cn("h-full bg-primary", className)}
+      render={<motion.div layout transition={spring} />}
       {...props}
     />
   )
@@ -72,6 +75,8 @@ function ProgressValue({ className, ...props }: ProgressPrimitive.Value.Props) {
     />
   )
 }
+
+const Progress = withAnimated(ProgressBase)
 
 export {
   Progress,

@@ -1,5 +1,9 @@
+"use client"
+
 import type { ComponentProps } from "react"
+import { motion, type Variants } from "motion/react"
 import { cn } from "@/lib/utils"
+import { fast, usePress, withAnimated } from "@/lib/motion"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -8,7 +12,17 @@ import {
   MoreHorizontalIcon,
 } from "lucide-react"
 
-function Pagination({ className, ...props }: ComponentProps<"nav">) {
+const listVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.04 } },
+}
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 4 },
+  visible: { opacity: 1, y: 0 },
+}
+
+function PaginationBase({ className, ...props }: ComponentProps<"nav">) {
   return (
     <nav
       role="navigation"
@@ -20,24 +34,32 @@ function Pagination({ className, ...props }: ComponentProps<"nav">) {
   )
 }
 
-function PaginationContent({ className, ...props }: ComponentProps<"ul">) {
+function PaginationContent({
+  className,
+  ...props
+}: ComponentProps<typeof motion.ul>) {
   return (
-    <ul
+    <motion.ul
       data-slot="pagination-content"
       className={cn("flex items-center gap-0.5", className)}
+      initial="hidden"
+      animate="visible"
+      variants={listVariants}
       {...props}
     />
   )
 }
 
-function PaginationItem({ ...props }: ComponentProps<"li">) {
-  return <li data-slot="pagination-item" {...props} />
+function PaginationItem({ ...props }: ComponentProps<typeof motion.li>) {
+  return (
+    <motion.li data-slot="pagination-item" variants={itemVariants} {...props} />
+  )
 }
 
 type PaginationLinkProps = {
   isActive?: boolean
 } & Pick<ComponentProps<typeof Button>, "size"> &
-  ComponentProps<"a">
+  ComponentProps<typeof motion.a>
 
 function PaginationLink({
   className,
@@ -45,6 +67,7 @@ function PaginationLink({
   size = "icon",
   ...props
 }: PaginationLinkProps) {
+  const press = usePress()
   return (
     <Button
       variant={isActive ? "outline" : "ghost"}
@@ -52,10 +75,12 @@ function PaginationLink({
       className={cn(className)}
       nativeButton={false}
       render={
-        <a
+        <motion.a
           aria-current={isActive ? "page" : undefined}
           data-slot="pagination-link"
           data-active={isActive}
+          {...press}
+          transition={fast}
           {...props}
         />
       }
@@ -115,6 +140,8 @@ function PaginationEllipsis({ className, ...props }: ComponentProps<"span">) {
     </span>
   )
 }
+
+const Pagination = withAnimated(PaginationBase)
 
 export {
   Pagination,

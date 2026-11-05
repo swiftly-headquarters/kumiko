@@ -1,13 +1,15 @@
 "use client"
 
 import type { ComponentProps } from "react"
+import { motion } from "motion/react"
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog"
 import { cn } from "@/lib/utils"
+import { fast, useGestures, withAnimated, useAnimatedAttr } from "@/lib/motion"
 
 import { Button } from "@/components/ui/button"
 import { XIcon } from "lucide-react"
 
-function Sheet({ ...props }: SheetPrimitive.Root.Props) {
+function SheetBase({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />
 }
 
@@ -20,7 +22,8 @@ function SheetClose({ ...props }: SheetPrimitive.Close.Props) {
 }
 
 function SheetPortal({ ...props }: SheetPrimitive.Portal.Props) {
-  return <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />
+  const off = useAnimatedAttr()
+  return <SheetPrimitive.Portal {...off} data-slot="sheet-portal" {...props} />
 }
 
 function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
@@ -46,6 +49,7 @@ function SheetContent({
   side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
 }) {
+  const gestures = useGestures({ whileHover: { rotate: 90 } })
   return (
     <SheetPortal>
       <SheetOverlay />
@@ -70,7 +74,13 @@ function SheetContent({
               />
             }
           >
-            <XIcon />
+            <motion.span
+              className="inline-flex"
+              {...gestures}
+              transition={fast}
+            >
+              <XIcon />
+            </motion.span>
             <span className="sr-only">Close</span>
           </SheetPrimitive.Close>
         )}
@@ -124,6 +134,8 @@ function SheetDescription({
     />
   )
 }
+
+const Sheet = withAnimated(SheetBase)
 
 export {
   Sheet,

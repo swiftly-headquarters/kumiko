@@ -1,8 +1,12 @@
+"use client"
+
 import type { ComponentProps } from "react"
+import { motion } from "motion/react"
 import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
+import { softSpring, withAnimated } from "@/lib/motion"
 
 import { Button } from "@/components/ui/button"
 
@@ -24,22 +28,29 @@ const attachmentVariants = cva(
   }
 )
 
-function Attachment({
+function AttachmentBase({
   className,
   state = "done",
   size = "default",
   orientation = "horizontal",
   ...props
-}: ComponentProps<"div"> &
+}: Omit<
+  ComponentProps<"div">,
+  "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"
+> &
   VariantProps<typeof attachmentVariants> & {
     state?: "idle" | "uploading" | "processing" | "error" | "done"
   }) {
   return (
-    <div
+    <motion.div
       data-slot="attachment"
       data-state={state}
       data-size={size}
       data-orientation={orientation}
+      layout
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={softSpring}
       className={cn(attachmentVariants({ size, orientation }), className)}
       {...props}
     />
@@ -184,6 +195,8 @@ function AttachmentGroup({ className, ...props }: ComponentProps<"div">) {
     />
   )
 }
+
+const Attachment = withAnimated(AttachmentBase)
 
 export {
   Attachment,
