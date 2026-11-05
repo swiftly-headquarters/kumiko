@@ -14,7 +14,7 @@ const fontMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: { default: "Kumiko", template: "%s - Kumiko" },
-  description: "Animated components for shadcn, built on Base UI and Motion.",
+  description: "Components built on Base UI and Motion, for SwiftlyLabs.",
 }
 
 export default function RootLayout({

@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
+  BookOpenIcon,
   BotMessageSquareIcon,
   ChevronsUpDownIcon,
   LayersIcon,
@@ -27,6 +28,13 @@ const groupIcons: Record<Group, LucideIcon> = {
   display: PanelsTopLeftIcon,
   chat: BotMessageSquareIcon,
 }
+
+const guides = [
+  { href: "/blocks", label: "Blocks" },
+  { href: "/contributing", label: "Contributing" },
+  { href: "/accessibility", label: "Accessibility" },
+  { href: "/skill", label: "Design skill" },
+]
 
 // Mobile open state, shared with the navbar menu button.
 const NavContext = createContext<{
@@ -92,6 +100,29 @@ export function Sidebar() {
               >
                 All components
               </NavItem>
+            </div>
+            <div className="mb-6 flex flex-col">
+              <NavTitle icon={BookOpenIcon}>Guides</NavTitle>
+              {guides.map((g) => {
+                const current = pathname.startsWith(g.href)
+                return (
+                  <NavItem
+                    key={g.href}
+                    id={g.href}
+                    active={current}
+                    className="ml-2"
+                    render={(p) => (
+                      <Link
+                        href={g.href}
+                        aria-current={current ? "page" : undefined}
+                        {...p}
+                      />
+                    )}
+                  >
+                    {g.label}
+                  </NavItem>
+                )
+              })}
             </div>
             {groups.map((g) => (
               <div key={g.id} className="mb-6 flex flex-col">

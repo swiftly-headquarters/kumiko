@@ -1,0 +1,62 @@
+[
+  {
+    "prop": "Flow orientation",
+    "type": "\"horizontal\" | \"vertical\"",
+    "default": "\"horizontal\"",
+    "description": "Direction the diagram flows."
+  },
+  {
+    "prop": "Flow align",
+    "type": "\"start\" | \"center\"",
+    "default": "\"start\"",
+    "description": "Cross-axis alignment of nodes and connectors. Use center for nodes of different sizes."
+  },
+  {
+    "prop": "Flow arrows",
+    "type": "boolean",
+    "default": "false",
+    "description": "Shows an arrowhead on every connector that leads into a node."
+  },
+  {
+    "prop": "Flow animated",
+    "type": "boolean",
+    "default": "inherits",
+    "description": "Turns the node entrance animation on or off."
+  },
+  {
+    "prop": "Flow className",
+    "type": "string",
+    "default": "-",
+    "description": "Classes for the scrolling container."
+  },
+  {
+    "prop": "FlowNode render",
+    "type": "ReactElement",
+    "default": "-",
+    "description": "Replaces the default node element, including its styles."
+  },
+  {
+    "prop": "FlowNode disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Fades the node and the connectors that touch it."
+  },
+  {
+    "prop": "FlowParallel align",
+    "type": "\"start\" | \"end\"",
+    "default": "\"start\"",
+    "description": "Which side differently sized branches line up on."
+  },
+  {
+    "prop": "FlowParallel children",
+    "type": "ReactNode",
+    "default": "-",
+    "description": "One branch per child: a FlowNode, or a FlowList for a sequence."
+  },
+  {
+    "prop": "FlowList children",
+    "type": "ReactNode",
+    "default": "-",
+    "description": "Nodes connected in sequence, for use inside FlowParallel."
+  }
+]

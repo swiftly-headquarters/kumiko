@@ -314,6 +314,22 @@
       ]
     },
     {
+      "name": "flow",
+      "type": "registry:ui",
+      "title": "flow",
+      "description": "Directed flow diagram of nodes, connectors and parallel branches.",
+      "registryDependencies": [
+        "motion",
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "components/ui/flow.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "world-map",
       "type": "registry:ui",
       "title": "world-map",

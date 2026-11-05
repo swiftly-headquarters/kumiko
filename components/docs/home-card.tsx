@@ -8,7 +8,7 @@ import type { ComponentEntry } from "@/lib/docs/types"
 // <button> and <input>, which are invalid inside an <a>.
 export function HomeCard({ entry }: { entry: ComponentEntry }) {
   return (
-    <div className="group relative flex flex-col rounded-2xl bg-accent p-1.5">
+    <div className="group relative flex flex-col rounded-2xl bg-accent p-1.5 transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0">
       <Link
         href={`/components/${entry.slug}`}
         aria-label={entry.title}

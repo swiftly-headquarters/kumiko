@@ -1,0 +1,16 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "components/ui/flow.tsx"
+        ],
+        "createdAt": "2026-11-05T20:31:47.881Z"
+      }
+    ]
+  }
+}

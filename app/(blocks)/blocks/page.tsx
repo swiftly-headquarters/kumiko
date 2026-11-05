@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { ExternalLinkIcon } from "lucide-react"
 
 import { ButtonLink } from "@/components/docs/button-link"
@@ -78,6 +79,34 @@ export default function Page() {
           )
         })}
       </main>
+      <footer className="border-t">
+        <div className="mx-auto flex h-16 max-w-[90rem] items-center justify-between px-4 text-sm text-muted-foreground md:px-6">
+          <span>
+            Kumiko by{" "}
+            <a
+              href="https://swiftlylabs.net"
+              rel="noopener noreferrer"
+              className="hover:text-foreground"
+            >
+              SwiftlyLabs
+            </a>
+          </span>
+          <nav aria-label="Footer" className="flex gap-5">
+            <Link href="/components" className="hover:text-foreground">
+              Docs
+            </Link>
+            <Link href="/contributing" className="hover:text-foreground">
+              Contributing
+            </Link>
+            <Link href="/accessibility" className="hover:text-foreground">
+              Accessibility
+            </Link>
+            <Link href="/skill" className="hover:text-foreground">
+              Design skill
+            </Link>
+          </nav>
+        </div>
+      </footer>
     </>
   )
 }

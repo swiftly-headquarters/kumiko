@@ -389,6 +389,14 @@ export const components: ComponentEntry[] = [
     description: "Thin line that divides content, horizontal or vertical.",
   },
   {
+    slug: "flow",
+    title: "Flow",
+    group: "display",
+    visual: true,
+    description:
+      "Directed flow diagram of nodes and connectors, with parallel branches.",
+  },
+  {
     slug: "skeleton",
     title: "Skeleton",
     group: "display",

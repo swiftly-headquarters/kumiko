@@ -2,7 +2,9 @@ import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 
 import { ButtonLink } from "@/components/docs/button-link"
+import { Words } from "@/components/docs/hero-fx"
 import { Intro } from "@/components/docs/intro"
+import { Logo } from "@/components/docs/logo"
 import { HomeCard } from "@/components/docs/home-card"
 import { Navbar } from "@/components/docs/navbar"
 import { PmCommand } from "@/components/docs/pm-command"
@@ -21,15 +23,19 @@ export default function Page() {
       <Intro />
       <Navbar />
       <main className="mx-auto flex max-w-6xl flex-col items-center px-4 md:px-6">
-        <section className="flex w-full min-w-0 flex-col items-center gap-6 py-20 text-center md:py-28">
+        <section className="relative flex w-full min-w-0 flex-col items-center gap-6 py-20 text-center md:py-28">
           <Rise>
-            <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl">
-              Kumiko, the animated UI library by SwiftlyLabs
-            </h1>
+            <Logo draw className="size-14 text-foreground" />
           </Rise>
+          <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-6xl">
+            <Words
+              text="Kumiko, the UI library for SwiftlyLabs"
+              shine="Kumiko"
+            />
+          </h1>
           <Rise index={1}>
             <p className="max-w-xl text-lg text-balance text-muted-foreground">
-              {components.length} components, crafted by SwiftlyLabs
+              {components.length} components, crafted for SwiftlyLabs
               on ShadCN and Motion. Add any of them to your project in one
               command.
             </p>
@@ -82,10 +88,30 @@ export default function Page() {
       </main>
       <footer className="border-t">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 text-sm text-muted-foreground md:px-6">
-          <span>Kumiko by SwiftlyLabs</span>
-          <Link href="/components" className="hover:text-foreground">
-            Docs
-          </Link>
+          <span>
+            Kumiko by{" "}
+            <a
+              href="https://swiftlylabs.net"
+              rel="noopener noreferrer"
+              className="hover:text-foreground"
+            >
+              SwiftlyLabs
+            </a>
+          </span>
+          <nav className="flex gap-5">
+            <Link href="/components" className="hover:text-foreground">
+              Docs
+            </Link>
+            <Link href="/contributing" className="hover:text-foreground">
+              Contributing
+            </Link>
+            <Link href="/accessibility" className="hover:text-foreground">
+              Accessibility
+            </Link>
+            <Link href="/skill" className="hover:text-foreground">
+              Design skill
+            </Link>
+          </nav>
         </div>
       </footer>
     </>

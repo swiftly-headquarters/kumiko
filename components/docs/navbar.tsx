@@ -17,6 +17,10 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/components", label: "Components" },
   { href: "/blocks", label: "Blocks" },
+  // Guides only fit next to the search box on wide screens.
+  { href: "/contributing", label: "Contributing", wide: true },
+  { href: "/accessibility", label: "Accessibility", wide: true },
+  { href: "/skill", label: "Design skill", wide: true },
 ]
 
 export function Navbar({ menu = false }: { menu?: boolean }) {
@@ -76,7 +80,8 @@ export function Navbar({ menu = false }: { menu?: boolean }) {
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "inline-flex h-8 items-center rounded-md px-3 text-neutral-700 transition-colors hover:text-black dark:text-neutral-200 dark:hover:text-white",
-                  active && "text-black dark:text-white"
+                  active && "text-black dark:text-white",
+                  l.wide && "hidden lg:inline-flex"
                 )}
               >
                 {l.label}
