@@ -17,6 +17,7 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/components", label: "Components" },
   { href: "/blocks", label: "Blocks" },
+  { href: "/create", label: "Create" },
   // Guides only fit next to the search box on wide screens.
   { href: "/contributing", label: "Contributing", wide: true },
   { href: "/accessibility", label: "Accessibility", wide: true },
@@ -69,7 +70,10 @@ export function Navbar({ menu = false }: { menu?: boolean }) {
           <Logo className="size-6" />
           Kumiko
         </Link>
-        <nav aria-label="Main" className="hidden items-center gap-1 text-sm sm:flex">
+        <nav
+          aria-label="Main"
+          className="hidden items-center gap-1 text-sm sm:flex"
+        >
           {links.map((l) => {
             const active =
               l.href === "/" ? pathname === "/" : pathname.startsWith(l.href)
@@ -115,7 +119,9 @@ export function Navbar({ menu = false }: { menu?: boolean }) {
             variant="ghost"
             size="icon"
             aria-label="Toggle theme"
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            onClick={() =>
+              setTheme(resolvedTheme === "dark" ? "light" : "dark")
+            }
           >
             <SunIcon className="dark:hidden" />
             <MoonIcon className="hidden dark:block" />

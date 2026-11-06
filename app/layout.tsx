@@ -34,6 +34,7 @@ export default function RootLayout({
       )}
     >
       <body>
+
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

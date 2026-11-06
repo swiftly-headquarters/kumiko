@@ -19,6 +19,10 @@ function load(slug: string, demo: string) {
   return C
 }
 
+export function preloadDemo(slug: string, demo: string) {
+  void import(`@/docs/demos/${slug}/${demo}`)
+}
+
 export function DemoRender({
   slug,
   demo,

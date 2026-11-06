@@ -78,7 +78,7 @@ export function Sidebar() {
       )}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-72 overflow-y-auto [scrollbar-width:thin] [scrollbar-color:var(--border)_transparent] bg-background p-5 md:sticky md:top-17 md:z-auto md:block md:h-[calc(100svh-4.25rem)] md:w-auto md:px-0 md:py-6 md:pr-6",
+          "fixed inset-y-0 left-0 z-50 w-72 scrollbar-thin [scrollbar-color:var(--border)_transparent] overflow-y-auto bg-background p-5 md:sticky md:top-17 md:z-auto md:block md:h-[calc(100svh-4.25rem)] md:w-auto md:px-0 md:py-6 md:pr-6",
           open ? "block" : "hidden"
         )}
       >
@@ -93,7 +93,9 @@ export function Sidebar() {
                 render={(p) => (
                   <Link
                     href="/components"
-                    aria-current={pathname === "/components" ? "page" : undefined}
+                    aria-current={
+                      pathname === "/components" ? "page" : undefined
+                    }
                     {...p}
                   />
                 )}
