@@ -420,7 +420,7 @@ export function ThemeBuilder({
   )
 }
 
-function ModeToggle() {
+export function ModeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
   const mounted = useSyncExternalStore(
     () => () => {},

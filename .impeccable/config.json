@@ -10,6 +10,24 @@
           "components/ui/flow.tsx"
         ],
         "createdAt": "2026-11-05T20:31:47.881Z"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/320-1794165624/content/builder-layout.html"
+        ],
+        "createdAt": "2026-11-08T19:21:16.027Z",
+        "reason": "agent: throwaway brainstorm wireframe, intentionally miniaturized mock of builder UI"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/320-1794165624/content/builder-layout.html"
+        ],
+        "createdAt": "2026-11-08T19:21:16.284Z",
+        "reason": "agent: throwaway brainstorm wireframe, intentionally miniaturized mock of builder UI"
       }
     ]
   }

@@ -18,6 +18,7 @@ const links = [
   { href: "/components", label: "Components" },
   { href: "/blocks", label: "Blocks" },
   { href: "/create", label: "Create" },
+  { href: "/builder", label: "Builder" },
   // Guides only fit next to the search box on wide screens.
   { href: "/contributing", label: "Contributing", wide: true },
   { href: "/accessibility", label: "Accessibility", wide: true },
