@@ -19,6 +19,7 @@ export type Jsx = { $jsx: Node }
 export const UI = "@/components/ui/"
 export const ICONS = "lucide-react"
 export const CHARTS = "recharts"
+export const REGISTRY = "https://kumiko.swiftlylabs.net"
 
 export const isJsx = (v: unknown): v is Jsx =>
   typeof v === "object" && v !== null && "$jsx" in v

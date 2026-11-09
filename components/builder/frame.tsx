@@ -162,7 +162,13 @@ export function Frame() {
       const at = dropTarget(stateRef.current!.tree, e.clientX, e.clientY, moving.current)
       moving.current = null
       setDrop(null)
-      if (at) post({ type: "drop", data: JSON.parse(raw), parent: at.parent, index: at.index })
+      let data: DragData
+      try {
+        data = JSON.parse(raw)
+      } catch {
+        return
+      }
+      if (at) post({ type: "drop", data, parent: at.parent, index: at.index })
     }
     const clear = (e: Event) => {
       if (e.type !== "dragleave" || !(e as DragEvent).relatedTarget) setDrop(null)

@@ -13,6 +13,7 @@ import {
   LinkIcon,
   MonitorIcon,
   MoveHorizontalIcon,
+  PlugIcon,
   Redo2Icon,
   RulerIcon,
   SmartphoneIcon,
@@ -22,10 +23,11 @@ import {
 } from "lucide-react"
 
 import type { DragData, FromFrame, ToFrame } from "@/components/builder/frame"
-import { Inspector, Layers, Output, Palette, entryOf } from "@/components/builder/panels"
+import { Highlighted, Inspector, Layers, Output, Palette, entryOf } from "@/components/builder/panels"
 import { Logo } from "@/components/docs/logo"
 import { ModeToggle } from "@/components/docs/theme-builder"
 import { Button } from "@/components/ui/button"
+import { CodeBlock, CodeBlockActions, CodeBlockContent, CodeBlockCopyButton } from "@/components/ui/code-block"
 import {
   Dialog,
   DialogContent,
@@ -93,6 +95,27 @@ function Tip({
   )
 }
 
+function McpConnect() {
+  const cmd = `claude mcp add --transport http kumiko ${location.origin}/mcp`
+  return (
+    <div className="flex min-w-0 flex-col gap-4">
+      <CodeBlock>
+        <CodeBlockActions>
+          <CodeBlockCopyButton value={cmd} aria-label="Copy connect command" />
+        </CodeBlockActions>
+        <CodeBlockContent wrap className="mr-10">
+          <Highlighted code={cmd} lang="bash" />
+        </CodeBlockContent>
+      </CodeBlock>
+      <ul className="grid gap-2 text-sm">
+        <li><code className="font-mono">list_components</code>: every component and its parts</li>
+        <li><code className="font-mono">get_component</code>: props, allowed values and examples</li>
+        <li><code className="font-mono">build_page</code>: checks a page, returns View and Edit links, install command and code</li>
+      </ul>
+    </div>
+  )
+}
+
 const blank = (): Node => ({
   id: uid(),
   n: "div",
@@ -112,6 +135,7 @@ export function Builder({ catalog }: { catalog: Catalog }) {
   const [stage, setStage] = useState({ w: 0, h: 0 })
   const [full, setFull] = useState(false)
   const [codeOpen, setCodeOpen] = useState(false)
+  const [mcpOpen, setMcpOpen] = useState(false)
   const [copied, setCopied] = useState(false)
   const frame = useRef<HTMLIFrameElement>(null)
   const canvas = useRef<HTMLDivElement>(null)
@@ -354,6 +378,11 @@ export function Builder({ catalog }: { catalog: Catalog }) {
               <ExternalLinkIcon />
             </Button>
           </Tip>
+          <Tip label="Use with AI (MCP)">
+            <Button variant="ghost" size="icon-sm" aria-label="Use with AI (MCP)" onClick={() => setMcpOpen(true)}>
+              <PlugIcon />
+            </Button>
+          </Tip>
           <ModeToggle />
           <Button size="sm" className="ml-1" onClick={() => setCodeOpen(true)}>
             Get code
@@ -367,6 +396,17 @@ export function Builder({ catalog }: { catalog: Catalog }) {
                 </DialogDescription>
               </DialogHeader>
               <Output tree={tree} />
+            </DialogContent>
+          </Dialog>
+          <Dialog open={mcpOpen} onOpenChange={setMcpOpen}>
+            <DialogContent className="sm:max-w-xl">
+              <DialogHeader>
+                <DialogTitle>Use with AI</DialogTitle>
+                <DialogDescription>
+                  Connect an MCP client. Ask it for a UI and it returns a link to view and edit the page.
+                </DialogDescription>
+              </DialogHeader>
+              <McpConnect />
             </DialogContent>
           </Dialog>
         </div>

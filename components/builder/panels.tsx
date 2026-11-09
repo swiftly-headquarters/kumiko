@@ -43,12 +43,12 @@ import {
   toCode,
   uid,
   valid,
+  REGISTRY,
   type Node,
   type Props,
 } from "@/lib/builder/tree"
 import { cn } from "@/lib/utils"
 
-export const REGISTRY = "https://kumiko.swiftlylabs.net"
 
 const startDrag = (e: DragEvent, data: DragData) => {
   e.dataTransfer.setData(DRAG_TYPE, JSON.stringify(data))
@@ -262,10 +262,16 @@ export function Layers({
             setHint(null)
             if (!raw) return
             e.preventDefault()
+            let data: DragData
+            try {
+              data = JSON.parse(raw)
+            } catch {
+              return
+            }
             const zone = zoneOf(e, n)
             const at = parentOf(tree, n.id)
-            if (zone === "inside" || !at) onMove(JSON.parse(raw), n.id, n.c?.length ?? 0)
-            else onMove(JSON.parse(raw), at[0].id, at[1] + (zone === "after" ? 1 : 0))
+            if (zone === "inside" || !at) onMove(data, n.id, n.c?.length ?? 0)
+            else onMove(data, at[0].id, at[1] + (zone === "after" ? 1 : 0))
           }}
           onClick={() => onSelect(n.id)}
           aria-current={selected === n.id || undefined}
@@ -518,7 +524,7 @@ function JsonProps({ value, onApply }: { value: Props; onApply: (v: Props) => vo
 const runners = { npm: "npx", pnpm: "pnpm dlx", yarn: "yarn dlx", bun: "bunx --bun" }
 
 // Client-side shiki: plain text until the grammar loads, then highlighted lines.
-function Highlighted({ code, lang }: { code: string; lang: string }) {
+export function Highlighted({ code, lang }: { code: string; lang: string }) {
   const [out, setOut] = useState<{ code: string; lines: ReactNode[] } | null>(null)
   useEffect(() => {
     let live = true
