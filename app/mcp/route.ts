@@ -9,6 +9,9 @@ import { icons } from "lucide-react"
 import * as z from "zod"
 
 import { getCatalog, getPresets } from "@/lib/builder/catalog"
+import { blocks, getBlock } from "@/lib/docs/blocks"
+import { components } from "@/lib/docs/components"
+import { listExamples, readDemoSource, readProps, readRegistryItem } from "@/lib/docs/source"
 import {
   ICONS,
   REGISTRY,
@@ -31,6 +34,15 @@ const FORMAT = `A page is one JSON node tree. A node is one of:
 Props are JSON. A prop that takes JSX (for example render) is { "$jsx": node }. Style with Tailwind in className.
 Plain elements take only className, style, id, role, title, alt, src, href, target, rel, type, width, height, aria-* and data-*. No event handlers.
 The root is usually { "n": "div", "p": { "className": "flex min-h-svh flex-col gap-6 p-6" }, "c": [...] }. Ids are optional.`
+
+const sourceNames = new Set([...components.map((c) => c.slug), ...blocks.map((b) => b.name)])
+const safe = <T,>(f: () => T): T | undefined => {
+  try {
+    return f()
+  } catch {
+    return undefined
+  }
+}
 
 const text = (s: string) => ({ content: [{ type: "text" as const, text: s }] })
 const fail = (s: string) => ({ ...text(s), isError: true })
@@ -59,7 +71,7 @@ function unknownNames(root: Node): string[] {
 }
 
 function server(origin: string) {
-  const mcp = new McpServer({ name: "kumiko-builder", version: "0.0.1" })
+  const mcp = new McpServer({ name: "kumiko", version: "0.0.1" })
 
   mcp.registerTool(
     "list_components",
@@ -126,6 +138,95 @@ function server(origin: string) {
           .filter(Boolean)
           .join("\n\n")
       )
+    }
+  )
+
+  mcp.registerTool(
+    "get_component_docs",
+    {
+      title: "Get component docs",
+      description: "Returns a component's docs: install command, dependencies, API props table and every usage example as source code. Use get_source for the component's own source.",
+      inputSchema: z.object({ slug: z.string().describe("Component slug from list_components") }),
+      annotations: { readOnlyHint: true },
+    },
+    async ({ slug }) => {
+      const entry = components.find((c) => c.slug === slug)
+      if (!entry) return fail(`No component "${slug}". Call list_components for the slugs.`)
+      const item = safe(() => readRegistryItem(slug))
+      return text(
+        JSON.stringify({
+          title: entry.title,
+          description: entry.description,
+          docs: `${origin}/components/${slug}`,
+          install: `npx shadcn@latest add ${REGISTRY}/r/${slug}.json`,
+          dependencies: item?.dependencies,
+          registryDependencies: item?.registryDependencies,
+          props: safe(() => readProps(slug)),
+          examples: listExamples(slug).map((ex) => ({
+            title: ex.title,
+            note: ex.note,
+            code: safe(() => readDemoSource(slug, ex.demo)),
+          })),
+        })
+      )
+    }
+  )
+
+  mcp.registerTool(
+    "list_blocks",
+    {
+      title: "List blocks",
+      description: "Lists the ready-made layouts (blocks) with name and description. Call get_block for details.",
+      annotations: { readOnlyHint: true },
+    },
+    async () => text(blocks.map((b) => `- ${b.name}: ${b.title}. ${b.description}`).join("\n"))
+  )
+
+  mcp.registerTool(
+    "get_block",
+    {
+      title: "Get block",
+      description: "Returns a block's install command, preview link, dependencies and file list. Use get_source for the code.",
+      inputSchema: z.object({ name: z.string().describe("Block name from list_blocks, for example dashboard-01") }),
+      annotations: { readOnlyHint: true },
+    },
+    async ({ name }) => {
+      const block = getBlock(name)
+      if (!block) return fail(`No block "${name}". Call list_blocks for the names.`)
+      const item = safe(() => readRegistryItem(name))
+      return text(
+        JSON.stringify({
+          title: block.title,
+          description: block.description,
+          preview: `${origin}/view/${name}`,
+          docs: `${origin}/blocks#${name}`,
+          install: `npx shadcn@latest add ${REGISTRY}/r/${name}.json`,
+          dependencies: item?.dependencies,
+          registryDependencies: item?.registryDependencies,
+          files: item?.files.map((f) => f.path),
+        })
+      )
+    }
+  )
+
+  mcp.registerTool(
+    "get_source",
+    {
+      title: "Get source",
+      description: "Returns the source files of a component or block, as shipped by the registry.",
+      inputSchema: z.object({
+        name: z.string().describe("Component slug or block name"),
+        file: z.string().optional().describe("Only files whose path contains this text"),
+      }),
+      annotations: { readOnlyHint: true },
+    },
+    async ({ name, file }) => {
+      if (!sourceNames.has(name)) return fail(`No component or block "${name}".`)
+      const item = safe(() => readRegistryItem(name))
+      if (!item) return fail(`No source for "${name}".`)
+      const files = item.files.filter((f) => !file || f.path.includes(file))
+      if (!files.length) return fail(`No file matches "${file}". Files: ${item.files.map((f) => f.path).join(", ")}`)
+      return text(files.map((f) => `// ${f.path}\n${f.content}`).join("\n\n"))
     }
   )
 

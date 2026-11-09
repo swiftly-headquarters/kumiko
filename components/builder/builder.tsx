@@ -111,6 +111,7 @@ function McpConnect() {
         <li><code className="font-mono">list_components</code>: every component and its parts</li>
         <li><code className="font-mono">get_component</code>: props, allowed values and examples</li>
         <li><code className="font-mono">build_page</code>: checks a page, returns View and Edit links, install command and code</li>
+        <li><code className="font-mono">get_component_docs</code>, <code className="font-mono">list_blocks</code>, <code className="font-mono">get_block</code>, <code className="font-mono">get_source</code>: docs, blocks and source of every component</li>
       </ul>
     </div>
   )
