@@ -301,7 +301,7 @@ function SidebarRail({
   className,
   ...props
 }: ComponentProps<typeof motion.button>) {
-  const gestures = useGestures({ whileTap: { scale: 0.9 } })
+  const gestures = useGestures({ whileTap: { scale: 0.95 } })
   const { toggleSidebar, setOpen } = useSidebar()
   const dragged = useRef(false)
 

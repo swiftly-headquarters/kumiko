@@ -86,7 +86,7 @@ function DrawerSwipeHandle({
   className,
   ...props
 }: ComponentProps<typeof motion.div>) {
-  const gestures = useGestures({ whileTap: { scale: 0.9 } })
+  const gestures = useGestures({ whileTap: { scale: 0.95 } })
   return (
     <motion.div
       data-slot="drawer-swipe-handle"

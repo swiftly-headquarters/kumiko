@@ -124,9 +124,9 @@ function CodeBlockCopyButton({
           {copied ? (
             <motion.span
               key="check"
-              initial={{ opacity: 0, scale: 0.5 }}
+              initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5 }}
+              exit={{ opacity: 0, scale: 0.85 }}
               transition={fast}
               className="inline-flex"
             >
@@ -135,9 +135,9 @@ function CodeBlockCopyButton({
           ) : (
             <motion.span
               key="copy"
-              initial={{ opacity: 0, scale: 0.5 }}
+              initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5 }}
+              exit={{ opacity: 0, scale: 0.85 }}
               transition={fast}
               className="inline-flex"
             >

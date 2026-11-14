@@ -48,7 +48,7 @@ function AttachmentBase({
       data-size={size}
       data-orientation={orientation}
       layout
-      initial={{ opacity: 0, scale: 0.96 }}
+      initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={softSpring}
       className={cn(attachmentVariants({ size, orientation }), className)}

@@ -14,29 +14,17 @@ import {
 } from "@/components/ui/sidebar"
 import {
   navGroups,
-  product,
+  orgs,
   settingsItem,
 } from "@/components/blocks/dashboard-01/data"
 import { NavMain } from "@/components/blocks/dashboard-01/nav-main"
+import { OrgSwitcher } from "@/components/blocks/dashboard-01/org-switcher"
 
 export function AppSidebar(props: ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar variant="inset" collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              size="lg"
-              className="group-data-[collapsible=icon]:p-1!"
-              render={<a href="#" />}
-            >
-              <product.logo className="size-6! shrink-0" />
-              <span className="truncate text-base font-semibold">
-                {product.name}
-              </span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <OrgSwitcher orgs={orgs} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain groups={navGroups} />

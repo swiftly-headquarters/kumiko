@@ -29,7 +29,7 @@ function MenubarBase({ className, ...props }: MenubarPrimitive.Props) {
     <MenubarPrimitive
       data-slot="menubar"
       className={cn(
-        "flex h-8 items-center gap-0.5 rounded-lg border p-[3px]",
+        "flex h-9 items-center gap-0.5 rounded-lg border p-[3px]",
         className
       )}
       {...props}
@@ -84,7 +84,7 @@ function MenubarContent({
       alignOffset={alignOffset}
       sideOffset={sideOffset}
       className={cn(
-        "min-w-36 rounded-lg bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:fade-in-0 data-open:zoom-in-95",
+        "min-w-36 rounded-lg bg-popover p-1 text-popover-foreground shadow-md ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-1 data-[side=inline-end]:slide-in-from-left-1 data-[side=inline-start]:slide-in-from-right-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-open:fade-in-0 data-open:zoom-in-98",
         animated && "data-open:animate-in",
         className
       )}
@@ -139,7 +139,7 @@ function MenubarCheckboxItem({
         <MenuPrimitive.CheckboxItemIndicator
           render={
             <motion.span
-              initial={{ opacity: 0, scale: 0.5 }}
+              initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={spring}
             />
@@ -183,7 +183,7 @@ function MenubarRadioItem({
         <MenuPrimitive.RadioItemIndicator
           render={
             <motion.span
-              initial={{ opacity: 0, scale: 0.5 }}
+              initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={spring}
             />
@@ -279,7 +279,7 @@ function MenubarSubContent({
     <DropdownMenuSubContent
       data-slot="menubar-sub-content"
       className={cn(
-        "min-w-32 rounded-lg bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:fade-in-0 data-open:zoom-in-95 data-closed:fade-out-0 data-closed:zoom-out-95",
+        "min-w-32 rounded-lg bg-popover p-1 text-popover-foreground shadow-lg ring-1 ring-foreground/10 duration-100 data-[side=bottom]:slide-in-from-top-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-1 data-open:fade-in-0 data-open:zoom-in-98 data-closed:fade-out-0 data-closed:zoom-out-98",
         animated && "data-open:animate-in data-closed:animate-out",
         className
       )}

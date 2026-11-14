@@ -298,7 +298,7 @@ function FlowNode({
           "flex shrink-0 items-center",
           // A custom `render` owns the whole look.
           !render &&
-            "min-h-9 animate-in rounded-lg border bg-card px-3 text-sm whitespace-nowrap text-card-foreground shadow-xs duration-300 fade-in-0 zoom-in-95 [animation-fill-mode:backwards] motion-reduce:animate-none",
+            "min-h-9 animate-in rounded-lg border bg-card px-3 text-sm whitespace-nowrap text-card-foreground shadow-xs duration-300 fade-in-0 zoom-in-98 [animation-fill-mode:backwards] motion-reduce:animate-none",
           disabled && "opacity-50",
           className
         ),

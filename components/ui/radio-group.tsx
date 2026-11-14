@@ -32,7 +32,7 @@ function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
         data-slot="radio-group-indicator"
         render={
           <motion.span
-            initial={{ scale: 0, opacity: 0 }}
+            initial={{ scale: 0.6, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={spring}
           />

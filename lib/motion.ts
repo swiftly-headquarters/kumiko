@@ -68,26 +68,26 @@ export function useGestures<T extends object>(gestures: T): Partial<T> {
 // Shared motion presets so every component animates with the same feel.
 export const spring: Transition = {
   type: "spring",
-  stiffness: 400,
-  damping: 30,
+  stiffness: 380,
+  damping: 38,
 }
 
 export const softSpring: Transition = {
   type: "spring",
   stiffness: 260,
-  damping: 26,
+  damping: 32,
 }
 
-export const fast: Transition = { duration: 0.15, ease: "easeOut" }
+export const fast: Transition = { duration: 0.2, ease: "easeOut" }
 
 // Overlay popups (popover, menus, tooltip, select, hover-card).
 export const popup: Variants = {
-  hidden: { opacity: 0, scale: 0.96, y: -4 },
+  hidden: { opacity: 0, scale: 0.98, y: -2 },
   visible: { opacity: 1, scale: 1, y: 0 },
 }
 
 // Tap/hover feedback for pressable things.
-export const press = { whileHover: { scale: 1.03 }, whileTap: { scale: 0.96 } }
+export const press = { whileTap: { scale: 0.98 } }
 export const usePress = () => useGestures(press)
 
 // Scale + fade that slides in from the side the popup opens toward, like the
@@ -96,16 +96,16 @@ export function popFrom(
   side: "top" | "bottom" | "left" | "right" | "inline-start" | "inline-end"
 ): Variants {
   const from = {
-    top: { y: 8 },
-    bottom: { y: -8 },
-    left: { x: 8 },
-    "inline-start": { x: 8 },
-    right: { x: -8 },
-    "inline-end": { x: -8 },
+    top: { y: 4 },
+    bottom: { y: -4 },
+    left: { x: 4 },
+    "inline-start": { x: 4 },
+    right: { x: -4 },
+    "inline-end": { x: -4 },
   }[side]
 
   return {
-    hidden: { opacity: 0, scale: 0.95, ...from },
+    hidden: { opacity: 0, scale: 0.98, ...from },
     visible: { opacity: 1, scale: 1, x: 0, y: 0 },
   }
 }

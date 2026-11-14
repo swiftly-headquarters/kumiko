@@ -50,7 +50,7 @@ export function AppSearch() {
         onClick={() => setOpen(true)}
         aria-label="Search"
         // Narrow header: square icon button. Wide header: full search field.
-        className="size-9 max-w-xl justify-center gap-2 bg-muted/40 px-0 font-normal text-muted-foreground shadow-none @2xl/header:w-full @2xl/header:min-w-0 @2xl/header:shrink @2xl/header:justify-start @2xl/header:px-2.5"
+        className="size-9 max-w-xl justify-center gap-2 px-0 font-normal text-muted-foreground shadow-none @2xl/header:w-full @2xl/header:min-w-0 @2xl/header:shrink @2xl/header:justify-start @2xl/header:px-2.5"
       >
         <SearchIcon />
         <span className="hidden flex-1 truncate text-left @2xl/header:block">
@@ -70,7 +70,9 @@ export function AppSearch() {
           {apps.map((app, i) => (
             <div key={app.name}>
               {i > 0 && <CommandSeparator />}
-              <CommandGroup heading={app.current ? `${app.name} (this app)` : app.name}>
+              <CommandGroup
+                heading={app.current ? `${app.name} (this app)` : app.name}
+              >
                 {!app.current && (
                   <CommandItem
                     value={`${app.name} open app`}

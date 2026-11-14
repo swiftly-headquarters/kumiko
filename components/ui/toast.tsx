@@ -124,7 +124,7 @@ function ToastClose({
   render = <Button variant="ghost" size="icon-sm" />,
   ...props
 }: ToastPrimitive.Close.Props) {
-  const gestures = useGestures({ whileHover: { rotate: 90 } })
+  const gestures = useGestures({ whileTap: { scale: 0.95 } })
   return (
     <ToastPrimitive.Close
       data-slot="toast-close"
@@ -185,9 +185,9 @@ function ToastIcon({ type }: { type: string | undefined }) {
         <motion.span
           key={type}
           className="inline-flex"
-          initial={{ opacity: 0, scale: 0.5 }}
+          initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
+          exit={{ opacity: 0, scale: 0.85 }}
           transition={fast}
         >
           {icon}

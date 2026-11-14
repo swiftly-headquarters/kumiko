@@ -8,10 +8,7 @@
       "type": "registry:lib",
       "title": "Utils",
       "description": "cn() class merge helper.",
-      "dependencies": [
-        "clsx",
-        "tailwind-merge"
-      ],
+      "dependencies": ["clsx", "tailwind-merge"],
       "files": [
         {
           "path": "lib/utils.ts",
@@ -24,9 +21,7 @@
       "type": "registry:lib",
       "title": "Motion",
       "description": "Animations toggle, animated prop and shared motion presets.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "lib/motion.ts",
@@ -45,14 +40,8 @@
       "type": "registry:ui",
       "title": "accordion",
       "description": "accordion component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/accordion.tsx",
@@ -65,14 +54,8 @@
       "type": "registry:ui",
       "title": "alert-dialog",
       "description": "alert-dialog component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "button",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["button", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/alert-dialog.tsx",
@@ -85,13 +68,8 @@
       "type": "registry:ui",
       "title": "alert",
       "description": "alert component.",
-      "dependencies": [
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/alert.tsx",
@@ -105,9 +83,7 @@
       "title": "aspect-ratio",
       "description": "aspect-ratio component.",
       "dependencies": [],
-      "registryDependencies": [
-        "utils"
-      ],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/aspect-ratio.tsx",
@@ -120,15 +96,8 @@
       "type": "registry:ui",
       "title": "attachment",
       "description": "attachment component.",
-      "dependencies": [
-        "@base-ui/react",
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "button",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["button", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/attachment.tsx",
@@ -141,13 +110,8 @@
       "type": "registry:ui",
       "title": "avatar",
       "description": "avatar component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/avatar.tsx",
@@ -160,14 +124,8 @@
       "type": "registry:ui",
       "title": "badge",
       "description": "badge component.",
-      "dependencies": [
-        "@base-ui/react",
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/badge.tsx",
@@ -180,14 +138,8 @@
       "type": "registry:ui",
       "title": "breadcrumb",
       "description": "breadcrumb component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/breadcrumb.tsx",
@@ -200,14 +152,8 @@
       "type": "registry:ui",
       "title": "bubble",
       "description": "bubble component.",
-      "dependencies": [
-        "@base-ui/react",
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/bubble.tsx",
@@ -220,14 +166,8 @@
       "type": "registry:ui",
       "title": "button-group",
       "description": "button-group component.",
-      "dependencies": [
-        "@base-ui/react",
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "separator",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["separator", "utils"],
       "files": [
         {
           "path": "components/ui/button-group.tsx",
@@ -240,14 +180,8 @@
       "type": "registry:ui",
       "title": "button",
       "description": "button component.",
-      "dependencies": [
-        "@base-ui/react",
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/button.tsx",
@@ -260,15 +194,8 @@
       "type": "registry:ui",
       "title": "calendar",
       "description": "calendar component.",
-      "dependencies": [
-        "lucide-react",
-        "react-day-picker"
-      ],
-      "registryDependencies": [
-        "button",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["lucide-react", "react-day-picker"],
+      "registryDependencies": ["button", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/calendar.tsx",
@@ -282,9 +209,7 @@
       "title": "card",
       "description": "card component.",
       "dependencies": [],
-      "registryDependencies": [
-        "utils"
-      ],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/card.tsx",
@@ -297,15 +222,8 @@
       "type": "registry:ui",
       "title": "carousel",
       "description": "carousel component.",
-      "dependencies": [
-        "embla-carousel-react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["embla-carousel-react", "lucide-react"],
+      "registryDependencies": ["button", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/carousel.tsx",
@@ -318,10 +236,7 @@
       "type": "registry:ui",
       "title": "flow",
       "description": "Directed flow diagram of nodes, connectors and parallel branches.",
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/flow.tsx",
@@ -334,16 +249,8 @@
       "type": "registry:ui",
       "title": "world-map",
       "description": "SVG world map with choropleth, bubbles and status probes.",
-      "dependencies": [
-        "d3-geo",
-        "topojson-client",
-        "world-atlas",
-        "motion"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["d3-geo", "topojson-client", "world-atlas", "motion"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/world-map.tsx",
@@ -356,13 +263,8 @@
       "type": "registry:ui",
       "title": "chart",
       "description": "chart component.",
-      "dependencies": [
-        "recharts"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["recharts"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/chart.tsx",
@@ -375,14 +277,8 @@
       "type": "registry:ui",
       "title": "checkbox",
       "description": "checkbox component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/checkbox.tsx",
@@ -395,15 +291,8 @@
       "type": "registry:ui",
       "title": "code-block",
       "description": "code-block component.",
-      "dependencies": [
-        "class-variance-authority",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["class-variance-authority", "lucide-react"],
+      "registryDependencies": ["button", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/code-block.tsx",
@@ -416,12 +305,8 @@
       "type": "registry:ui",
       "title": "collapsible",
       "description": "collapsible component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "motion"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["motion"],
       "files": [
         {
           "path": "components/ui/collapsible.tsx",
@@ -434,16 +319,8 @@
       "type": "registry:ui",
       "title": "combobox",
       "description": "combobox component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "input-group",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["button", "input-group", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/combobox.tsx",
@@ -456,16 +333,8 @@
       "type": "registry:ui",
       "title": "command",
       "description": "command component.",
-      "dependencies": [
-        "cmdk",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "dialog",
-        "input-group",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["cmdk", "lucide-react"],
+      "registryDependencies": ["dialog", "input-group", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/command.tsx",
@@ -478,14 +347,8 @@
       "type": "registry:ui",
       "title": "context-menu",
       "description": "context-menu component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/context-menu.tsx",
@@ -498,15 +361,8 @@
       "type": "registry:ui",
       "title": "dialog",
       "description": "dialog component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["button", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/dialog.tsx",
@@ -519,9 +375,7 @@
       "type": "registry:ui",
       "title": "direction",
       "description": "direction component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
+      "dependencies": ["@base-ui/react"],
       "registryDependencies": [],
       "files": [
         {
@@ -535,13 +389,8 @@
       "type": "registry:ui",
       "title": "drawer",
       "description": "drawer component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/drawer.tsx",
@@ -554,14 +403,8 @@
       "type": "registry:ui",
       "title": "dropdown-menu",
       "description": "dropdown-menu component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/dropdown-menu.tsx",
@@ -574,13 +417,8 @@
       "type": "registry:ui",
       "title": "empty",
       "description": "empty component.",
-      "dependencies": [
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/empty.tsx",
@@ -593,15 +431,8 @@
       "type": "registry:ui",
       "title": "field",
       "description": "field component.",
-      "dependencies": [
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "label",
-        "motion",
-        "separator",
-        "utils"
-      ],
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["label", "motion", "separator", "utils"],
       "files": [
         {
           "path": "components/ui/field.tsx",
@@ -614,13 +445,8 @@
       "type": "registry:ui",
       "title": "hover-card",
       "description": "hover-card component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/hover-card.tsx",
@@ -633,15 +459,8 @@
       "type": "registry:ui",
       "title": "input-group",
       "description": "input-group component.",
-      "dependencies": [
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "button",
-        "input",
-        "textarea",
-        "utils"
-      ],
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["button", "input", "textarea", "utils"],
       "files": [
         {
           "path": "components/ui/input-group.tsx",
@@ -654,14 +473,8 @@
       "type": "registry:ui",
       "title": "input-otp",
       "description": "input-otp component.",
-      "dependencies": [
-        "input-otp",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["input-otp", "lucide-react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/input-otp.tsx",
@@ -674,12 +487,8 @@
       "type": "registry:ui",
       "title": "input",
       "description": "input component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/input.tsx",
@@ -692,15 +501,8 @@
       "type": "registry:ui",
       "title": "item",
       "description": "item component.",
-      "dependencies": [
-        "@base-ui/react",
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "motion",
-        "separator",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["motion", "separator", "utils"],
       "files": [
         {
           "path": "components/ui/item.tsx",
@@ -714,9 +516,7 @@
       "title": "kbd",
       "description": "kbd component.",
       "dependencies": [],
-      "registryDependencies": [
-        "utils"
-      ],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/kbd.tsx",
@@ -730,9 +530,7 @@
       "title": "label",
       "description": "label component.",
       "dependencies": [],
-      "registryDependencies": [
-        "utils"
-      ],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/label.tsx",
@@ -745,13 +543,8 @@
       "type": "registry:ui",
       "title": "marker",
       "description": "marker component.",
-      "dependencies": [
-        "@base-ui/react",
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/marker.tsx",
@@ -764,15 +557,8 @@
       "type": "registry:ui",
       "title": "menubar",
       "description": "menubar component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "dropdown-menu",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["dropdown-menu", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/menubar.tsx",
@@ -785,14 +571,8 @@
       "type": "registry:ui",
       "title": "message-scroller",
       "description": "message-scroller component.",
-      "dependencies": [
-        "@shadcn/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "utils"
-      ],
+      "dependencies": ["@shadcn/react", "lucide-react"],
+      "registryDependencies": ["button", "utils"],
       "files": [
         {
           "path": "components/ui/message-scroller.tsx",
@@ -806,10 +586,7 @@
       "title": "message",
       "description": "message component.",
       "dependencies": [],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/message.tsx",
@@ -822,12 +599,8 @@
       "type": "registry:ui",
       "title": "native-select",
       "description": "native-select component.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/native-select.tsx",
@@ -845,10 +618,7 @@
         "class-variance-authority",
         "lucide-react"
       ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/navigation-menu.tsx",
@@ -861,14 +631,8 @@
       "type": "registry:ui",
       "title": "pagination",
       "description": "pagination component.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/pagination.tsx",
@@ -881,13 +645,8 @@
       "type": "registry:ui",
       "title": "popover",
       "description": "popover component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/popover.tsx",
@@ -900,13 +659,8 @@
       "type": "registry:ui",
       "title": "progress",
       "description": "progress component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/progress.tsx",
@@ -919,15 +673,8 @@
       "type": "registry:ui",
       "title": "questionnaire",
       "description": "questionnaire component.",
-      "dependencies": [
-        "@shadcn/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@shadcn/react", "lucide-react"],
+      "registryDependencies": ["button", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/questionnaire.tsx",
@@ -940,13 +687,8 @@
       "type": "registry:ui",
       "title": "radio-group",
       "description": "radio-group component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/radio-group.tsx",
@@ -959,13 +701,8 @@
       "type": "registry:ui",
       "title": "resizable",
       "description": "resizable component.",
-      "dependencies": [
-        "react-resizable-panels"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["react-resizable-panels"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/resizable.tsx",
@@ -978,12 +715,8 @@
       "type": "registry:ui",
       "title": "scroll-area",
       "description": "scroll-area component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/scroll-area.tsx",
@@ -996,14 +729,8 @@
       "type": "registry:ui",
       "title": "select",
       "description": "select component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/select.tsx",
@@ -1016,12 +743,8 @@
       "type": "registry:ui",
       "title": "separator",
       "description": "separator component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/separator.tsx",
@@ -1034,15 +757,8 @@
       "type": "registry:ui",
       "title": "sheet",
       "description": "sheet component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["button", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/sheet.tsx",
@@ -1084,9 +800,7 @@
       "title": "skeleton",
       "description": "skeleton component.",
       "dependencies": [],
-      "registryDependencies": [
-        "utils"
-      ],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/skeleton.tsx",
@@ -1105,13 +819,8 @@
       "type": "registry:ui",
       "title": "slider",
       "description": "slider component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/slider.tsx",
@@ -1124,12 +833,8 @@
       "type": "registry:ui",
       "title": "spinner",
       "description": "spinner component.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "utils"
-      ],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/spinner.tsx",
@@ -1148,13 +853,8 @@
       "type": "registry:ui",
       "title": "switch",
       "description": "switch component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/switch.tsx",
@@ -1168,10 +868,7 @@
       "title": "table",
       "description": "table component.",
       "dependencies": [],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/table.tsx",
@@ -1184,14 +881,8 @@
       "type": "registry:ui",
       "title": "tabs",
       "description": "tabs component.",
-      "dependencies": [
-        "@base-ui/react",
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/tabs.tsx",
@@ -1205,9 +896,7 @@
       "title": "textarea",
       "description": "textarea component.",
       "dependencies": [],
-      "registryDependencies": [
-        "utils"
-      ],
+      "registryDependencies": ["utils"],
       "files": [
         {
           "path": "components/ui/textarea.tsx",
@@ -1220,15 +909,8 @@
       "type": "registry:ui",
       "title": "toast",
       "description": "toast component.",
-      "dependencies": [
-        "@base-ui/react",
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["button", "motion", "utils"],
       "files": [
         {
           "path": "components/ui/toast.tsx",
@@ -1241,15 +923,8 @@
       "type": "registry:ui",
       "title": "toggle-group",
       "description": "toggle-group component.",
-      "dependencies": [
-        "@base-ui/react",
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "motion",
-        "toggle",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["motion", "toggle", "utils"],
       "files": [
         {
           "path": "components/ui/toggle-group.tsx",
@@ -1262,14 +937,8 @@
       "type": "registry:ui",
       "title": "toggle",
       "description": "toggle component.",
-      "dependencies": [
-        "@base-ui/react",
-        "class-variance-authority"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/toggle.tsx",
@@ -1282,13 +951,8 @@
       "type": "registry:ui",
       "title": "tooltip",
       "description": "tooltip component.",
-      "dependencies": [
-        "@base-ui/react"
-      ],
-      "registryDependencies": [
-        "motion",
-        "utils"
-      ],
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["motion", "utils"],
       "files": [
         {
           "path": "components/ui/tooltip.tsx",
@@ -1301,13 +965,8 @@
       "type": "registry:ui",
       "title": "trace",
       "description": "trace component.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "collapsible",
-        "utils"
-      ],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["collapsible", "utils"],
       "files": [
         {
           "path": "components/ui/trace.tsx",
@@ -1347,19 +1006,18 @@
       "name": "dashboard-01",
       "type": "registry:block",
       "title": "Dashboard",
-      "description": "Inset sidebar with logo, header with org switcher, centered search across this app and others, theme toggle and user menu.",
-      "dependencies": [
-        "lucide-react",
-        "motion",
-        "next-themes"
-      ],
+      "description": "Collapsible sidebar with org switcher, header with centered search across this app and others, theme toggle, user menu and skeleton loading state.",
+      "dependencies": ["lucide-react", "motion", "next-themes"],
       "registryDependencies": [
         "avatar",
         "button",
+        "card",
         "command",
         "dropdown-menu",
         "kbd",
-        "sidebar"
+        "separator",
+        "sidebar",
+        "skeleton"
       ],
       "files": [
         {
@@ -1408,10 +1066,182 @@
           "target": "components/blocks/dashboard-01/data.ts"
         }
       ],
-      "categories": [
-        "dashboard",
-        "sidebar"
-      ]
+      "categories": ["dashboard", "sidebar"]
+    },
+    {
+      "name": "dashboard-02",
+      "type": "registry:block",
+      "title": "Analytics dashboard",
+      "description": "Top navigation, KPI cards with trends, traffic area chart, top pages and a recent sign-ups table.",
+      "dependencies": ["lucide-react", "recharts"],
+      "registryDependencies": [
+        "avatar",
+        "badge",
+        "button",
+        "card",
+        "chart",
+        "input-group",
+        "progress",
+        "select",
+        "table",
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "components/docs/logo.tsx",
+          "type": "registry:component",
+          "target": "components/docs/logo.tsx"
+        },
+        {
+          "path": "components/blocks/dashboard-02/page.tsx",
+          "type": "registry:page",
+          "target": "app/analytics/page.tsx"
+        }
+      ],
+      "categories": ["dashboard", "analytics"]
+    },
+    {
+      "name": "dashboard-03",
+      "type": "registry:block",
+      "title": "Sales dashboard",
+      "description": "Collapsible icon sidebar, revenue KPIs, monthly revenue bar chart and a filterable recent orders table.",
+      "dependencies": ["lucide-react", "recharts"],
+      "registryDependencies": [
+        "avatar",
+        "badge",
+        "card",
+        "chart",
+        "input-group",
+        "sidebar",
+        "table",
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "components/docs/logo.tsx",
+          "type": "registry:component",
+          "target": "components/docs/logo.tsx"
+        },
+        {
+          "path": "components/blocks/dashboard-03/page.tsx",
+          "type": "registry:page",
+          "target": "app/sales/page.tsx"
+        }
+      ],
+      "categories": ["dashboard", "sidebar"]
+    },
+    {
+      "name": "dashboard-04",
+      "type": "registry:block",
+      "title": "Project board",
+      "description": "Kanban board with sprint header, avatar stack, view tabs and task cards with progress, comments and attachments.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "avatar",
+        "badge",
+        "button",
+        "progress",
+        "separator",
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "components/docs/logo.tsx",
+          "type": "registry:component",
+          "target": "components/docs/logo.tsx"
+        },
+        {
+          "path": "components/blocks/dashboard-04/page.tsx",
+          "type": "registry:page",
+          "target": "app/board/page.tsx"
+        }
+      ],
+      "categories": ["dashboard", "board"]
+    },
+    {
+      "name": "authentication-01",
+      "type": "registry:block",
+      "title": "Sign in",
+      "description": "Centered sign-in card with Google, Microsoft and GitHub, single sign-on, email and password, remember me and passkey.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "button",
+        "checkbox",
+        "field",
+        "input",
+        "input-group"
+      ],
+      "files": [
+        {
+          "path": "components/docs/logo.tsx",
+          "type": "registry:component",
+          "target": "components/docs/logo.tsx"
+        },
+        {
+          "path": "components/blocks/auth-icons.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/auth-icons.tsx"
+        },
+        {
+          "path": "components/blocks/authentication-01/page.tsx",
+          "type": "registry:page",
+          "target": "app/login/page.tsx"
+        }
+      ],
+      "categories": ["authentication", "login"]
+    },
+    {
+      "name": "authentication-02",
+      "type": "registry:block",
+      "title": "Sign up",
+      "description": "Split layout with a testimonial panel, social sign-up, work email and a live password strength checklist.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "button",
+        "checkbox",
+        "field",
+        "input",
+        "progress"
+      ],
+      "files": [
+        {
+          "path": "components/docs/logo.tsx",
+          "type": "registry:component",
+          "target": "components/docs/logo.tsx"
+        },
+        {
+          "path": "components/blocks/auth-icons.tsx",
+          "type": "registry:component",
+          "target": "components/blocks/auth-icons.tsx"
+        },
+        {
+          "path": "components/blocks/authentication-02/page.tsx",
+          "type": "registry:page",
+          "target": "app/signup/page.tsx"
+        }
+      ],
+      "categories": ["authentication", "signup"]
+    },
+    {
+      "name": "authentication-03",
+      "type": "registry:block",
+      "title": "Single sign-on flow",
+      "description": "Email-first sign-in that detects SSO domains, with passkey and a one-time code step.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "field", "input", "input-otp"],
+      "files": [
+        {
+          "path": "components/docs/logo.tsx",
+          "type": "registry:component",
+          "target": "components/docs/logo.tsx"
+        },
+        {
+          "path": "components/blocks/authentication-03/page.tsx",
+          "type": "registry:page",
+          "target": "app/sso/page.tsx"
+        }
+      ],
+      "categories": ["authentication", "sso"]
     }
   ]
 }

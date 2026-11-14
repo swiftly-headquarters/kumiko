@@ -62,7 +62,7 @@ function BubbleBase({
       data-slot="bubble"
       data-variant={variant}
       data-align={align}
-      initial={{ opacity: 0, y: 8, scale: 0.97 }}
+      initial={{ opacity: 0, y: 4, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={softSpring}
       className={cn(bubbleVariants({ variant }), className)}
@@ -131,7 +131,7 @@ function BubbleReactions({
       data-slot="bubble-reactions"
       data-align={align}
       data-side={side}
-      initial={{ opacity: 0, scale: 0.6 }}
+      initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={fast}
       className={cn(bubbleReactionsVariants({ side, align }), className)}

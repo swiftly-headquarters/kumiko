@@ -171,7 +171,7 @@ export function WorldMap({
                   r={4}
                   fill={color}
                   style={{ transformOrigin: `${x}px ${y}px` }}
-                  animate={{ scale: [1, 3], opacity: [0.5, 0] }}
+                  animate={{ scale: [1, 2], opacity: [0.5, 0] }}
                   transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
                 />
               )}
@@ -359,7 +359,7 @@ export function Globe({
                     r={4}
                     fill={color}
                     style={{ transformOrigin: `${x}px ${y}px` }}
-                    animate={{ scale: [1, 3], opacity: [0.5, 0] }}
+                    animate={{ scale: [1, 2], opacity: [0.5, 0] }}
                     transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
                   />
                 )}

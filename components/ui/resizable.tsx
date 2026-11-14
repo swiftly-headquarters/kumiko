@@ -32,7 +32,7 @@ function ResizableHandle({
 }: ResizablePrimitive.SeparatorProps & {
   withHandle?: boolean
 }) {
-  const gestures = useGestures({ whileHover: { scaleY: 1.2 } })
+  const gestures = useGestures({ whileTap: { scaleY: 1.1 } })
   return (
     <ResizablePrimitive.Separator
       data-slot="resizable-handle"

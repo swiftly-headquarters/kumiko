@@ -49,7 +49,7 @@ function SheetContent({
   side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
 }) {
-  const gestures = useGestures({ whileHover: { rotate: 90 } })
+  const gestures = useGestures({ whileTap: { scale: 0.95 } })
   return (
     <SheetPortal>
       <SheetOverlay />
