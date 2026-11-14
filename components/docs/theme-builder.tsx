@@ -3,7 +3,9 @@
 import {
   memo,
   startTransition,
+  useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   useSyncExternalStore,
@@ -295,42 +297,8 @@ export function ThemeBuilder({
   sections: Section[]
 }) {
   const params = useSearchParams()
-
-  const colors = (names: string[]): Option[] =>
-    names
-      .filter((n) => palette[n])
-      .map((n) => ({ value: n, label: cap(n), swatch: palette[n]["500"] }))
-  const fontOptions = fonts.map((f) => ({
-    value: f.name,
-    label: f.name,
-    family: f.family,
-  }))
-  const accentOptions = [
-    { value: "base", label: "Base color" },
-    ...colors(ACCENTS),
-  ]
-  const controls: {
-    key: Key
-    label: string
-    options: Option[]
-    custom?: boolean
-  }[] = [
-    { key: "base", label: "Base color", options: colors(BASES) },
-    { key: "theme", label: "Theme", options: accentOptions, custom: true },
-    {
-      key: "chart",
-      label: "Chart color",
-      options: accentOptions,
-      custom: true,
-    },
-    { key: "radius", label: "Radius", options: RADII },
-    { key: "font", label: "Font", options: fontOptions },
-    {
-      key: "heading",
-      label: "Heading",
-      options: [{ value: "font", label: "Same as font" }, ...fontOptions],
-    },
-  ]
+  const controls = useMemo(() => makeControls(palette, fonts), [palette, fonts])
+  const presets = useMemo(() => makePresets(palette), [palette])
 
   // The URL seeds the config once; after that, React state is the source of
   // truth and the URL only mirrors it. Reading it back through
@@ -348,55 +316,44 @@ export function ThemeBuilder({
       ) as Config
   )
 
-  // Next patches history.replaceState and re-renders the router tree on every
-  // call, so writing the URL on each picker input event re-rendered the whole
-  // page while dragging. Debounce it: state updates stay instant, the URL
-  // catches up once the drag pauses.
-  const urlTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
-  const set = (next: Partial<Config>) => {
-    const c = { ...config, ...next }
-    setConfig(c)
-    clearTimeout(urlTimer.current)
-    urlTimer.current = setTimeout(() => {
+  // Stable identity, so memoized children don't re-render on every change.
+  const set = useCallback(
+    (next: Partial<Config>) => setConfig((c) => ({ ...c, ...next })),
+    []
+  )
+
+  // Next patches history.replaceState and re-renders its router tree on every
+  // call: mirror the config into the URL only once changes pause.
+  useEffect(() => {
+    const t = setTimeout(() => {
       const q = new URLSearchParams()
-      for (const [k, v] of Object.entries(c))
+      for (const [k, v] of Object.entries(config))
         if (v !== DEFAULTS[k as Key]) q.set(k, v)
-      window.history.replaceState(
-        null,
-        "",
-        q.size ? `?${q}` : window.location.pathname
-      )
+      const search = q.size ? `?${q}` : ""
+      if (search !== window.location.search)
+        window.history.replaceState(
+          null,
+          "",
+          search || window.location.pathname
+        )
     }, 300)
-  }
-  useEffect(() => () => clearTimeout(urlTimer.current), [])
+    return () => clearTimeout(t)
+  }, [config])
 
-  // Base color nearest the brand hue, among the tinted (non-gray) bases.
-  const hueGap = (n: string) => {
-    const d = Math.abs(parse(palette[n]["500"])[2] - BH)
-    return Math.min(d, 360 - d)
-  }
-  const tint =
-    BASES.filter((n) => palette[n] && parse(palette[n]["500"])[1] > 0.005).sort(
-      (x, y) => hueGap(x) - hueGap(y)
-    )[0] ?? DEFAULTS.base
-  const presets = PRESETS.map(({ name, theme, chart, tinted }) => ({
-    name,
-    config: { base: tinted ? tint : DEFAULTS.base, theme, chart },
-  }))
-
-  const { light, dark } = build(palette, config)
-  const body = fonts.find((f) => f.name === config.font)?.family
-  const heading =
-    config.heading === "font"
-      ? body
-      : fonts.find((f) => f.name === config.heading)?.family
-
-  const live = [
-    block("html:root", light),
-    block("html.dark", dark),
-    `html:root, .font-sans { font-family: ${body}; }`,
-    `.font-heading { font-family: ${heading}; }`,
-  ].join("\n")
+  const live = useMemo(() => {
+    const { light, dark } = build(palette, config)
+    const body = fonts.find((f) => f.name === config.font)?.family
+    const heading =
+      config.heading === "font"
+        ? body
+        : fonts.find((f) => f.name === config.heading)?.family
+    return [
+      block("html:root", light),
+      block("html.dark", dark),
+      `html:root, .font-sans { font-family: ${body}; }`,
+      `.font-heading { font-family: ${heading}; }`,
+    ].join("\n")
+  }, [palette, fonts, config])
   const styleEl = useRef<HTMLStyleElement>(null)
   useEffect(() => {
     // One style element, updated in place: no remove/insert churn per change.
@@ -406,32 +363,10 @@ export function ThemeBuilder({
   }, [live])
   useEffect(() => () => styleEl.current?.remove(), [])
 
-  const fontVars = [
-    config.font !== DEFAULTS.font &&
-      `  --font-sans: var(--font-${kebab(config.font)});`,
-    config.heading !== DEFAULTS.heading &&
-      `  --font-heading: var(--font-${kebab(config.heading)});`,
-  ].filter(Boolean)
-  const code = [
-    fontVars.length > 0 &&
-      `/* Load the fonts with next/font/google, using these variable names. */\n@theme inline {\n${fontVars.join("\n")}\n}`,
-    block(":root", light),
-    block(".dark", dark),
-  ]
-    .filter(Boolean)
-    .join("\n\n")
-
   return (
     <div className="flex min-h-svh flex-col lg:h-svh lg:overflow-hidden">
       <header className="flex h-14 shrink-0 items-center gap-3 border-b px-4">
-        <Link href="/" className="flex items-center gap-2 font-semibold">
-          <Logo className="size-6" />
-          Kumiko
-        </Link>
-        <span aria-hidden className="text-muted-foreground">
-          /
-        </span>
-        <h1 className="text-sm font-medium">Create a theme</h1>
+        <Brand />
         <div className="ml-auto flex items-center gap-2">
           <Button
             variant="ghost"
@@ -443,188 +378,346 @@ export function ThemeBuilder({
             Docs
           </Button>
           <ModeToggle />
-          <Dialog>
-            <DialogTrigger render={<Button size="sm" />}>
-              Get code
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-2xl">
-              <DialogHeader>
-                <DialogTitle>Theme</DialogTitle>
-                <DialogDescription>
-                  Replace the :root and .dark blocks in app/globals.css with
-                  this.
-                </DialogDescription>
-              </DialogHeader>
-              <CodeBlock>
-                <CodeBlockActions>
-                  <CodeBlockCopyButton value={code} />
-                </CodeBlockActions>
-                <CodeBlockContent className="max-h-[60vh]">
-                  {code}
-                </CodeBlockContent>
-              </CodeBlock>
-            </DialogContent>
-          </Dialog>
+          <CodeDialog palette={palette} config={config} />
         </div>
       </header>
       <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
         <aside className="flex w-full shrink-0 flex-col gap-4 border-b p-4 lg:w-72 lg:overflow-y-auto lg:border-r lg:border-b-0">
-          <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium">Brand presets</span>
-            <div className="grid grid-cols-2 gap-2">
-              {presets.map(({ name, config: p }) => {
-                const active =
-                  p.base === config.base &&
-                  p.theme === config.theme &&
-                  p.chart === config.chart
-                const swatches = [
-                  p.theme,
-                  p.chart === "base" ? palette[p.base]["500"] : p.chart,
-                  palette[p.base]["200"],
-                ]
-                return (
-                  <Button
-                    key={name}
-                    variant="outline"
-                    size="sm"
-                    aria-pressed={active}
-                    className="justify-start aria-pressed:border-ring aria-pressed:bg-accent"
-                    onClick={() => set(p)}
-                  >
-                    <span aria-hidden className="flex -space-x-1">
-                      {swatches.map((c, i) => (
-                        <span
-                          key={i}
-                          className="size-3 rounded-full ring-2 ring-background"
-                          style={{ background: c }}
-                        />
-                      ))}
-                    </span>
-                    {name}
-                  </Button>
-                )
-              })}
-            </div>
-          </div>
-          {controls.map(({ key, label, options: preset, custom }) => {
-            const hex = HEX.test(config[key]) ? config[key] : undefined
-            const options = hex
-              ? [
-                  ...preset,
-                  {
-                    value: hex,
-                    label: `Custom ${hex.toUpperCase()}`,
-                    swatch: hex,
-                  },
-                ]
-              : preset
-            return (
-              <div key={key} className="flex flex-col gap-2">
-                <span className="text-sm font-medium">{label}</span>
-                <div className="flex gap-2">
-                  <Select
-                    items={options}
-                    value={config[key]}
-                    onValueChange={(v) => v && set({ [key]: v })}
-                  >
-                    <SelectTrigger
-                      aria-label={label}
-                      className="min-w-0 flex-1"
-                    >
-                      <SelectValue>
-                        {(v: string) => (
-                          <OptionLabel
-                            option={options.find((o) => o.value === v)}
-                          />
-                        )}
-                      </SelectValue>
-                    </SelectTrigger>
-                    <SelectContent>
-                      {options.map((o) => (
-                        <SelectItem key={o.value} value={o.value}>
-                          <OptionLabel option={o} />
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  {custom && (
-                    <label
-                      title="Pick a custom color"
-                      className="relative flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-input bg-background transition-colors has-focus-visible:border-ring has-focus-visible:ring-3 has-focus-visible:ring-ring/50 dark:bg-input/30 dark:hover:bg-input/50"
-                    >
-                      <span
-                        aria-hidden
-                        className="size-4 rounded-full ring-1 ring-foreground/10"
-                        style={{
-                          background:
-                            hex ??
-                            "conic-gradient(red, yellow, lime, cyan, blue, magenta, red)",
-                        }}
-                      />
-                      <input
-                        type="color"
-                        aria-label={`Custom ${label.toLowerCase()}`}
-                        value={hex ?? "#0c8661"}
-                        onChange={(e) => set({ [key]: e.target.value })}
-                        className="absolute inset-0 size-full cursor-pointer opacity-0"
-                      />
-                    </label>
-                  )}
-                </div>
-              </div>
-            )
-          })}
-          <div className="flex gap-2 pt-2">
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={() =>
-                set(
-                  Object.fromEntries(
-                    controls.map(({ key, options }) => [
-                      key,
-                      options[Math.floor(Math.random() * options.length)].value,
-                    ])
-                  )
-                )
-              }
-            >
-              <ShuffleIcon />
-              Shuffle
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              aria-label="Reset"
-              onClick={() => set(DEFAULTS)}
-            >
-              <RotateCcwIcon />
-            </Button>
-          </div>
-        </aside>
-        <main className="@container relative flex min-w-0 flex-1 flex-col gap-10 p-4 md:p-6 lg:overflow-y-auto">
-          {sections.map((s) => (
-            <section key={s.id} aria-labelledby={`group-${s.id}`}>
-              <h2
-                id={`group-${s.id}`}
-                className="mb-4 text-lg font-semibold tracking-tight"
-              >
-                {s.title}
-              </h2>
-              <div className="columns-1 gap-4 @3xl:columns-2 @6xl:columns-3">
-                {tiles
-                  .filter((t) => t.group === s.id)
-                  .map((t) => (
-                    <LazyTile key={t.slug} tile={t} />
-                  ))}
-              </div>
-            </section>
+          <Presets
+            presets={presets}
+            palette={palette}
+            base={config.base}
+            theme={config.theme}
+            chart={config.chart}
+            set={set}
+          />
+          {controls.map((def) => (
+            <Control
+              key={def.key}
+              def={def}
+              value={config[def.key]}
+              set={set}
+            />
           ))}
-        </main>
+          <Actions controls={controls} set={set} />
+        </aside>
+        <Gallery tiles={tiles} sections={sections} />
       </div>
     </div>
   )
 }
+
+type ControlDef = {
+  key: Key
+  label: string
+  options: Option[]
+  custom?: boolean
+}
+type Setter = (next: Partial<Config>) => void
+
+function makeControls(palette: Palette, fonts: FontOption[]): ControlDef[] {
+  const colors = (names: string[]): Option[] =>
+    names
+      .filter((n) => palette[n])
+      .map((n) => ({ value: n, label: cap(n), swatch: palette[n]["500"] }))
+  const fontOptions = fonts.map((f) => ({
+    value: f.name,
+    label: f.name,
+    family: f.family,
+  }))
+  const accentOptions = [
+    { value: "base", label: "Base color" },
+    ...colors(ACCENTS),
+  ]
+  return [
+    { key: "base", label: "Base color", options: colors(BASES) },
+    { key: "theme", label: "Theme", options: accentOptions, custom: true },
+    {
+      key: "chart",
+      label: "Chart color",
+      options: accentOptions,
+      custom: true,
+    },
+    { key: "radius", label: "Radius", options: RADII },
+    { key: "font", label: "Font", options: fontOptions },
+    {
+      key: "heading",
+      label: "Heading",
+      options: [{ value: "font", label: "Same as font" }, ...fontOptions],
+    },
+  ]
+}
+
+function makePresets(palette: Palette) {
+  // Base color nearest the brand hue, among the tinted (non-gray) bases.
+  const hueGap = (n: string) => {
+    const d = Math.abs(parse(palette[n]["500"])[2] - BH)
+    return Math.min(d, 360 - d)
+  }
+  const tint =
+    BASES.filter((n) => palette[n] && parse(palette[n]["500"])[1] > 0.005).sort(
+      (x, y) => hueGap(x) - hueGap(y)
+    )[0] ?? DEFAULTS.base
+  return PRESETS.map(({ name, theme, chart, tinted }) => ({
+    name,
+    config: { base: tinted ? tint : DEFAULTS.base, theme, chart },
+  }))
+}
+
+function themeCode(palette: Palette, config: Config) {
+  const { light, dark } = build(palette, config)
+  const fontVars = [
+    config.font !== DEFAULTS.font &&
+      `  --font-sans: var(--font-${kebab(config.font)});`,
+    config.heading !== DEFAULTS.heading &&
+      `  --font-heading: var(--font-${kebab(config.heading)});`,
+  ].filter(Boolean)
+  return [
+    fontVars.length > 0 &&
+      `/* Load the fonts with next/font/google, using these variable names. */\n@theme inline {\n${fontVars.join("\n")}\n}`,
+    block(":root", light),
+    block(".dark", dark),
+  ]
+    .filter(Boolean)
+    .join("\n\n")
+}
+
+// The code is generated only while the dialog is open.
+function CodeDialog({ palette, config }: { palette: Palette; config: Config }) {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button size="sm" />}>Get code</DialogTrigger>
+      <DialogContent className="sm:max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>Theme</DialogTitle>
+          <DialogDescription>
+            Replace the :root and .dark blocks in app/globals.css with this.
+          </DialogDescription>
+        </DialogHeader>
+        <ThemeCode code={themeCode(palette, config)} />
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function ThemeCode({ code }: { code: string }) {
+  return (
+    <CodeBlock>
+      <CodeBlockActions>
+        <CodeBlockCopyButton value={code} />
+      </CodeBlockActions>
+      <CodeBlockContent className="max-h-[60vh]">{code}</CodeBlockContent>
+    </CodeBlock>
+  )
+}
+
+// Each piece below is memoized on primitives, so a color drag re-renders only
+// the control being dragged, not the sidebar, header or gallery.
+// The logo's motion.path rewrites its SVG attributes on every render.
+const Brand = memo(function Brand() {
+  return (
+    <>
+      <Link href="/" className="flex items-center gap-2 font-semibold">
+        <Logo className="size-6" />
+        Kumiko
+      </Link>
+      <span aria-hidden className="text-muted-foreground">
+        /
+      </span>
+      <h1 className="text-sm font-medium">Create a theme</h1>
+    </>
+  )
+})
+
+const Presets = memo(function Presets({
+  presets,
+  palette,
+  base,
+  theme,
+  chart,
+  set,
+}: {
+  presets: ReturnType<typeof makePresets>
+  palette: Palette
+  base: string
+  theme: string
+  chart: string
+  set: Setter
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <span className="text-sm font-medium">Brand presets</span>
+      <div className="grid grid-cols-2 gap-2">
+        {presets.map(({ name, config: p }) => {
+          const active =
+            p.base === base && p.theme === theme && p.chart === chart
+          const swatches = [
+            p.theme,
+            p.chart === "base" ? palette[p.base]["500"] : p.chart,
+            palette[p.base]["200"],
+          ]
+          return (
+            <Button
+              key={name}
+              variant="outline"
+              size="sm"
+              aria-pressed={active}
+              className="justify-start aria-pressed:border-ring aria-pressed:bg-accent"
+              onClick={() => set(p)}
+            >
+              <span aria-hidden className="flex -space-x-1">
+                {swatches.map((c, i) => (
+                  <span
+                    key={i}
+                    className="size-3 rounded-full ring-2 ring-background"
+                    style={{ background: c }}
+                  />
+                ))}
+              </span>
+              {name}
+            </Button>
+          )
+        })}
+      </div>
+    </div>
+  )
+})
+
+const Control = memo(function Control({
+  def: { key, label, options: preset, custom },
+  value,
+  set,
+}: {
+  def: ControlDef
+  value: string
+  set: Setter
+}) {
+  const hex = HEX.test(value) ? value : undefined
+  const options = hex
+    ? [
+        ...preset,
+        { value: hex, label: `Custom ${hex.toUpperCase()}`, swatch: hex },
+      ]
+    : preset
+  return (
+    <div className="flex flex-col gap-2">
+      <span className="text-sm font-medium">{label}</span>
+      <div className="flex gap-2">
+        <Select
+          items={options}
+          value={value}
+          onValueChange={(v) => v && set({ [key]: v })}
+        >
+          <SelectTrigger aria-label={label} className="min-w-0 flex-1">
+            <SelectValue>
+              {(v: string) => (
+                <OptionLabel option={options.find((o) => o.value === v)} />
+              )}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {options.map((o) => (
+              <SelectItem key={o.value} value={o.value}>
+                <OptionLabel option={o} />
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        {custom && (
+          <label
+            title="Pick a custom color"
+            className="relative flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-input bg-background transition-colors has-focus-visible:border-ring has-focus-visible:ring-3 has-focus-visible:ring-ring/50 dark:bg-input/30 dark:hover:bg-input/50"
+          >
+            <span
+              aria-hidden
+              className="size-4 rounded-full ring-1 ring-foreground/10"
+              style={{
+                background:
+                  hex ??
+                  "conic-gradient(red, yellow, lime, cyan, blue, magenta, red)",
+              }}
+            />
+            <input
+              type="color"
+              aria-label={`Custom ${label.toLowerCase()}`}
+              value={hex ?? "#0c8661"}
+              onChange={(e) => set({ [key]: e.target.value })}
+              className="absolute inset-0 size-full cursor-pointer opacity-0"
+            />
+          </label>
+        )}
+      </div>
+    </div>
+  )
+})
+
+const Actions = memo(function Actions({
+  controls,
+  set,
+}: {
+  controls: ControlDef[]
+  set: Setter
+}) {
+  return (
+    <div className="flex gap-2 pt-2">
+      <Button
+        variant="outline"
+        className="flex-1"
+        onClick={() =>
+          set(
+            Object.fromEntries(
+              controls.map(({ key, options }) => [
+                key,
+                options[Math.floor(Math.random() * options.length)].value,
+              ])
+            )
+          )
+        }
+      >
+        <ShuffleIcon />
+        Shuffle
+      </Button>
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label="Reset"
+        onClick={() => set(DEFAULTS)}
+      >
+        <RotateCcwIcon />
+      </Button>
+    </div>
+  )
+})
+
+const Gallery = memo(function Gallery({
+  tiles,
+  sections,
+}: {
+  tiles: Tile[]
+  sections: Section[]
+}) {
+  return (
+    <main className="@container relative flex min-w-0 flex-1 flex-col gap-10 p-4 md:p-6 lg:overflow-y-auto">
+      {sections.map((s) => (
+        <section key={s.id} aria-labelledby={`group-${s.id}`}>
+          <h2
+            id={`group-${s.id}`}
+            className="mb-4 text-lg font-semibold tracking-tight"
+          >
+            {s.title}
+          </h2>
+          <div className="columns-1 gap-4 @3xl:columns-2 @6xl:columns-3">
+            {tiles
+              .filter((t) => t.group === s.id)
+              .map((t) => (
+                <LazyTile key={t.slug} tile={t} />
+              ))}
+          </div>
+        </section>
+      ))}
+    </main>
+  )
+})
 
 export function ModeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
