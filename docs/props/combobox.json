@@ -90,6 +90,18 @@
     "description": "Shows the remove button inside the chip."
   },
   {
+    "prop": "ComboboxTriggerValue placeholder",
+    "type": "string",
+    "default": "-",
+    "description": "Shown while nothing is selected."
+  },
+  {
+    "prop": "ComboboxTriggerValue children",
+    "type": "(value) => ReactNode",
+    "default": "-",
+    "description": "Custom render of the selected value."
+  },
+  {
     "prop": "animated",
     "type": "boolean",
     "default": "-",

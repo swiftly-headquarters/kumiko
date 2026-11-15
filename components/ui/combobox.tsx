@@ -48,6 +48,48 @@ function ComboboxTrigger({
   )
 }
 
+// Input-styled button showing the selected value (or placeholder). Put a
+// ComboboxInput inside ComboboxContent to search, like a searchable Select.
+function ComboboxTriggerValue({
+  className,
+  placeholder,
+  children,
+  ...props
+}: Omit<ComboboxPrimitive.Trigger.Props, "children"> & {
+  placeholder?: string
+  children?: ComboboxPrimitive.Value.Props["children"]
+}) {
+  const press = usePress()
+  return (
+    <ComboboxPrimitive.Trigger
+      data-slot="combobox-trigger-value"
+      render={<motion.button {...press} transition={fast} />}
+      className={cn(
+        "flex h-9 w-full items-center justify-between gap-2 rounded-lg border border-input bg-background px-3 py-1 text-left text-sm whitespace-nowrap transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
+        className
+      )}
+      {...props}
+    >
+      <ComboboxPrimitive.Value>
+        {children ??
+          ((selected: unknown) =>
+            selected == null || (Array.isArray(selected) && !selected.length) ? (
+              <span className="truncate text-muted-foreground">
+                {placeholder}
+              </span>
+            ) : (
+              <span className="truncate">
+                {typeof selected === "object" && "label" in selected!
+                  ? String(selected.label)
+                  : String(selected)}
+              </span>
+            ))}
+      </ComboboxPrimitive.Value>
+      <ChevronDownIcon className="pointer-events-none size-4 shrink-0 text-muted-foreground" />
+    </ComboboxPrimitive.Trigger>
+  )
+}
+
 function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
   return (
     <ComboboxPrimitive.Clear
@@ -323,6 +365,7 @@ export {
   ComboboxChip,
   ComboboxChipsInput,
   ComboboxTrigger,
+  ComboboxTriggerValue,
   ComboboxValue,
   useComboboxAnchor,
 }

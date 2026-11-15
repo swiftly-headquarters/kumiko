@@ -1,0 +1,68 @@
+[
+  {
+    "prop": "TagInput value",
+    "type": "string[]",
+    "default": "-",
+    "description": "Controlled tags."
+  },
+  {
+    "prop": "TagInput defaultValue",
+    "type": "string[]",
+    "default": "[]",
+    "description": "Initial tags when uncontrolled."
+  },
+  {
+    "prop": "TagInput onValueChange",
+    "type": "(value: string[]) => void",
+    "default": "-",
+    "description": "Called when tags change."
+  },
+  {
+    "prop": "TagInput validateValue",
+    "type": "(value: string) => boolean",
+    "default": "-",
+    "description": "Return false to reject a value; the text stays in the input."
+  },
+  {
+    "prop": "TagInput maxValues",
+    "type": "number",
+    "default": "-",
+    "description": "Maximum number of tags."
+  },
+  {
+    "prop": "TagInput labels",
+    "type": "Partial<TagInputLabels>",
+    "default": "-",
+    "description": "Translated input, removeValue, invalidValue and maxValuesReached text."
+  },
+  {
+    "prop": "TagInput label",
+    "type": "ReactNode",
+    "default": "-",
+    "description": "Field label."
+  },
+  {
+    "prop": "TagInput description",
+    "type": "ReactNode",
+    "default": "-",
+    "description": "Helper text below the field."
+  },
+  {
+    "prop": "TagInput error",
+    "type": "string",
+    "default": "-",
+    "description": "Error message. Overrides the built-in invalid / max-values message."
+  },
+  {
+    "prop": "TagInput name",
+    "type": "string",
+    "default": "-",
+    "description": "Submits one hidden input per tag."
+  },
+  {
+    "prop": "TagInput disabled",
+    "type": "boolean",
+    "default": "false",
+    "description": "Disables the field."
+  }
+]

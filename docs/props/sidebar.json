@@ -18,6 +18,24 @@
     "description": "Called when the open state changes."
   },
   {
+    "prop": "SidebarProvider peekable",
+    "type": "boolean",
+    "default": "false",
+    "description": "With collapsible=\"icon\", hovering or focusing the collapsed sidebar expands it over the page without moving the layout. useSidebar().state is \"peeking\" meanwhile."
+  },
+  {
+    "prop": "SidebarSlidingViews activeKey",
+    "type": "string",
+    "default": "-",
+    "description": "value of the SidebarSlidingView to show. Views slide horizontally in child order; motion is skipped under prefers-reduced-motion."
+  },
+  {
+    "prop": "SidebarSlidingView value",
+    "type": "string",
+    "default": "-",
+    "description": "Key matched against activeKey. Inactive views are aria-hidden and inert."
+  },
+  {
     "prop": "Sidebar side",
     "type": "\"left\" | \"right\"",
     "default": "\"left\"",

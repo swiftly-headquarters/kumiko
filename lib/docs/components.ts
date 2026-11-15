@@ -110,6 +110,14 @@ export const components: ComponentEntry[] = [
     description: "Site navigation with animated dropdown content panels.",
   },
   {
+    slug: "autocomplete",
+    title: "Autocomplete",
+    group: "controls",
+    visual: true,
+    description:
+      "Free-form text input with optional filtered suggestions.",
+  },
+  {
     slug: "button",
     title: "Button",
     group: "controls",
@@ -215,6 +223,14 @@ export const components: ComponentEntry[] = [
     group: "controls",
     visual: true,
     description: "On/off toggle with a sliding thumb.",
+  },
+  {
+    slug: "tag-input",
+    title: "Tag Input",
+    group: "controls",
+    visual: true,
+    description:
+      "Creatable multi-value input for free-form tags.",
   },
   {
     slug: "textarea",

@@ -106,6 +106,20 @@
       ]
     },
     {
+      "name": "autocomplete",
+      "type": "registry:ui",
+      "title": "autocomplete",
+      "description": "Free-form text input with a filtered suggestion list.",
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["input-group", "motion", "utils"],
+      "files": [
+        {
+          "path": "components/ui/autocomplete.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "avatar",
       "type": "registry:ui",
       "title": "avatar",
@@ -872,6 +886,20 @@
       "files": [
         {
           "path": "components/ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tag-input",
+      "type": "registry:ui",
+      "title": "tag-input",
+      "description": "Creatable multi-value input for free-form tags.",
+      "dependencies": ["lucide-react", "motion"],
+      "registryDependencies": ["button", "field", "motion", "utils"],
+      "files": [
+        {
+          "path": "components/ui/tag-input.tsx",
           "type": "registry:ui"
         }
       ]

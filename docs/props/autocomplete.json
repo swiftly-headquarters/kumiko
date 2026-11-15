@@ -1,0 +1,62 @@
+[
+  {
+    "prop": "Autocomplete items",
+    "type": "readonly any[]",
+    "default": "-",
+    "description": "Suggestions to filter and render. Pass a function child to AutocompleteList."
+  },
+  {
+    "prop": "Autocomplete value",
+    "type": "string",
+    "default": "-",
+    "description": "Controlled input text."
+  },
+  {
+    "prop": "Autocomplete defaultValue",
+    "type": "string",
+    "default": "-",
+    "description": "Initial input text when uncontrolled."
+  },
+  {
+    "prop": "Autocomplete onValueChange",
+    "type": "(value: string, details) => void",
+    "default": "-",
+    "description": "Called when the text changes."
+  },
+  {
+    "prop": "Autocomplete filter",
+    "type": "null | (item, query) => boolean",
+    "default": "-",
+    "description": "Custom filter. Pass null to disable filtering (e.g. server results)."
+  },
+  {
+    "prop": "AutocompleteInput showTrigger",
+    "type": "boolean",
+    "default": "false",
+    "description": "Shows the chevron button that toggles the popup."
+  },
+  {
+    "prop": "AutocompleteInput showClear",
+    "type": "boolean",
+    "default": "false",
+    "description": "Shows a button that clears the text."
+  },
+  {
+    "prop": "AutocompleteContent side",
+    "type": "\"top\" | \"bottom\"",
+    "default": "\"bottom\"",
+    "description": "Preferred side of the input."
+  },
+  {
+    "prop": "useAutocompleteFilter",
+    "type": "() => { contains, startsWith, endsWith }",
+    "default": "-",
+    "description": "Accent/case-insensitive matchers for filtering object items."
+  },
+  {
+    "prop": "animated",
+    "type": "boolean",
+    "default": "-",
+    "description": "Turns this component's animations on or off. Unset inherits from the nearest <Animations> wrapper (on by default)."
+  }
+]

@@ -130,14 +130,14 @@ const variant: Record<Status, "default" | "secondary" | "outline"> = {
 
 export default function Page() {
   return (
-    <SidebarProvider>
+    <SidebarProvider peekable>
       <Sidebar collapsible="icon">
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton
                 size="lg"
-                className="group-data-[collapsible=icon]:p-1!"
+                className="group-data-[collapsible=icon]:p-[5px]!"
                 render={<a href="#" />}
               >
                 <Logo className="size-6! shrink-0" />

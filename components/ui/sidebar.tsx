@@ -3,8 +3,12 @@
 import {
   type CSSProperties,
   type ComponentProps,
+  type FocusEvent,
   type PointerEvent,
+  type ReactElement,
+  Children,
   createContext,
+  isValidElement,
   useCallback,
   useContext,
   useEffect,
@@ -14,7 +18,7 @@ import {
 } from "react"
 import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import { fast, usePress, useGestures, withAnimated } from "@/lib/motion"
@@ -40,17 +44,20 @@ import { PanelLeftIcon } from "lucide-react"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-const SIDEBAR_WIDTH = "16rem"
+const SIDEBAR_WIDTH = "16.25rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
-const SIDEBAR_WIDTH_ICON = "3rem"
-const SIDEBAR_ICON_PX = 48
+const SIDEBAR_WIDTH_ICON = "57px"
+const SIDEBAR_ICON_PX = 57
 const SIDEBAR_MIN_WIDTH = 192
 const SIDEBAR_MAX_WIDTH = 384
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
 type SidebarContextProps = {
-  state: "expanded" | "collapsed"
+  state: "expanded" | "collapsed" | "peeking"
   open: boolean
+  isPeeking: boolean
+  peekable: boolean
+  setPeeking: (peeking: boolean) => void
   setOpen: (open: boolean) => void
   openMobile: boolean
   setOpenMobile: (open: boolean) => void
@@ -73,6 +80,7 @@ function SidebarProviderBase({
   defaultOpen = true,
   open: openProp,
   onOpenChange: setOpenProp,
+  peekable = false,
   className,
   style,
   children,
@@ -81,9 +89,12 @@ function SidebarProviderBase({
   defaultOpen?: boolean
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  /** Hovering or focusing the collapsed (icon) sidebar expands it over the page. */
+  peekable?: boolean
 }) {
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = useState(false)
+  const [peeking, setPeeking] = useState(false)
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
@@ -92,6 +103,7 @@ function SidebarProviderBase({
   const setOpen = useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
       const openState = typeof value === "function" ? value(open) : value
+      setPeeking(false)
       if (setOpenProp) {
         setOpenProp(openState)
       } else {
@@ -127,19 +139,23 @@ function SidebarProviderBase({
 
   // We add a state so that we can do data-state="expanded" or "collapsed".
   // This makes it easier to style the sidebar with Tailwind classes.
-  const state = open ? "expanded" : "collapsed"
+  const isPeeking = peekable && peeking && !open && !isMobile
+  const state = open ? "expanded" : isPeeking ? "peeking" : "collapsed"
 
   const contextValue = useMemo<SidebarContextProps>(
     () => ({
       state,
       open,
+      isPeeking,
+      peekable,
+      setPeeking,
       setOpen,
       isMobile,
       openMobile,
       setOpenMobile,
       toggleSidebar,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+    [state, open, isPeeking, peekable, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
   )
 
   return (
@@ -178,7 +194,16 @@ function Sidebar({
   variant?: "sidebar" | "floating" | "inset"
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const { isMobile, state, openMobile, setOpenMobile, peekable, setPeeking } =
+    useSidebar()
+  // Peek only applies to the icon rail; an offcanvas sidebar is off screen.
+  const peek = peekable && collapsible === "icon"
+  // Keep peeking while a menu opened from inside (e.g. a dropdown) is up.
+  // ponytail: the sidebar stays open after that menu closes until the pointer
+  // enters and leaves again; track popup close if that matters.
+  const stopPeek = (el: HTMLElement) => {
+    if (!el.querySelector("[data-popup-open]")) setPeeking(false)
+  }
 
   if (collapsible === "none") {
     return (
@@ -234,8 +259,12 @@ function Sidebar({
       <div
         data-slot="sidebar-gap"
         className={cn(
-          "relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear in-data-resizing:transition-none",
+          "relative w-(--sidebar-width) bg-transparent transition-[width] duration-250 ease-[cubic-bezier(0.77,0,0.175,1)] in-data-resizing:transition-none",
           "group-data-[collapsible=offcanvas]:w-0",
+          // Peeking overlays the page, so the gap keeps the collapsed width.
+          variant === "floating" || variant === "inset"
+            ? "group-data-[state=peeking]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
+            : "group-data-[state=peeking]:w-(--sidebar-width-icon)",
           "group-data-[side=right]:rotate-180",
           variant === "floating" || variant === "inset"
             ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
@@ -245,8 +274,22 @@ function Sidebar({
       <div
         data-slot="sidebar-container"
         data-side={side}
+        onPointerEnter={peek ? () => setPeeking(true) : undefined}
+        onPointerLeave={peek ? (e) => stopPeek(e.currentTarget) : undefined}
+        onFocus={peek ? () => setPeeking(true) : undefined}
+        onBlur={
+          peek
+            ? (e: FocusEvent<HTMLDivElement>) => {
+                if (
+                  !e.currentTarget.contains(e.relatedTarget) &&
+                  !e.currentTarget.matches(":hover")
+                )
+                  stopPeek(e.currentTarget)
+              }
+            : undefined
+        }
         className={cn(
-          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear in-data-resizing:transition-none data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
+          "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width,box-shadow] duration-250 ease-[cubic-bezier(0.77,0,0.175,1)] group-data-[state=peeking]:z-20 group-data-[state=peeking]:shadow-xl in-data-resizing:transition-none data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
           // Adjust the padding for floating and inset variants.
           variant === "floating"
             ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
@@ -372,6 +415,7 @@ function SidebarRail({
         "absolute inset-y-0 z-20 hidden w-4 touch-none transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:start-1/2 after:w-[2px] hover:after:bg-sidebar-border sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2",
         "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",
         "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
+        "[[data-state=peeking]_&]:hidden",
         "group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar",
         "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
         "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
@@ -389,7 +433,7 @@ function SidebarInset({ className, ...props }: ComponentProps<"main">) {
     <main
       data-slot="sidebar-inset"
       className={cn(
-        "relative flex w-full min-w-0 flex-1 flex-col bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
+        "relative flex w-full min-w-0 flex-1 flex-col bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2 md:peer-data-[variant=inset]:peer-data-[state=peeking]:ml-2",
         className
       )}
       {...props}
@@ -413,7 +457,10 @@ function SidebarHeader({ className, ...props }: ComponentProps<"div">) {
     <div
       data-slot="sidebar-header"
       data-sidebar="header"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn(
+        "flex min-h-14.5 shrink-0 flex-col justify-center gap-2 border-b border-sidebar-border px-3 py-2 transition-[padding] group-data-[collapsible=icon]:px-[11px]",
+        className
+      )}
       {...props}
     />
   )
@@ -424,7 +471,10 @@ function SidebarFooter({ className, ...props }: ComponentProps<"div">) {
     <div
       data-slot="sidebar-footer"
       data-sidebar="footer"
-      className={cn("flex flex-col gap-2 p-2", className)}
+      className={cn(
+        "flex flex-col gap-2 border-t border-sidebar-border px-3 py-2 transition-[padding] group-data-[collapsible=icon]:px-[11px]",
+        className
+      )}
       {...props}
     />
   )
@@ -444,13 +494,48 @@ function SidebarSeparator({
   )
 }
 
-function SidebarContent({ className, ...props }: ComponentProps<"div">) {
+function SidebarContent({ className, ref, ...props }: ComponentProps<"div">) {
+  // Fades the top/bottom edge only while content is scrolled past it. Writes
+  // CSS vars straight to the node so scrolling never re-renders.
+  const fadeRef = useCallback(
+    (el: HTMLDivElement | null) => {
+      if (typeof ref === "function") ref(el)
+      else if (ref) ref.current = el
+      if (!el) return
+      const update = () => {
+        const end = el.scrollHeight - el.clientHeight - el.scrollTop
+        el.style.setProperty(
+          "--sidebar-fade-top",
+          `${Math.min(24, el.scrollTop)}px`
+        )
+        el.style.setProperty(
+          "--sidebar-fade-bottom",
+          `${Math.min(24, Math.max(0, end))}px`
+        )
+      }
+      update()
+      el.addEventListener("scroll", update, { passive: true })
+      // ponytail: observes the children present on mount; groups added later
+      // only update the fade on the next scroll or resize.
+      const ro = new ResizeObserver(update)
+      ro.observe(el)
+      for (const child of el.children) ro.observe(child)
+      return () => {
+        el.removeEventListener("scroll", update)
+        ro.disconnect()
+      }
+    },
+    [ref]
+  )
+
   return (
     <div
+      ref={fadeRef}
       data-slot="sidebar-content"
       data-sidebar="content"
       className={cn(
-        "no-scrollbar flex min-h-0 flex-1 flex-col gap-0 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
+        "no-scrollbar flex min-h-0 flex-1 flex-col gap-0 overflow-auto px-3.5 py-3 transition-[padding] group-data-[collapsible=icon]:overflow-hidden group-data-[collapsible=icon]:px-[11px]",
+        "[mask-image:linear-gradient(to_bottom,transparent_0,black_var(--sidebar-fade-top,0px),black_calc(100%_-_var(--sidebar-fade-bottom,0px)),transparent_100%)]",
         className
       )}
       {...props}
@@ -463,7 +548,7 @@ function SidebarGroup({ className, ...props }: ComponentProps<"div">) {
     <div
       data-slot="sidebar-group"
       data-sidebar="group"
-      className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
+      className={cn("relative flex w-full min-w-0 flex-col gap-y-px p-0", className)}
       {...props}
     />
   )
@@ -479,7 +564,11 @@ function SidebarGroupLabel({
     props: mergeProps<"div">(
       {
         className: cn(
-          "flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-sidebar-foreground/70 ring-sidebar-ring outline-hidden transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
+          "mt-4 mb-2 flex h-5 shrink-0 items-center overflow-hidden truncate rounded-md px-3 text-sm font-medium text-muted-foreground ring-sidebar-ring outline-hidden transition-[margin,height,color,background-color] duration-250 ease-[cubic-bezier(0.77,0,0.175,1)] focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 [[data-sidebar=group]:first-child_&]:mt-2",
+          // On the icon rail the label turns into a divider line. The first
+          // group has nothing above it to divide, so its label collapses away.
+          "group-data-[collapsible=icon]:my-3 group-data-[collapsible=icon]:h-px group-data-[collapsible=icon]:rounded-none group-data-[collapsible=icon]:bg-sidebar-border group-data-[collapsible=icon]:text-transparent",
+          "group-data-[collapsible=icon]:[[data-sidebar=group]:first-child_&]:my-0 group-data-[collapsible=icon]:[[data-sidebar=group]:first-child_&]:h-0",
           className
         ),
       },
@@ -504,7 +593,7 @@ function SidebarGroupAction({
     props: mergeProps<"button">(
       {
         className: cn(
-          "absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
+          "absolute top-4 right-3 flex aspect-square [[data-sidebar=group]:first-child_&]:top-2 w-5 items-center justify-center rounded-md p-0 text-sidebar-foreground ring-sidebar-ring outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 md:after:hidden [&>svg]:size-4 [&>svg]:shrink-0",
           className
         ),
       },
@@ -534,7 +623,7 @@ function SidebarMenu({ className, ...props }: ComponentProps<"ul">) {
     <ul
       data-slot="sidebar-menu"
       data-sidebar="menu"
-      className={cn("flex w-full min-w-0 flex-col gap-0", className)}
+      className={cn("flex w-full min-w-0 flex-col gap-y-px", className)}
       {...props}
     />
   )
@@ -552,7 +641,7 @@ function SidebarMenuItem({ className, ...props }: ComponentProps<"li">) {
 }
 
 const sidebarMenuButtonVariants = cva(
-  "peer/menu-button group/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:font-medium data-active:text-sidebar-accent-foreground [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate",
+  "peer/menu-button group/menu-button flex w-full items-center gap-3 overflow-hidden rounded-lg px-3 py-0 text-left text-sm font-medium ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8.5! group-data-[collapsible=icon]:p-[9px]! hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:opacity-40 [&>span:last-child]:truncate",
   {
     variants: {
       variant: {
@@ -561,7 +650,7 @@ const sidebarMenuButtonVariants = cva(
           "bg-background shadow-[0_0_0_1px_var(--sidebar-border)] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_var(--sidebar-accent)]",
       },
       size: {
-        default: "h-8 text-sm",
+        default: "h-8.5 text-sm",
         sm: "h-7 text-xs",
         lg: "h-12 text-sm group-data-[collapsible=icon]:p-0!",
       },
@@ -778,6 +867,74 @@ function SidebarMenuSubButton({
   })
 }
 
+const SlidingViewContext = createContext(true)
+
+// Horizontal slide between whole navigation surfaces (e.g. account and
+// project nav). Views sit in child order; the active one slides into place.
+function SidebarSlidingViews({
+  activeKey,
+  className,
+  children,
+  ...props
+}: ComponentProps<"div"> & {
+  /** `value` of the SidebarSlidingView to show. */
+  activeKey: string
+}) {
+  const reduced = useReducedMotion()
+  const views = Children.toArray(children).filter(
+    (c): c is ReactElement<{ value?: string }> => isValidElement(c)
+  )
+  const index = Math.max(
+    0,
+    views.findIndex((v) => v.props.value === activeKey)
+  )
+
+  return (
+    <div
+      data-slot="sidebar-sliding-views"
+      data-sidebar="sliding-views"
+      className={cn("flex min-h-0 w-full flex-1 overflow-hidden", className)}
+      {...props}
+    >
+      <motion.div
+        className="flex min-h-0 w-full shrink-0"
+        initial={false}
+        animate={{ x: `${index * -100}%` }}
+        transition={
+          reduced ? { duration: 0 } : { duration: 0.25, ease: [0.77, 0, 0.175, 1] }
+        }
+      >
+        {views.map((view, i) => (
+          <SlidingViewContext value={i === index} key={view.key}>
+            {view}
+          </SlidingViewContext>
+        ))}
+      </motion.div>
+    </div>
+  )
+}
+
+// Inactive views are aria-hidden and inert, so focus never lands off screen.
+function SidebarSlidingView({
+  value,
+  className,
+  ...props
+}: ComponentProps<"div"> & { value: string }) {
+  const active = useContext(SlidingViewContext)
+  return (
+    <div
+      data-slot="sidebar-sliding-view"
+      data-sidebar="sliding-view"
+      data-value={value}
+      data-active={active || undefined}
+      aria-hidden={!active || undefined}
+      inert={!active}
+      className={cn("flex min-h-0 w-full shrink-0 flex-col", className)}
+      {...props}
+    />
+  )
+}
+
 const SidebarProvider = withAnimated(SidebarProviderBase)
 
 export {
@@ -803,6 +960,8 @@ export {
   SidebarProvider,
   SidebarRail,
   SidebarSeparator,
+  SidebarSlidingView,
+  SidebarSlidingViews,
   SidebarTrigger,
   useSidebar,
 }

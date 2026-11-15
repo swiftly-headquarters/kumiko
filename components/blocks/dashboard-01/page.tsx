@@ -22,7 +22,7 @@ const stats = ["Nodes", "Apps", "Requests"]
 
 export default function Page() {
   return (
-    <SidebarProvider>
+    <SidebarProvider peekable>
       <AppSidebar />
       <SidebarInset>
         <header className="@container/header flex h-14 shrink-0 items-center gap-1.5 border-b px-3 @xl/header:gap-2 @xl/header:px-4">

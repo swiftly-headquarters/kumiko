@@ -39,7 +39,7 @@ export function OrgSwitcher({ orgs }: { orgs: typeof sampleOrgs }) {
               <SidebarMenuButton
                 render={<button />}
                 size="lg"
-                className="group-data-[collapsible=icon]:p-1! data-popup-open:bg-sidebar-accent"
+                className="data-popup-open:bg-sidebar-accent"
               />
             }
           >
